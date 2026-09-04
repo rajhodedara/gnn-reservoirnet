@@ -256,7 +256,7 @@ def build_datasets(config: dict, graph: object):
     
     # create_temporal_splits expects DatetimeIndex
     dataset_dates = dataset.dates[dataset.valid_indices]
-    train_idx, val_idx, _ = create_temporal_splits(dataset_dates, val_years, test_years)
+    train_idx, val_idx, test_idx = create_temporal_splits(dataset_dates, val_years, test_years)
 
     val_sample_dates = dataset_dates[val_idx]
     oni_col = "ONI" if "ONI" in climate_raw.columns else None
@@ -269,12 +269,14 @@ def build_datasets(config: dict, graph: object):
     
     train_dataset = Subset(dataset, train_idx)
     val_dataset = Subset(dataset, val_idx)
+    test_dataset = Subset(dataset, test_idx)
     
     batch_size = config["training"].get("finetune", {}).get("batch_size", 32)
     train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
     val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False)
+    test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
 
-    return train_loader, val_loader, normalizer
+    return train_loader, val_loader, test_loader, normalizer
 
 def train(config: dict, model: ReservoirGNN, graph: object) -> ReservoirGNN:
     """Run the training pipeline."""
@@ -300,7 +302,7 @@ def train(config: dict, model: ReservoirGNN, graph: object) -> ReservoirGNN:
     )
 
     logger.info("Building datasets from raw WRIS/ENSO sources...")
-    train_loader, val_loader, _ = build_datasets(config, graph)
+    train_loader, val_loader, _, _ = build_datasets(config, graph)
 
     logger.info("=" * 60)
     logger.info("TRAINING on observed WRIS data (2005-Present)")
@@ -315,13 +317,14 @@ def train(config: dict, model: ReservoirGNN, graph: object) -> ReservoirGNN:
 
 
 def evaluate(config: dict, model: ReservoirGNN, graph: object,
-             checkpoint_path: str | None = None) -> dict:
+             checkpoint_path: str | None = None, split: str = "val") -> dict:
     import numpy as np
     import pandas as pd
     from src.evaluation.evaluator import Evaluator
     from src.evaluation.unscale import unscale_weekly_sum
     import os
     
+    assert split in ("val", "test"), f"split must be 'val' or 'test', got {split!r}"
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     if checkpoint_path:
         state_dict = torch.load(checkpoint_path, map_location=device)
@@ -330,7 +333,8 @@ def evaluate(config: dict, model: ReservoirGNN, graph: object,
     model.to(device)
     model.eval()
 
-    _, val_loader, normalizer = build_datasets(config, graph)
+    _, val_loader, test_loader, normalizer = build_datasets(config, graph)
+    loader = val_loader if split == "val" else test_loader
     
     # Load reservoir config to map names to basins
     reservoirs_path = config["data"]["reservoirs_file"]
@@ -350,7 +354,7 @@ def evaluate(config: dict, model: ReservoirGNN, graph: object,
     sample_offset = 0
 
     with torch.no_grad():
-        for batch in val_loader:
+        for batch in loader:
             batch = {k: v.to(device) if isinstance(v, torch.Tensor) else v for k, v in batch.items()}
             # preds shape: (batch, num_nodes, forecast_steps, num_quantiles)
             with torch.amp.autocast('cuda', enabled=(device.type == 'cuda')):
@@ -397,14 +401,15 @@ def evaluate(config: dict, model: ReservoirGNN, graph: object,
     
     output_dir = "runs"
     os.makedirs(output_dir, exist_ok=True)
-    results['per_reservoir'].to_csv(os.path.join(output_dir, "evaluation_metrics_per_reservoir.csv"), index=False)
-    results['per_basin'].to_csv(os.path.join(output_dir, "evaluation_metrics_per_basin.csv"), index=False)
+    suffix = "" if split == "val" else f"_{split}"
+    results['per_reservoir'].to_csv(os.path.join(output_dir, f"evaluation_metrics_per_reservoir{suffix}.csv"), index=False)
+    results['per_basin'].to_csv(os.path.join(output_dir, f"evaluation_metrics_per_basin{suffix}.csv"), index=False)
     
     if not results['enso_comparison'].empty:
-        results['enso_comparison'].to_csv(os.path.join(output_dir, "evaluation_metrics_enso.csv"), index=False)
+        results['enso_comparison'].to_csv(os.path.join(output_dir, f"evaluation_metrics_enso{suffix}.csv"), index=False)
 
     logger.info("=" * 60)
-    logger.info("EVALUATION RESULTS SAVED TO runs/ (Week 1 Forecast)")
+    logger.info("EVALUATION RESULTS SAVED TO runs/ (Week 1 Forecast, split=%s)", split)
     logger.info("=" * 60)
     return results
 
@@ -420,7 +425,7 @@ def explain(config: dict, model: ReservoirGNN, graph: object,
     model.to(device)
     model.eval()
 
-    _, val_loader, _ = build_datasets(config, graph)
+    _, val_loader, _, _ = build_datasets(config, graph)
     
     # Grab a single batch
     batch = next(iter(val_loader))
@@ -590,7 +595,9 @@ def main() -> None:
         # weights are saved to runs/best_model_finetune.pt on val improvement.
         best_ckpt = os.path.join("runs", "best_model_finetune.pt")
         if os.path.exists(best_ckpt):
-            evaluate(config, model, graph, checkpoint_path=best_ckpt)
+            evaluate(config, model, graph, checkpoint_path=best_ckpt, split="val")
+            # Held-out test split: the number compared against the baselines.
+            evaluate(config, model, graph, checkpoint_path=best_ckpt, split="test")
         else:
             logger.warning("Best checkpoint %s not found; evaluating final weights (not recommended).", best_ckpt)
             evaluate(config, model, graph)
