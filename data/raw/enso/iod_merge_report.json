@@ -1,0 +1,12 @@
+{
+  "rows_total": 948,
+  "iod_non_null_total": 257,
+  "iod_non_null_in_window": 180,
+  "window_rows": 180,
+  "iod_mean": 0.1063,
+  "iod_std": 0.3374,
+  "iod_min": -0.757,
+  "iod_max": 0.964,
+  "refreshed_existing_column": false,
+  "generated_at": "2026-09-04T00:10:04.448684+00:00"
+}

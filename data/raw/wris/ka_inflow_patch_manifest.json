@@ -1,0 +1,41 @@
+{
+  "generated_at": "2026-09-03T21:08:18.839128+00:00",
+  "source_file": "C:\\Users\\odeda\\Desktop\\Projects\\PBL\\.cluster\\inflow-data\\karnataka_man_reservoir_data.csv",
+  "source_description": "Karnataka WRD/KSNDMC daily manual reservoir monitoring (official at-dam inflow, cusecs)",
+  "conversion": "cusecs / 35.3146667 -> m3/s (cumecs)",
+  "reservoirs": {
+    "almatti": {
+      "dam_name": "Almatti Dam",
+      "ksndmc_rows_raw": 5943,
+      "gap_days_interpolated": 666,
+      "old_mean_cumecs": 54.77,
+      "new_mean_cumecs": 478.72,
+      "new_max_cumecs": 20664.5,
+      "new_zero_pct": 64.1,
+      "new_jjas_share_pct": 88.8,
+      "new_2024_mean_cumecs": 785.96
+    },
+    "krishnaraja_sagara": {
+      "dam_name": "K.R.Sagara Dam",
+      "ksndmc_rows_raw": 13389,
+      "gap_days_interpolated": 1,
+      "old_mean_cumecs": 14.92,
+      "new_mean_cumecs": 145.9,
+      "new_max_cumecs": 5782.3,
+      "new_zero_pct": 0.0,
+      "new_jjas_share_pct": 72.2,
+      "new_2024_mean_cumecs": 209.85
+    },
+    "tungabhadra": {
+      "dam_name": "Tungabhadra Dam",
+      "ksndmc_rows_raw": 6622,
+      "gap_days_interpolated": 617,
+      "old_mean_cumecs": 380.65,
+      "new_mean_cumecs": 277.2,
+      "new_max_cumecs": 6790.66,
+      "new_zero_pct": 17.8,
+      "new_jjas_share_pct": 78.3,
+      "new_2024_mean_cumecs": 429.86
+    }
+  }
+}

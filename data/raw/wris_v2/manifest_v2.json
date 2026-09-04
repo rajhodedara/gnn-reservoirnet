@@ -1,0 +1,4808 @@
+{
+  "generated_at": "2026-09-03T21:08:41.077281+00:00",
+  "description": "Artifact-cleaned rebuild of WRIS reservoir dataset (storage corrected, inflow preserved verbatim).",
+  "transformations": [
+    "1. Storage loaded from best available source (legacy 3-col BCM-scale files for almatti/krishnaraja_sagara/tungabhadra; current TMC column otherwise).",
+    "2. Segment-wise unit scale correction with source-declared prior scale (legacy 3-col files: BCM x35.3146667; current files: TMC identity); alternatives accepted only when the prior violates physical bounds (candidates: TMC identity, MCM/28.3168466, BCM x35.3146667); segments split at |dS| > 10% capacity.",
+    "3. Values outside [0, 115% capacity] dropped.",
+    "4. Day-over-day |dS| > 10% capacity masked iteratively (later day of each pair, re-interpolated, up to 6 rounds) until no violating pair remains.",
+    "5. Exact-0.0 storage treated as missing (dead storage makes real 0 impossible).",
+    "6. Time interpolation of masked/missing days; edge ffill/bfill; clip [0, capacity]; round 3.",
+    "7. Inflow and Reservoir_Name copied verbatim from data/raw/wris/."
+  ],
+  "reservoirs": {
+    "almatti": {
+      "capacity_tmc": 121.5,
+      "boundaries": 0,
+      "segments": 1,
+      "scale_counts": {
+        "identity": 0,
+        "mcm_to_tmc": 0,
+        "bcm_to_tmc": 1,
+        "none": 0
+      },
+      "segment_log": [
+        {
+          "i": [
+            0,
+            7645
+          ],
+          "dates": [
+            "2005-01-01",
+            "2025-12-06"
+          ],
+          "scale": "bcm_to_tmc",
+          "hard_score": 1.0,
+          "coverage": 0.901
+        }
+      ],
+      "over_bound_dropped": 0,
+      "artifact_days_masked": 5111,
+      "artifact_rounds": 7,
+      "zero_days_converted": 130,
+      "days_interpolated": 5241,
+      "sigma_ds_before_tmc_per_day": 0.46,
+      "sigma_ds_after_tmc_per_day": 5.23,
+      "corr_cleaned_vs_original": 0.699,
+      "source": "C:\\Users\\odeda\\Desktop\\Projects\\PBL\\data\\raw\\legacy_cwc_cache\\almatti.csv",
+      "source_scale_hint": "bcm_scale_assumed"
+    },
+    "jayakwadi": {
+      "capacity_tmc": 102.7,
+      "boundaries": 359,
+      "segments": 360,
+      "scale_counts": {
+        "identity": 360,
+        "mcm_to_tmc": 0,
+        "bcm_to_tmc": 0,
+        "none": 0
+      },
+      "segment_log": [
+        {
+          "i": [
+            0,
+            9
+          ],
+          "dates": [
+            "2010-01-01",
+            "2010-01-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.248
+        },
+        {
+          "i": [
+            9,
+            10
+          ],
+          "dates": [
+            "2010-01-10",
+            "2010-01-10"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.43
+        },
+        {
+          "i": [
+            10,
+            40
+          ],
+          "dates": [
+            "2010-01-11",
+            "2010-02-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.498
+        },
+        {
+          "i": [
+            40,
+            41
+          ],
+          "dates": [
+            "2010-02-10",
+            "2010-02-10"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.43
+        },
+        {
+          "i": [
+            41,
+            68
+          ],
+          "dates": [
+            "2010-02-11",
+            "2010-03-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.502
+        },
+        {
+          "i": [
+            68,
+            69
+          ],
+          "dates": [
+            "2010-03-10",
+            "2010-03-10"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.43
+        },
+        {
+          "i": [
+            69,
+            99
+          ],
+          "dates": [
+            "2010-03-11",
+            "2010-04-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.505
+        },
+        {
+          "i": [
+            99,
+            100
+          ],
+          "dates": [
+            "2010-04-10",
+            "2010-04-10"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.43
+        },
+        {
+          "i": [
+            100,
+            129
+          ],
+          "dates": [
+            "2010-04-11",
+            "2010-05-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.505
+        },
+        {
+          "i": [
+            129,
+            130
+          ],
+          "dates": [
+            "2010-05-10",
+            "2010-05-10"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.433
+        },
+        {
+          "i": [
+            130,
+            160
+          ],
+          "dates": [
+            "2010-05-11",
+            "2010-06-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.505
+        },
+        {
+          "i": [
+            160,
+            161
+          ],
+          "dates": [
+            "2010-06-10",
+            "2010-06-10"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.433
+        },
+        {
+          "i": [
+            161,
+            189
+          ],
+          "dates": [
+            "2010-06-11",
+            "2010-07-08"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.505
+        },
+        {
+          "i": [
+            189,
+            190
+          ],
+          "dates": [
+            "2010-07-09",
+            "2010-07-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.313
+        },
+        {
+          "i": [
+            190,
+            191
+          ],
+          "dates": [
+            "2010-07-10",
+            "2010-07-10"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.433
+        },
+        {
+          "i": [
+            191,
+            220
+          ],
+          "dates": [
+            "2010-07-11",
+            "2010-08-08"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.505
+        },
+        {
+          "i": [
+            220,
+            221
+          ],
+          "dates": [
+            "2010-08-09",
+            "2010-08-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.333
+        },
+        {
+          "i": [
+            221,
+            251
+          ],
+          "dates": [
+            "2010-08-10",
+            "2010-09-08"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.505
+        },
+        {
+          "i": [
+            251,
+            252
+          ],
+          "dates": [
+            "2010-09-09",
+            "2010-09-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.347
+        },
+        {
+          "i": [
+            252,
+            281
+          ],
+          "dates": [
+            "2010-09-10",
+            "2010-10-08"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.505
+        },
+        {
+          "i": [
+            281,
+            282
+          ],
+          "dates": [
+            "2010-10-09",
+            "2010-10-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.364
+        },
+        {
+          "i": [
+            282,
+            312
+          ],
+          "dates": [
+            "2010-10-10",
+            "2010-11-08"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.505
+        },
+        {
+          "i": [
+            312,
+            313
+          ],
+          "dates": [
+            "2010-11-09",
+            "2010-11-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.382
+        },
+        {
+          "i": [
+            313,
+            342
+          ],
+          "dates": [
+            "2010-11-10",
+            "2010-12-08"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.505
+        },
+        {
+          "i": [
+            342,
+            343
+          ],
+          "dates": [
+            "2010-12-09",
+            "2010-12-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.392
+        },
+        {
+          "i": [
+            343,
+            374
+          ],
+          "dates": [
+            "2010-12-10",
+            "2011-01-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.505
+        },
+        {
+          "i": [
+            374,
+            375
+          ],
+          "dates": [
+            "2011-01-10",
+            "2011-01-10"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.478
+        },
+        {
+          "i": [
+            375,
+            405
+          ],
+          "dates": [
+            "2011-01-11",
+            "2011-02-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.464
+        },
+        {
+          "i": [
+            405,
+            406
+          ],
+          "dates": [
+            "2011-02-10",
+            "2011-02-10"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.478
+        },
+        {
+          "i": [
+            406,
+            433
+          ],
+          "dates": [
+            "2011-02-11",
+            "2011-03-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.461
+        },
+        {
+          "i": [
+            433,
+            434
+          ],
+          "dates": [
+            "2011-03-10",
+            "2011-03-10"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.478
+        },
+        {
+          "i": [
+            434,
+            464
+          ],
+          "dates": [
+            "2011-03-11",
+            "2011-04-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.461
+        },
+        {
+          "i": [
+            464,
+            465
+          ],
+          "dates": [
+            "2011-04-10",
+            "2011-04-10"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.478
+        },
+        {
+          "i": [
+            465,
+            494
+          ],
+          "dates": [
+            "2011-04-11",
+            "2011-05-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.461
+        },
+        {
+          "i": [
+            494,
+            495
+          ],
+          "dates": [
+            "2011-05-10",
+            "2011-05-10"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.478
+        },
+        {
+          "i": [
+            495,
+            525
+          ],
+          "dates": [
+            "2011-05-11",
+            "2011-06-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.457
+        },
+        {
+          "i": [
+            525,
+            526
+          ],
+          "dates": [
+            "2011-06-10",
+            "2011-06-10"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.478
+        },
+        {
+          "i": [
+            526,
+            555
+          ],
+          "dates": [
+            "2011-06-11",
+            "2011-07-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.457
+        },
+        {
+          "i": [
+            555,
+            556
+          ],
+          "dates": [
+            "2011-07-10",
+            "2011-07-10"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.478
+        },
+        {
+          "i": [
+            556,
+            586
+          ],
+          "dates": [
+            "2011-07-11",
+            "2011-08-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.457
+        },
+        {
+          "i": [
+            586,
+            617
+          ],
+          "dates": [
+            "2011-08-10",
+            "2011-09-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.478
+        },
+        {
+          "i": [
+            617,
+            647
+          ],
+          "dates": [
+            "2011-09-10",
+            "2011-10-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.474
+        },
+        {
+          "i": [
+            647,
+            678
+          ],
+          "dates": [
+            "2011-10-10",
+            "2011-11-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.474
+        },
+        {
+          "i": [
+            678,
+            708
+          ],
+          "dates": [
+            "2011-11-10",
+            "2011-12-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.474
+        },
+        {
+          "i": [
+            708,
+            1105
+          ],
+          "dates": [
+            "2011-12-10",
+            "2013-01-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.309
+        },
+        {
+          "i": [
+            1105,
+            1136
+          ],
+          "dates": [
+            "2013-01-10",
+            "2013-02-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.241
+        },
+        {
+          "i": [
+            1136,
+            1224
+          ],
+          "dates": [
+            "2013-02-10",
+            "2013-05-08"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.241
+        },
+        {
+          "i": [
+            1224,
+            1255
+          ],
+          "dates": [
+            "2013-05-09",
+            "2013-06-08"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.237
+        },
+        {
+          "i": [
+            1255,
+            1285
+          ],
+          "dates": [
+            "2013-06-09",
+            "2013-07-08"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.237
+        },
+        {
+          "i": [
+            1285,
+            1316
+          ],
+          "dates": [
+            "2013-07-09",
+            "2013-08-08"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.234
+        }
+      ],
+      "over_bound_dropped": 0,
+      "artifact_days_masked": 971,
+      "artifact_rounds": 5,
+      "zero_days_converted": 323,
+      "days_interpolated": 1294,
+      "sigma_ds_before_tmc_per_day": 9.76,
+      "sigma_ds_after_tmc_per_day": 4.11,
+      "corr_cleaned_vs_original": 0.865,
+      "source": "C:\\Users\\odeda\\Desktop\\Projects\\PBL\\data\\raw\\wris\\jayakwadi.csv",
+      "source_scale_hint": "tmc_assumed"
+    },
+    "krishnaraja_sagara": {
+      "capacity_tmc": 49.4,
+      "boundaries": 0,
+      "segments": 1,
+      "scale_counts": {
+        "identity": 0,
+        "mcm_to_tmc": 0,
+        "bcm_to_tmc": 1,
+        "none": 0
+      },
+      "segment_log": [
+        {
+          "i": [
+            0,
+            7645
+          ],
+          "dates": [
+            "2005-01-01",
+            "2025-12-06"
+          ],
+          "scale": "bcm_to_tmc",
+          "hard_score": 1.0,
+          "coverage": 0.829
+        }
+      ],
+      "over_bound_dropped": 0,
+      "artifact_days_masked": 3795,
+      "artifact_rounds": 7,
+      "zero_days_converted": 485,
+      "days_interpolated": 4280,
+      "sigma_ds_before_tmc_per_day": 0.16,
+      "sigma_ds_after_tmc_per_day": 2.15,
+      "corr_cleaned_vs_original": 0.846,
+      "source": "C:\\Users\\odeda\\Desktop\\Projects\\PBL\\data\\raw\\legacy_cwc_cache\\krishnaraja_sagara.csv",
+      "source_scale_hint": "bcm_scale_assumed"
+    },
+    "mettur": {
+      "capacity_tmc": 93.4,
+      "boundaries": 653,
+      "segments": 654,
+      "scale_counts": {
+        "identity": 654,
+        "mcm_to_tmc": 0,
+        "bcm_to_tmc": 0,
+        "none": 0
+      },
+      "segment_log": [
+        {
+          "i": [
+            0,
+            2
+          ],
+          "dates": [
+            "2010-01-01",
+            "2010-01-02"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.59
+        },
+        {
+          "i": [
+            2,
+            10
+          ],
+          "dates": [
+            "2010-01-03",
+            "2010-01-10"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.525
+        },
+        {
+          "i": [
+            10,
+            12
+          ],
+          "dates": [
+            "2010-01-11",
+            "2010-01-12"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.986
+        },
+        {
+          "i": [
+            12,
+            33
+          ],
+          "dates": [
+            "2010-01-13",
+            "2010-02-02"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.966
+        },
+        {
+          "i": [
+            33,
+            41
+          ],
+          "dates": [
+            "2010-02-03",
+            "2010-02-10"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.522
+        },
+        {
+          "i": [
+            41,
+            43
+          ],
+          "dates": [
+            "2010-02-11",
+            "2010-02-12"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.998
+        },
+        {
+          "i": [
+            43,
+            61
+          ],
+          "dates": [
+            "2010-02-13",
+            "2010-03-02"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.973
+        },
+        {
+          "i": [
+            61,
+            69
+          ],
+          "dates": [
+            "2010-03-03",
+            "2010-03-10"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.518
+        },
+        {
+          "i": [
+            69,
+            71
+          ],
+          "dates": [
+            "2010-03-11",
+            "2010-03-12"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 1.002
+        },
+        {
+          "i": [
+            71,
+            92
+          ],
+          "dates": [
+            "2010-03-13",
+            "2010-04-02"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.98
+        },
+        {
+          "i": [
+            92,
+            100
+          ],
+          "dates": [
+            "2010-04-03",
+            "2010-04-10"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.514
+        },
+        {
+          "i": [
+            100,
+            102
+          ],
+          "dates": [
+            "2010-04-11",
+            "2010-04-12"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 1.002
+        },
+        {
+          "i": [
+            102,
+            122
+          ],
+          "dates": [
+            "2010-04-13",
+            "2010-05-02"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.978
+        },
+        {
+          "i": [
+            122,
+            130
+          ],
+          "dates": [
+            "2010-05-03",
+            "2010-05-10"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.514
+        },
+        {
+          "i": [
+            130,
+            132
+          ],
+          "dates": [
+            "2010-05-11",
+            "2010-05-12"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 1.002
+        },
+        {
+          "i": [
+            132,
+            153
+          ],
+          "dates": [
+            "2010-05-13",
+            "2010-06-02"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.979
+        },
+        {
+          "i": [
+            153,
+            163
+          ],
+          "dates": [
+            "2010-06-03",
+            "2010-06-12"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 1.002
+        },
+        {
+          "i": [
+            163,
+            183
+          ],
+          "dates": [
+            "2010-06-13",
+            "2010-07-02"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.977
+        },
+        {
+          "i": [
+            183,
+            193
+          ],
+          "dates": [
+            "2010-07-03",
+            "2010-07-12"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 1.002
+        },
+        {
+          "i": [
+            193,
+            214
+          ],
+          "dates": [
+            "2010-07-13",
+            "2010-08-02"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.978
+        },
+        {
+          "i": [
+            214,
+            223
+          ],
+          "dates": [
+            "2010-08-03",
+            "2010-08-11"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.54
+        },
+        {
+          "i": [
+            223,
+            224
+          ],
+          "dates": [
+            "2010-08-12",
+            "2010-08-12"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 1.002
+        },
+        {
+          "i": [
+            224,
+            245
+          ],
+          "dates": [
+            "2010-08-13",
+            "2010-09-02"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.978
+        },
+        {
+          "i": [
+            245,
+            254
+          ],
+          "dates": [
+            "2010-09-03",
+            "2010-09-11"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.578
+        },
+        {
+          "i": [
+            254,
+            255
+          ],
+          "dates": [
+            "2010-09-12",
+            "2010-09-12"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 1.002
+        },
+        {
+          "i": [
+            255,
+            275
+          ],
+          "dates": [
+            "2010-09-13",
+            "2010-10-02"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.976
+        },
+        {
+          "i": [
+            275,
+            284
+          ],
+          "dates": [
+            "2010-10-03",
+            "2010-10-11"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.616
+        },
+        {
+          "i": [
+            284,
+            285
+          ],
+          "dates": [
+            "2010-10-12",
+            "2010-10-12"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 1.002
+        },
+        {
+          "i": [
+            285,
+            315
+          ],
+          "dates": [
+            "2010-10-13",
+            "2010-11-11"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.977
+        },
+        {
+          "i": [
+            315,
+            316
+          ],
+          "dates": [
+            "2010-11-12",
+            "2010-11-12"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 1.002
+        },
+        {
+          "i": [
+            316,
+            345
+          ],
+          "dates": [
+            "2010-11-13",
+            "2010-12-11"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.975
+        },
+        {
+          "i": [
+            345,
+            346
+          ],
+          "dates": [
+            "2010-12-12",
+            "2010-12-12"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 1.002
+        },
+        {
+          "i": [
+            346,
+            367
+          ],
+          "dates": [
+            "2010-12-13",
+            "2011-01-02"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 1.001
+        },
+        {
+          "i": [
+            367,
+            372
+          ],
+          "dates": [
+            "2011-01-03",
+            "2011-01-07"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.926
+        },
+        {
+          "i": [
+            372,
+            373
+          ],
+          "dates": [
+            "2011-01-08",
+            "2011-01-08"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.476
+        },
+        {
+          "i": [
+            373,
+            377
+          ],
+          "dates": [
+            "2011-01-09",
+            "2011-01-12"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.79
+        },
+        {
+          "i": [
+            377,
+            398
+          ],
+          "dates": [
+            "2011-01-13",
+            "2011-02-02"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.986
+        },
+        {
+          "i": [
+            398,
+            403
+          ],
+          "dates": [
+            "2011-02-03",
+            "2011-02-07"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.926
+        },
+        {
+          "i": [
+            403,
+            404
+          ],
+          "dates": [
+            "2011-02-08",
+            "2011-02-08"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.469
+        },
+        {
+          "i": [
+            404,
+            408
+          ],
+          "dates": [
+            "2011-02-09",
+            "2011-02-12"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.805
+        },
+        {
+          "i": [
+            408,
+            426
+          ],
+          "dates": [
+            "2011-02-13",
+            "2011-03-02"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.983
+        },
+        {
+          "i": [
+            426,
+            431
+          ],
+          "dates": [
+            "2011-03-03",
+            "2011-03-07"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.93
+        },
+        {
+          "i": [
+            431,
+            432
+          ],
+          "dates": [
+            "2011-03-08",
+            "2011-03-08"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.461
+        },
+        {
+          "i": [
+            432,
+            436
+          ],
+          "dates": [
+            "2011-03-09",
+            "2011-03-12"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.813
+        },
+        {
+          "i": [
+            436,
+            457
+          ],
+          "dates": [
+            "2011-03-13",
+            "2011-04-02"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.983
+        },
+        {
+          "i": [
+            457,
+            462
+          ],
+          "dates": [
+            "2011-04-03",
+            "2011-04-07"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.93
+        },
+        {
+          "i": [
+            462,
+            463
+          ],
+          "dates": [
+            "2011-04-08",
+            "2011-04-08"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.45
+        },
+        {
+          "i": [
+            463,
+            466
+          ],
+          "dates": [
+            "2011-04-09",
+            "2011-04-11"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.624
+        },
+        {
+          "i": [
+            466,
+            467
+          ],
+          "dates": [
+            "2011-04-12",
+            "2011-04-12"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.816
+        },
+        {
+          "i": [
+            467,
+            487
+          ],
+          "dates": [
+            "2011-04-13",
+            "2011-05-02"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.979
+        }
+      ],
+      "over_bound_dropped": 0,
+      "artifact_days_masked": 1829,
+      "artifact_rounds": 7,
+      "zero_days_converted": 50,
+      "days_interpolated": 1879,
+      "sigma_ds_before_tmc_per_day": 10.03,
+      "sigma_ds_after_tmc_per_day": 4.04,
+      "corr_cleaned_vs_original": 0.907,
+      "source": "C:\\Users\\odeda\\Desktop\\Projects\\PBL\\data\\raw\\wris\\mettur.csv",
+      "source_scale_hint": "tmc_assumed"
+    },
+    "nagarjuna_sagar": {
+      "capacity_tmc": 408.2,
+      "boundaries": 269,
+      "segments": 270,
+      "scale_counts": {
+        "identity": 270,
+        "mcm_to_tmc": 0,
+        "bcm_to_tmc": 0,
+        "none": 0
+      },
+      "segment_log": [
+        {
+          "i": [
+            0,
+            9
+          ],
+          "dates": [
+            "2010-01-01",
+            "2010-01-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.442
+        },
+        {
+          "i": [
+            9,
+            40
+          ],
+          "dates": [
+            "2010-01-10",
+            "2010-02-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.442
+        },
+        {
+          "i": [
+            40,
+            68
+          ],
+          "dates": [
+            "2010-02-10",
+            "2010-03-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.442
+        },
+        {
+          "i": [
+            68,
+            99
+          ],
+          "dates": [
+            "2010-03-10",
+            "2010-04-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.442
+        },
+        {
+          "i": [
+            99,
+            122
+          ],
+          "dates": [
+            "2010-04-10",
+            "2010-05-02"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.442
+        },
+        {
+          "i": [
+            122,
+            129
+          ],
+          "dates": [
+            "2010-05-03",
+            "2010-05-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.442
+        },
+        {
+          "i": [
+            129,
+            160
+          ],
+          "dates": [
+            "2010-05-10",
+            "2010-06-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.442
+        },
+        {
+          "i": [
+            160,
+            190
+          ],
+          "dates": [
+            "2010-06-10",
+            "2010-07-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.442
+        },
+        {
+          "i": [
+            190,
+            221
+          ],
+          "dates": [
+            "2010-07-10",
+            "2010-08-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.442
+        },
+        {
+          "i": [
+            221,
+            252
+          ],
+          "dates": [
+            "2010-08-10",
+            "2010-09-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.442
+        },
+        {
+          "i": [
+            252,
+            282
+          ],
+          "dates": [
+            "2010-09-10",
+            "2010-10-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.442
+        },
+        {
+          "i": [
+            282,
+            313
+          ],
+          "dates": [
+            "2010-10-10",
+            "2010-11-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.442
+        },
+        {
+          "i": [
+            313,
+            343
+          ],
+          "dates": [
+            "2010-11-10",
+            "2010-12-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.442
+        },
+        {
+          "i": [
+            343,
+            377
+          ],
+          "dates": [
+            "2010-12-10",
+            "2011-01-12"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.442
+        },
+        {
+          "i": [
+            377,
+            408
+          ],
+          "dates": [
+            "2011-01-13",
+            "2011-02-12"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.442
+        },
+        {
+          "i": [
+            408,
+            433
+          ],
+          "dates": [
+            "2011-02-13",
+            "2011-03-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.442
+        },
+        {
+          "i": [
+            433,
+            436
+          ],
+          "dates": [
+            "2011-03-10",
+            "2011-03-12"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.442
+        },
+        {
+          "i": [
+            436,
+            464
+          ],
+          "dates": [
+            "2011-03-13",
+            "2011-04-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.442
+        },
+        {
+          "i": [
+            464,
+            467
+          ],
+          "dates": [
+            "2011-04-10",
+            "2011-04-12"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.442
+        },
+        {
+          "i": [
+            467,
+            494
+          ],
+          "dates": [
+            "2011-04-13",
+            "2011-05-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.442
+        },
+        {
+          "i": [
+            494,
+            497
+          ],
+          "dates": [
+            "2011-05-10",
+            "2011-05-12"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.442
+        },
+        {
+          "i": [
+            497,
+            525
+          ],
+          "dates": [
+            "2011-05-13",
+            "2011-06-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.442
+        },
+        {
+          "i": [
+            525,
+            528
+          ],
+          "dates": [
+            "2011-06-10",
+            "2011-06-12"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.442
+        },
+        {
+          "i": [
+            528,
+            555
+          ],
+          "dates": [
+            "2011-06-13",
+            "2011-07-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.442
+        },
+        {
+          "i": [
+            555,
+            558
+          ],
+          "dates": [
+            "2011-07-10",
+            "2011-07-12"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.442
+        },
+        {
+          "i": [
+            558,
+            586
+          ],
+          "dates": [
+            "2011-07-13",
+            "2011-08-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.442
+        },
+        {
+          "i": [
+            586,
+            589
+          ],
+          "dates": [
+            "2011-08-10",
+            "2011-08-12"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.442
+        },
+        {
+          "i": [
+            589,
+            617
+          ],
+          "dates": [
+            "2011-08-13",
+            "2011-09-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.442
+        },
+        {
+          "i": [
+            617,
+            620
+          ],
+          "dates": [
+            "2011-09-10",
+            "2011-09-12"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.442
+        },
+        {
+          "i": [
+            620,
+            647
+          ],
+          "dates": [
+            "2011-09-13",
+            "2011-10-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.442
+        },
+        {
+          "i": [
+            647,
+            650
+          ],
+          "dates": [
+            "2011-10-10",
+            "2011-10-12"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.442
+        },
+        {
+          "i": [
+            650,
+            678
+          ],
+          "dates": [
+            "2011-10-13",
+            "2011-11-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.442
+        },
+        {
+          "i": [
+            678,
+            681
+          ],
+          "dates": [
+            "2011-11-10",
+            "2011-11-12"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.442
+        },
+        {
+          "i": [
+            681,
+            708
+          ],
+          "dates": [
+            "2011-11-13",
+            "2011-12-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.442
+        },
+        {
+          "i": [
+            708,
+            711
+          ],
+          "dates": [
+            "2011-12-10",
+            "2011-12-12"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.442
+        },
+        {
+          "i": [
+            711,
+            1045
+          ],
+          "dates": [
+            "2011-12-13",
+            "2012-11-10"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.215
+        },
+        {
+          "i": [
+            1045,
+            1075
+          ],
+          "dates": [
+            "2012-11-11",
+            "2012-12-10"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.215
+        },
+        {
+          "i": [
+            1075,
+            1105
+          ],
+          "dates": [
+            "2012-12-11",
+            "2013-01-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.439
+        },
+        {
+          "i": [
+            1105,
+            1107
+          ],
+          "dates": [
+            "2013-01-10",
+            "2013-01-11"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.439
+        },
+        {
+          "i": [
+            1107,
+            1108
+          ],
+          "dates": [
+            "2013-01-12",
+            "2013-01-12"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.341
+        },
+        {
+          "i": [
+            1108,
+            1135
+          ],
+          "dates": [
+            "2013-01-13",
+            "2013-02-08"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.325
+        },
+        {
+          "i": [
+            1135,
+            1136
+          ],
+          "dates": [
+            "2013-02-09",
+            "2013-02-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.436
+        },
+        {
+          "i": [
+            1136,
+            1137
+          ],
+          "dates": [
+            "2013-02-10",
+            "2013-02-10"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.0
+        },
+        {
+          "i": [
+            1137,
+            1138
+          ],
+          "dates": [
+            "2013-02-11",
+            "2013-02-11"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.439
+        },
+        {
+          "i": [
+            1138,
+            1163
+          ],
+          "dates": [
+            "2013-02-12",
+            "2013-03-08"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.342
+        },
+        {
+          "i": [
+            1163,
+            1164
+          ],
+          "dates": [
+            "2013-03-09",
+            "2013-03-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.434
+        },
+        {
+          "i": [
+            1164,
+            1166
+          ],
+          "dates": [
+            "2013-03-10",
+            "2013-03-11"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.433
+        },
+        {
+          "i": [
+            1166,
+            1167
+          ],
+          "dates": [
+            "2013-03-12",
+            "2013-03-12"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.342
+        },
+        {
+          "i": [
+            1167,
+            1194
+          ],
+          "dates": [
+            "2013-03-13",
+            "2013-04-08"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.326
+        },
+        {
+          "i": [
+            1194,
+            1195
+          ],
+          "dates": [
+            "2013-04-09",
+            "2013-04-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.431
+        }
+      ],
+      "over_bound_dropped": 0,
+      "artifact_days_masked": 557,
+      "artifact_rounds": 3,
+      "zero_days_converted": 377,
+      "days_interpolated": 934,
+      "sigma_ds_before_tmc_per_day": 24.32,
+      "sigma_ds_after_tmc_per_day": 12.92,
+      "corr_cleaned_vs_original": 0.948,
+      "source": "C:\\Users\\odeda\\Desktop\\Projects\\PBL\\data\\raw\\wris\\nagarjuna_sagar.csv",
+      "source_scale_hint": "tmc_assumed"
+    },
+    "sardar_sarovar": {
+      "capacity_tmc": 335.5,
+      "boundaries": 304,
+      "segments": 305,
+      "scale_counts": {
+        "identity": 305,
+        "mcm_to_tmc": 0,
+        "bcm_to_tmc": 0,
+        "none": 0
+      },
+      "segment_log": [
+        {
+          "i": [
+            0,
+            951
+          ],
+          "dates": [
+            "2010-01-01",
+            "2012-08-08"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.165
+        },
+        {
+          "i": [
+            951,
+            982
+          ],
+          "dates": [
+            "2012-08-09",
+            "2012-09-08"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.165
+        },
+        {
+          "i": [
+            982,
+            1012
+          ],
+          "dates": [
+            "2012-09-09",
+            "2012-10-08"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.165
+        },
+        {
+          "i": [
+            1012,
+            1043
+          ],
+          "dates": [
+            "2012-10-09",
+            "2012-11-08"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.165
+        },
+        {
+          "i": [
+            1043,
+            1073
+          ],
+          "dates": [
+            "2012-11-09",
+            "2012-12-08"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.165
+        },
+        {
+          "i": [
+            1073,
+            1104
+          ],
+          "dates": [
+            "2012-12-09",
+            "2013-01-08"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.165
+        },
+        {
+          "i": [
+            1104,
+            1108
+          ],
+          "dates": [
+            "2013-01-09",
+            "2013-01-12"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.165
+        },
+        {
+          "i": [
+            1108,
+            1135
+          ],
+          "dates": [
+            "2013-01-13",
+            "2013-02-08"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.165
+        },
+        {
+          "i": [
+            1135,
+            1139
+          ],
+          "dates": [
+            "2013-02-09",
+            "2013-02-12"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.165
+        },
+        {
+          "i": [
+            1139,
+            1163
+          ],
+          "dates": [
+            "2013-02-13",
+            "2013-03-08"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.165
+        },
+        {
+          "i": [
+            1163,
+            1194
+          ],
+          "dates": [
+            "2013-03-09",
+            "2013-04-08"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.165
+        },
+        {
+          "i": [
+            1194,
+            1228
+          ],
+          "dates": [
+            "2013-04-09",
+            "2013-05-12"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.165
+        },
+        {
+          "i": [
+            1228,
+            1494
+          ],
+          "dates": [
+            "2013-05-13",
+            "2014-02-02"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.165
+        },
+        {
+          "i": [
+            1494,
+            1503
+          ],
+          "dates": [
+            "2014-02-03",
+            "2014-02-11"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.163
+        },
+        {
+          "i": [
+            1503,
+            1504
+          ],
+          "dates": [
+            "2014-02-12",
+            "2014-02-12"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.129
+        },
+        {
+          "i": [
+            1504,
+            1623
+          ],
+          "dates": [
+            "2014-02-13",
+            "2014-06-11"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.16
+        },
+        {
+          "i": [
+            1623,
+            1624
+          ],
+          "dates": [
+            "2014-06-12",
+            "2014-06-12"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.129
+        },
+        {
+          "i": [
+            1624,
+            1650
+          ],
+          "dates": [
+            "2014-06-13",
+            "2014-07-08"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.158
+        },
+        {
+          "i": [
+            1650,
+            1681
+          ],
+          "dates": [
+            "2014-07-09",
+            "2014-08-08"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.159
+        },
+        {
+          "i": [
+            1681,
+            1712
+          ],
+          "dates": [
+            "2014-08-09",
+            "2014-09-08"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.155
+        },
+        {
+          "i": [
+            1712,
+            1714
+          ],
+          "dates": [
+            "2014-09-09",
+            "2014-09-10"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.165
+        },
+        {
+          "i": [
+            1714,
+            1715
+          ],
+          "dates": [
+            "2014-09-11",
+            "2014-09-11"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.125
+        },
+        {
+          "i": [
+            1715,
+            1861
+          ],
+          "dates": [
+            "2014-09-12",
+            "2015-02-04"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.165
+        },
+        {
+          "i": [
+            1861,
+            1862
+          ],
+          "dates": [
+            "2015-02-05",
+            "2015-02-05"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.132
+        },
+        {
+          "i": [
+            1862,
+            1988
+          ],
+          "dates": [
+            "2015-02-06",
+            "2015-06-11"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.165
+        },
+        {
+          "i": [
+            1988,
+            2018
+          ],
+          "dates": [
+            "2015-06-12",
+            "2015-07-11"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.165
+        },
+        {
+          "i": [
+            2018,
+            2048
+          ],
+          "dates": [
+            "2015-07-12",
+            "2015-08-10"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.165
+        },
+        {
+          "i": [
+            2048,
+            2141
+          ],
+          "dates": [
+            "2015-08-11",
+            "2015-11-11"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.165
+        },
+        {
+          "i": [
+            2141,
+            2166
+          ],
+          "dates": [
+            "2015-11-12",
+            "2015-12-06"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.134
+        },
+        {
+          "i": [
+            2166,
+            2262
+          ],
+          "dates": [
+            "2015-12-07",
+            "2016-03-11"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.187
+        },
+        {
+          "i": [
+            2262,
+            2263
+          ],
+          "dates": [
+            "2016-03-12",
+            "2016-03-12"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.131
+        },
+        {
+          "i": [
+            2263,
+            2351
+          ],
+          "dates": [
+            "2016-03-13",
+            "2016-06-08"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.174
+        },
+        {
+          "i": [
+            2351,
+            2381
+          ],
+          "dates": [
+            "2016-06-09",
+            "2016-07-08"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.204
+        },
+        {
+          "i": [
+            2381,
+            2412
+          ],
+          "dates": [
+            "2016-07-09",
+            "2016-08-08"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.231
+        },
+        {
+          "i": [
+            2412,
+            2413
+          ],
+          "dates": [
+            "2016-08-09",
+            "2016-08-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.0
+        },
+        {
+          "i": [
+            2413,
+            2414
+          ],
+          "dates": [
+            "2016-08-10",
+            "2016-08-10"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.167
+        },
+        {
+          "i": [
+            2414,
+            2416
+          ],
+          "dates": [
+            "2016-08-11",
+            "2016-08-12"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.142
+        },
+        {
+          "i": [
+            2416,
+            2443
+          ],
+          "dates": [
+            "2016-08-13",
+            "2016-09-08"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.236
+        },
+        {
+          "i": [
+            2443,
+            2473
+          ],
+          "dates": [
+            "2016-09-09",
+            "2016-10-08"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.241
+        },
+        {
+          "i": [
+            2473,
+            2504
+          ],
+          "dates": [
+            "2016-10-09",
+            "2016-11-08"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.235
+        },
+        {
+          "i": [
+            2504,
+            2534
+          ],
+          "dates": [
+            "2016-11-09",
+            "2016-12-08"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.225
+        },
+        {
+          "i": [
+            2534,
+            2560
+          ],
+          "dates": [
+            "2016-12-09",
+            "2017-01-03"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.161
+        },
+        {
+          "i": [
+            2560,
+            2561
+          ],
+          "dates": [
+            "2017-01-04",
+            "2017-01-04"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.114
+        },
+        {
+          "i": [
+            2561,
+            2567
+          ],
+          "dates": [
+            "2017-01-05",
+            "2017-01-10"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.354
+        },
+        {
+          "i": [
+            2567,
+            2569
+          ],
+          "dates": [
+            "2017-01-11",
+            "2017-01-12"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.305
+        },
+        {
+          "i": [
+            2569,
+            2591
+          ],
+          "dates": [
+            "2017-01-13",
+            "2017-02-03"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.2
+        },
+        {
+          "i": [
+            2591,
+            2592
+          ],
+          "dates": [
+            "2017-02-04",
+            "2017-02-04"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.113
+        },
+        {
+          "i": [
+            2592,
+            2598
+          ],
+          "dates": [
+            "2017-02-05",
+            "2017-02-10"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.353
+        },
+        {
+          "i": [
+            2598,
+            2600
+          ],
+          "dates": [
+            "2017-02-11",
+            "2017-02-12"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.302
+        },
+        {
+          "i": [
+            2600,
+            2618
+          ],
+          "dates": [
+            "2017-02-13",
+            "2017-03-02"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.196
+        }
+      ],
+      "over_bound_dropped": 0,
+      "artifact_days_masked": 350,
+      "artifact_rounds": 4,
+      "zero_days_converted": 978,
+      "days_interpolated": 1328,
+      "sigma_ds_before_tmc_per_day": 22.88,
+      "sigma_ds_after_tmc_per_day": 9.06,
+      "corr_cleaned_vs_original": 0.549,
+      "source": "C:\\Users\\odeda\\Desktop\\Projects\\PBL\\data\\raw\\wris\\sardar_sarovar.csv",
+      "source_scale_hint": "tmc_assumed"
+    },
+    "srisailam": {
+      "capacity_tmc": 302.3,
+      "boundaries": 47,
+      "segments": 48,
+      "scale_counts": {
+        "identity": 48,
+        "mcm_to_tmc": 0,
+        "bcm_to_tmc": 0,
+        "none": 0
+      },
+      "segment_log": [
+        {
+          "i": [
+            0,
+            200
+          ],
+          "dates": [
+            "2010-01-01",
+            "2010-07-19"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.768
+        },
+        {
+          "i": [
+            200,
+            201
+          ],
+          "dates": [
+            "2010-07-20",
+            "2010-07-20"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.238
+        },
+        {
+          "i": [
+            201,
+            1066
+          ],
+          "dates": [
+            "2010-07-21",
+            "2012-12-01"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.741
+        },
+        {
+          "i": [
+            1066,
+            1217
+          ],
+          "dates": [
+            "2012-12-02",
+            "2013-05-01"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.391
+        },
+        {
+          "i": [
+            1217,
+            1224
+          ],
+          "dates": [
+            "2013-05-02",
+            "2013-05-08"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.357
+        },
+        {
+          "i": [
+            1224,
+            1225
+          ],
+          "dates": [
+            "2013-05-09",
+            "2013-05-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.0
+        },
+        {
+          "i": [
+            1225,
+            1226
+          ],
+          "dates": [
+            "2013-05-10",
+            "2013-05-10"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.685
+        },
+        {
+          "i": [
+            1226,
+            1228
+          ],
+          "dates": [
+            "2013-05-11",
+            "2013-05-12"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.699
+        },
+        {
+          "i": [
+            1228,
+            1255
+          ],
+          "dates": [
+            "2013-05-13",
+            "2013-06-08"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.388
+        },
+        {
+          "i": [
+            1255,
+            1256
+          ],
+          "dates": [
+            "2013-06-09",
+            "2013-06-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.0
+        },
+        {
+          "i": [
+            1256,
+            1259
+          ],
+          "dates": [
+            "2013-06-10",
+            "2013-06-12"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.381
+        },
+        {
+          "i": [
+            1259,
+            1285
+          ],
+          "dates": [
+            "2013-06-13",
+            "2013-07-08"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.421
+        },
+        {
+          "i": [
+            1285,
+            1286
+          ],
+          "dates": [
+            "2013-07-09",
+            "2013-07-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.644
+        },
+        {
+          "i": [
+            1286,
+            1287
+          ],
+          "dates": [
+            "2013-07-10",
+            "2013-07-10"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.0
+        },
+        {
+          "i": [
+            1287,
+            1288
+          ],
+          "dates": [
+            "2013-07-11",
+            "2013-07-11"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.699
+        },
+        {
+          "i": [
+            1288,
+            1289
+          ],
+          "dates": [
+            "2013-07-12",
+            "2013-07-12"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.384
+        },
+        {
+          "i": [
+            1289,
+            1316
+          ],
+          "dates": [
+            "2013-07-13",
+            "2013-08-08"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.689
+        },
+        {
+          "i": [
+            1316,
+            1319
+          ],
+          "dates": [
+            "2013-08-09",
+            "2013-08-11"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.678
+        },
+        {
+          "i": [
+            1319,
+            1320
+          ],
+          "dates": [
+            "2013-08-12",
+            "2013-08-12"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.387
+        },
+        {
+          "i": [
+            1320,
+            1347
+          ],
+          "dates": [
+            "2013-08-13",
+            "2013-09-08"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.426
+        },
+        {
+          "i": [
+            1347,
+            1348
+          ],
+          "dates": [
+            "2013-09-09",
+            "2013-09-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.0
+        },
+        {
+          "i": [
+            1348,
+            1349
+          ],
+          "dates": [
+            "2013-09-10",
+            "2013-09-10"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.673
+        },
+        {
+          "i": [
+            1349,
+            1350
+          ],
+          "dates": [
+            "2013-09-11",
+            "2013-09-11"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.0
+        },
+        {
+          "i": [
+            1350,
+            1351
+          ],
+          "dates": [
+            "2013-09-12",
+            "2013-09-12"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.388
+        },
+        {
+          "i": [
+            1351,
+            1377
+          ],
+          "dates": [
+            "2013-09-13",
+            "2013-10-08"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.422
+        },
+        {
+          "i": [
+            1377,
+            1378
+          ],
+          "dates": [
+            "2013-10-09",
+            "2013-10-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.0
+        },
+        {
+          "i": [
+            1378,
+            1379
+          ],
+          "dates": [
+            "2013-10-10",
+            "2013-10-10"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.669
+        },
+        {
+          "i": [
+            1379,
+            1380
+          ],
+          "dates": [
+            "2013-10-11",
+            "2013-10-11"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.0
+        },
+        {
+          "i": [
+            1380,
+            1381
+          ],
+          "dates": [
+            "2013-10-12",
+            "2013-10-12"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.39
+        },
+        {
+          "i": [
+            1381,
+            1404
+          ],
+          "dates": [
+            "2013-10-13",
+            "2013-11-04"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.39
+        },
+        {
+          "i": [
+            1404,
+            1408
+          ],
+          "dates": [
+            "2013-11-05",
+            "2013-11-08"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.429
+        },
+        {
+          "i": [
+            1408,
+            1409
+          ],
+          "dates": [
+            "2013-11-09",
+            "2013-11-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.644
+        },
+        {
+          "i": [
+            1409,
+            1410
+          ],
+          "dates": [
+            "2013-11-10",
+            "2013-11-10"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.0
+        },
+        {
+          "i": [
+            1410,
+            1412
+          ],
+          "dates": [
+            "2013-11-11",
+            "2013-11-12"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.391
+        },
+        {
+          "i": [
+            1412,
+            1434
+          ],
+          "dates": [
+            "2013-11-13",
+            "2013-12-04"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.391
+        },
+        {
+          "i": [
+            1434,
+            1438
+          ],
+          "dates": [
+            "2013-12-05",
+            "2013-12-08"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.421
+        },
+        {
+          "i": [
+            1438,
+            1439
+          ],
+          "dates": [
+            "2013-12-09",
+            "2013-12-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.701
+        },
+        {
+          "i": [
+            1439,
+            1442
+          ],
+          "dates": [
+            "2013-12-10",
+            "2013-12-12"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.685
+        },
+        {
+          "i": [
+            1442,
+            1462
+          ],
+          "dates": [
+            "2013-12-13",
+            "2014-01-01"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.637
+        },
+        {
+          "i": [
+            1462,
+            2557
+          ],
+          "dates": [
+            "2014-01-02",
+            "2016-12-31"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.671
+        },
+        {
+          "i": [
+            2557,
+            2558
+          ],
+          "dates": [
+            "2017-01-01",
+            "2017-01-01"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.388
+        },
+        {
+          "i": [
+            2558,
+            3563
+          ],
+          "dates": [
+            "2017-01-02",
+            "2019-10-03"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.694
+        },
+        {
+          "i": [
+            3563,
+            4898
+          ],
+          "dates": [
+            "2019-10-04",
+            "2023-05-30"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.706
+        },
+        {
+          "i": [
+            4898,
+            4900
+          ],
+          "dates": [
+            "2023-05-31",
+            "2023-06-01"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.287
+        },
+        {
+          "i": [
+            4900,
+            4994
+          ],
+          "dates": [
+            "2023-06-02",
+            "2023-09-03"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.4
+        },
+        {
+          "i": [
+            4994,
+            4999
+          ],
+          "dates": [
+            "2023-09-04",
+            "2023-09-08"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.38
+        },
+        {
+          "i": [
+            4999,
+            5449
+          ],
+          "dates": [
+            "2023-09-09",
+            "2024-12-01"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.706
+        },
+        {
+          "i": [
+            5449,
+            5479
+          ],
+          "dates": [
+            "2024-12-02",
+            "2024-12-31"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.142
+        }
+      ],
+      "over_bound_dropped": 0,
+      "artifact_days_masked": 86,
+      "artifact_rounds": 4,
+      "zero_days_converted": 12,
+      "days_interpolated": 98,
+      "sigma_ds_before_tmc_per_day": 11.71,
+      "sigma_ds_after_tmc_per_day": 4.08,
+      "corr_cleaned_vs_original": 0.993,
+      "source": "C:\\Users\\odeda\\Desktop\\Projects\\PBL\\data\\raw\\wris\\srisailam.csv",
+      "source_scale_hint": "tmc_assumed"
+    },
+    "tungabhadra": {
+      "capacity_tmc": 132.8,
+      "boundaries": 0,
+      "segments": 1,
+      "scale_counts": {
+        "identity": 0,
+        "mcm_to_tmc": 0,
+        "bcm_to_tmc": 1,
+        "none": 0
+      },
+      "segment_log": [
+        {
+          "i": [
+            0,
+            7645
+          ],
+          "dates": [
+            "2005-01-01",
+            "2025-12-06"
+          ],
+          "scale": "bcm_to_tmc",
+          "hard_score": 1.0,
+          "coverage": 0.761
+        }
+      ],
+      "over_bound_dropped": 0,
+      "artifact_days_masked": 4413,
+      "artifact_rounds": 6,
+      "zero_days_converted": 6,
+      "days_interpolated": 4419,
+      "sigma_ds_before_tmc_per_day": 0.4,
+      "sigma_ds_after_tmc_per_day": 6.09,
+      "corr_cleaned_vs_original": 0.788,
+      "source": "C:\\Users\\odeda\\Desktop\\Projects\\PBL\\data\\raw\\legacy_cwc_cache\\tungabhadra.csv",
+      "source_scale_hint": "bcm_scale_assumed"
+    },
+    "ujjani": {
+      "capacity_tmc": 110.9,
+      "boundaries": 73,
+      "segments": 74,
+      "scale_counts": {
+        "identity": 74,
+        "mcm_to_tmc": 0,
+        "bcm_to_tmc": 0,
+        "none": 0
+      },
+      "segment_log": [
+        {
+          "i": [
+            0,
+            4385
+          ],
+          "dates": [
+            "2010-01-01",
+            "2022-01-02"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.484
+        },
+        {
+          "i": [
+            4385,
+            4386
+          ],
+          "dates": [
+            "2022-01-03",
+            "2022-01-03"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.43
+        },
+        {
+          "i": [
+            4386,
+            4387
+          ],
+          "dates": [
+            "2022-01-04",
+            "2022-01-04"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.0
+        },
+        {
+          "i": [
+            4387,
+            4388
+          ],
+          "dates": [
+            "2022-01-05",
+            "2022-01-05"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.127
+        },
+        {
+          "i": [
+            4388,
+            4389
+          ],
+          "dates": [
+            "2022-01-06",
+            "2022-01-06"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.0
+        },
+        {
+          "i": [
+            4389,
+            4391
+          ],
+          "dates": [
+            "2022-01-07",
+            "2022-01-08"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.382
+        },
+        {
+          "i": [
+            4391,
+            4393
+          ],
+          "dates": [
+            "2022-01-09",
+            "2022-01-10"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.478
+        },
+        {
+          "i": [
+            4393,
+            4395
+          ],
+          "dates": [
+            "2022-01-11",
+            "2022-01-12"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.484
+        },
+        {
+          "i": [
+            4395,
+            4416
+          ],
+          "dates": [
+            "2022-01-13",
+            "2022-02-02"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.484
+        },
+        {
+          "i": [
+            4416,
+            4417
+          ],
+          "dates": [
+            "2022-02-03",
+            "2022-02-03"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.43
+        },
+        {
+          "i": [
+            4417,
+            4418
+          ],
+          "dates": [
+            "2022-02-04",
+            "2022-02-04"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.0
+        },
+        {
+          "i": [
+            4418,
+            4419
+          ],
+          "dates": [
+            "2022-02-05",
+            "2022-02-05"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.124
+        },
+        {
+          "i": [
+            4419,
+            4420
+          ],
+          "dates": [
+            "2022-02-06",
+            "2022-02-06"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.006
+        },
+        {
+          "i": [
+            4420,
+            4422
+          ],
+          "dates": [
+            "2022-02-07",
+            "2022-02-08"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.385
+        },
+        {
+          "i": [
+            4422,
+            4424
+          ],
+          "dates": [
+            "2022-02-09",
+            "2022-02-10"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.478
+        },
+        {
+          "i": [
+            4424,
+            4446
+          ],
+          "dates": [
+            "2022-02-11",
+            "2022-03-04"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.484
+        },
+        {
+          "i": [
+            4446,
+            4447
+          ],
+          "dates": [
+            "2022-03-05",
+            "2022-03-05"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.121
+        },
+        {
+          "i": [
+            4447,
+            4448
+          ],
+          "dates": [
+            "2022-03-06",
+            "2022-03-06"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.0
+        },
+        {
+          "i": [
+            4448,
+            4450
+          ],
+          "dates": [
+            "2022-03-07",
+            "2022-03-08"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.385
+        },
+        {
+          "i": [
+            4450,
+            4452
+          ],
+          "dates": [
+            "2022-03-09",
+            "2022-03-10"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.478
+        },
+        {
+          "i": [
+            4452,
+            4453
+          ],
+          "dates": [
+            "2022-03-11",
+            "2022-03-11"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.484
+        },
+        {
+          "i": [
+            4453,
+            4454
+          ],
+          "dates": [
+            "2022-03-12",
+            "2022-03-12"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.0
+        },
+        {
+          "i": [
+            4454,
+            4477
+          ],
+          "dates": [
+            "2022-03-13",
+            "2022-04-04"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.484
+        },
+        {
+          "i": [
+            4477,
+            4478
+          ],
+          "dates": [
+            "2022-04-05",
+            "2022-04-05"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.115
+        },
+        {
+          "i": [
+            4478,
+            4479
+          ],
+          "dates": [
+            "2022-04-06",
+            "2022-04-06"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.0
+        },
+        {
+          "i": [
+            4479,
+            4481
+          ],
+          "dates": [
+            "2022-04-07",
+            "2022-04-08"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.389
+        },
+        {
+          "i": [
+            4481,
+            4483
+          ],
+          "dates": [
+            "2022-04-09",
+            "2022-04-10"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.478
+        },
+        {
+          "i": [
+            4483,
+            4507
+          ],
+          "dates": [
+            "2022-04-11",
+            "2022-05-04"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.484
+        },
+        {
+          "i": [
+            4507,
+            4508
+          ],
+          "dates": [
+            "2022-05-05",
+            "2022-05-05"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.108
+        },
+        {
+          "i": [
+            4508,
+            4509
+          ],
+          "dates": [
+            "2022-05-06",
+            "2022-05-06"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.0
+        },
+        {
+          "i": [
+            4509,
+            4511
+          ],
+          "dates": [
+            "2022-05-07",
+            "2022-05-08"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.392
+        },
+        {
+          "i": [
+            4511,
+            4513
+          ],
+          "dates": [
+            "2022-05-09",
+            "2022-05-10"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.478
+        },
+        {
+          "i": [
+            4513,
+            4538
+          ],
+          "dates": [
+            "2022-05-11",
+            "2022-06-04"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.484
+        },
+        {
+          "i": [
+            4538,
+            4542
+          ],
+          "dates": [
+            "2022-06-05",
+            "2022-06-08"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.398
+        },
+        {
+          "i": [
+            4542,
+            4545
+          ],
+          "dates": [
+            "2022-06-09",
+            "2022-06-11"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.478
+        },
+        {
+          "i": [
+            4545,
+            4568
+          ],
+          "dates": [
+            "2022-06-12",
+            "2022-07-04"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.484
+        },
+        {
+          "i": [
+            4568,
+            4569
+          ],
+          "dates": [
+            "2022-07-05",
+            "2022-07-05"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.0
+        },
+        {
+          "i": [
+            4569,
+            4572
+          ],
+          "dates": [
+            "2022-07-06",
+            "2022-07-08"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.408
+        },
+        {
+          "i": [
+            4572,
+            4575
+          ],
+          "dates": [
+            "2022-07-09",
+            "2022-07-11"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.478
+        },
+        {
+          "i": [
+            4575,
+            4599
+          ],
+          "dates": [
+            "2022-07-12",
+            "2022-08-04"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.484
+        },
+        {
+          "i": [
+            4599,
+            4603
+          ],
+          "dates": [
+            "2022-08-05",
+            "2022-08-08"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.414
+        },
+        {
+          "i": [
+            4603,
+            4606
+          ],
+          "dates": [
+            "2022-08-09",
+            "2022-08-11"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.478
+        },
+        {
+          "i": [
+            4606,
+            4607
+          ],
+          "dates": [
+            "2022-08-12",
+            "2022-08-12"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.484
+        },
+        {
+          "i": [
+            4607,
+            4630
+          ],
+          "dates": [
+            "2022-08-13",
+            "2022-09-04"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.484
+        },
+        {
+          "i": [
+            4630,
+            4634
+          ],
+          "dates": [
+            "2022-09-05",
+            "2022-09-08"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.42
+        },
+        {
+          "i": [
+            4634,
+            4637
+          ],
+          "dates": [
+            "2022-09-09",
+            "2022-09-11"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.478
+        },
+        {
+          "i": [
+            4637,
+            4638
+          ],
+          "dates": [
+            "2022-09-12",
+            "2022-09-12"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.484
+        },
+        {
+          "i": [
+            4638,
+            4660
+          ],
+          "dates": [
+            "2022-09-13",
+            "2022-10-04"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.484
+        },
+        {
+          "i": [
+            4660,
+            4664
+          ],
+          "dates": [
+            "2022-10-05",
+            "2022-10-08"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.436
+        },
+        {
+          "i": [
+            4664,
+            4668
+          ],
+          "dates": [
+            "2022-10-09",
+            "2022-10-12"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.484
+        }
+      ],
+      "over_bound_dropped": 0,
+      "artifact_days_masked": 183,
+      "artifact_rounds": 4,
+      "zero_days_converted": 673,
+      "days_interpolated": 856,
+      "sigma_ds_before_tmc_per_day": 4.88,
+      "sigma_ds_after_tmc_per_day": 1.14,
+      "corr_cleaned_vs_original": 0.911,
+      "source": "C:\\Users\\odeda\\Desktop\\Projects\\PBL\\data\\raw\\wris\\ujjani.csv",
+      "source_scale_hint": "tmc_assumed"
+    },
+    "ukai": {
+      "capacity_tmc": 261.8,
+      "boundaries": 603,
+      "segments": 604,
+      "scale_counts": {
+        "identity": 604,
+        "mcm_to_tmc": 0,
+        "bcm_to_tmc": 0,
+        "none": 0
+      },
+      "segment_log": [
+        {
+          "i": [
+            0,
+            8
+          ],
+          "dates": [
+            "2010-01-01",
+            "2010-01-08"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.394
+        },
+        {
+          "i": [
+            8,
+            9
+          ],
+          "dates": [
+            "2010-01-09",
+            "2010-01-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.677
+        },
+        {
+          "i": [
+            9,
+            10
+          ],
+          "dates": [
+            "2010-01-10",
+            "2010-01-10"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.784
+        },
+        {
+          "i": [
+            10,
+            39
+          ],
+          "dates": [
+            "2010-01-11",
+            "2010-02-08"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.743
+        },
+        {
+          "i": [
+            39,
+            40
+          ],
+          "dates": [
+            "2010-02-09",
+            "2010-02-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.685
+        },
+        {
+          "i": [
+            40,
+            41
+          ],
+          "dates": [
+            "2010-02-10",
+            "2010-02-10"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.786
+        },
+        {
+          "i": [
+            41,
+            67
+          ],
+          "dates": [
+            "2010-02-11",
+            "2010-03-08"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.74
+        },
+        {
+          "i": [
+            67,
+            68
+          ],
+          "dates": [
+            "2010-03-09",
+            "2010-03-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.687
+        },
+        {
+          "i": [
+            68,
+            98
+          ],
+          "dates": [
+            "2010-03-10",
+            "2010-04-08"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.786
+        },
+        {
+          "i": [
+            98,
+            99
+          ],
+          "dates": [
+            "2010-04-09",
+            "2010-04-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.693
+        },
+        {
+          "i": [
+            99,
+            128
+          ],
+          "dates": [
+            "2010-04-10",
+            "2010-05-08"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.784
+        },
+        {
+          "i": [
+            128,
+            129
+          ],
+          "dates": [
+            "2010-05-09",
+            "2010-05-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.696
+        },
+        {
+          "i": [
+            129,
+            159
+          ],
+          "dates": [
+            "2010-05-10",
+            "2010-06-08"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.784
+        },
+        {
+          "i": [
+            159,
+            160
+          ],
+          "dates": [
+            "2010-06-09",
+            "2010-06-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.699
+        },
+        {
+          "i": [
+            160,
+            189
+          ],
+          "dates": [
+            "2010-06-10",
+            "2010-07-08"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.782
+        },
+        {
+          "i": [
+            189,
+            190
+          ],
+          "dates": [
+            "2010-07-09",
+            "2010-07-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.715
+        },
+        {
+          "i": [
+            190,
+            220
+          ],
+          "dates": [
+            "2010-07-10",
+            "2010-08-08"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.781
+        },
+        {
+          "i": [
+            220,
+            221
+          ],
+          "dates": [
+            "2010-08-09",
+            "2010-08-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.728
+        },
+        {
+          "i": [
+            221,
+            251
+          ],
+          "dates": [
+            "2010-08-10",
+            "2010-09-08"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.78
+        },
+        {
+          "i": [
+            251,
+            252
+          ],
+          "dates": [
+            "2010-09-09",
+            "2010-09-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.736
+        },
+        {
+          "i": [
+            252,
+            281
+          ],
+          "dates": [
+            "2010-09-10",
+            "2010-10-08"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.778
+        },
+        {
+          "i": [
+            281,
+            282
+          ],
+          "dates": [
+            "2010-10-09",
+            "2010-10-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.747
+        },
+        {
+          "i": [
+            282,
+            312
+          ],
+          "dates": [
+            "2010-10-10",
+            "2010-11-08"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.774
+        },
+        {
+          "i": [
+            312,
+            313
+          ],
+          "dates": [
+            "2010-11-09",
+            "2010-11-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.746
+        },
+        {
+          "i": [
+            313,
+            342
+          ],
+          "dates": [
+            "2010-11-10",
+            "2010-12-08"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.773
+        },
+        {
+          "i": [
+            342,
+            343
+          ],
+          "dates": [
+            "2010-12-09",
+            "2010-12-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.763
+        },
+        {
+          "i": [
+            343,
+            373
+          ],
+          "dates": [
+            "2010-12-10",
+            "2011-01-08"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.77
+        },
+        {
+          "i": [
+            373,
+            374
+          ],
+          "dates": [
+            "2011-01-09",
+            "2011-01-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.68
+        },
+        {
+          "i": [
+            374,
+            375
+          ],
+          "dates": [
+            "2011-01-10",
+            "2011-01-10"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.84
+        },
+        {
+          "i": [
+            375,
+            404
+          ],
+          "dates": [
+            "2011-01-11",
+            "2011-02-08"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.77
+        },
+        {
+          "i": [
+            404,
+            405
+          ],
+          "dates": [
+            "2011-02-09",
+            "2011-02-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.696
+        },
+        {
+          "i": [
+            405,
+            406
+          ],
+          "dates": [
+            "2011-02-10",
+            "2011-02-10"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.838
+        },
+        {
+          "i": [
+            406,
+            432
+          ],
+          "dates": [
+            "2011-02-11",
+            "2011-03-08"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.766
+        },
+        {
+          "i": [
+            432,
+            433
+          ],
+          "dates": [
+            "2011-03-09",
+            "2011-03-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.685
+        },
+        {
+          "i": [
+            433,
+            434
+          ],
+          "dates": [
+            "2011-03-10",
+            "2011-03-10"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.836
+        },
+        {
+          "i": [
+            434,
+            463
+          ],
+          "dates": [
+            "2011-03-11",
+            "2011-04-08"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.763
+        },
+        {
+          "i": [
+            463,
+            464
+          ],
+          "dates": [
+            "2011-04-09",
+            "2011-04-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.697
+        },
+        {
+          "i": [
+            464,
+            465
+          ],
+          "dates": [
+            "2011-04-10",
+            "2011-04-10"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.834
+        },
+        {
+          "i": [
+            465,
+            493
+          ],
+          "dates": [
+            "2011-04-11",
+            "2011-05-08"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.759
+        },
+        {
+          "i": [
+            493,
+            494
+          ],
+          "dates": [
+            "2011-05-09",
+            "2011-05-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.7
+        },
+        {
+          "i": [
+            494,
+            495
+          ],
+          "dates": [
+            "2011-05-10",
+            "2011-05-10"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.832
+        },
+        {
+          "i": [
+            495,
+            524
+          ],
+          "dates": [
+            "2011-05-11",
+            "2011-06-08"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.757
+        },
+        {
+          "i": [
+            524,
+            525
+          ],
+          "dates": [
+            "2011-06-09",
+            "2011-06-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.711
+        },
+        {
+          "i": [
+            525,
+            526
+          ],
+          "dates": [
+            "2011-06-10",
+            "2011-06-10"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.831
+        },
+        {
+          "i": [
+            526,
+            554
+          ],
+          "dates": [
+            "2011-06-11",
+            "2011-07-08"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.753
+        },
+        {
+          "i": [
+            554,
+            555
+          ],
+          "dates": [
+            "2011-07-09",
+            "2011-07-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.722
+        },
+        {
+          "i": [
+            555,
+            556
+          ],
+          "dates": [
+            "2011-07-10",
+            "2011-07-10"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.828
+        },
+        {
+          "i": [
+            556,
+            585
+          ],
+          "dates": [
+            "2011-07-11",
+            "2011-08-08"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.75
+        },
+        {
+          "i": [
+            585,
+            586
+          ],
+          "dates": [
+            "2011-08-09",
+            "2011-08-09"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.734
+        },
+        {
+          "i": [
+            586,
+            616
+          ],
+          "dates": [
+            "2011-08-10",
+            "2011-09-08"
+          ],
+          "scale": "identity",
+          "hard_score": 1.0,
+          "coverage": 0.825
+        }
+      ],
+      "over_bound_dropped": 0,
+      "artifact_days_masked": 1745,
+      "artifact_rounds": 8,
+      "zero_days_converted": 926,
+      "days_interpolated": 2671,
+      "sigma_ds_before_tmc_per_day": 38.82,
+      "sigma_ds_after_tmc_per_day": 11.62,
+      "corr_cleaned_vs_original": 0.456,
+      "source": "C:\\Users\\odeda\\Desktop\\Projects\\PBL\\data\\raw\\wris\\ukai.csv",
+      "source_scale_hint": "tmc_assumed"
+    }
+  }
+}

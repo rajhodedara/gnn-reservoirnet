@@ -1,0 +1,8 @@
+# Normalize line endings across platforms
+* text=auto
+*.csv text eol=lf
+*.py text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+*.md text eol=lf
+*.json text eol=lf

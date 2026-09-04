@@ -1,0 +1,73 @@
+data:
+  wris_data_dir: "data/raw/wris_v2/"
+  imd_data_dir: "data/raw/imd/"
+  era5_data_dir: "data/raw/era5/"
+  enso_data_dir: "data/raw/enso/"
+  processed_dir: "data/processed/"
+  train_start: "2005-01-01"
+  train_end: "2022-12-31"
+  val_years: [2023]  # El Nino validation (kept outside train range to prevent leakage)
+  test_years: [2024]  # held-out test year; never used for model selection
+  lookback_days: 90
+  forecast_weeks: 12
+  reservoirs_file: "configs/reservoirs.yaml"
+
+graph:
+  physical_edges: true
+  climatological_edges: true
+  correlation_threshold: 0.6
+  block_cross_ghats: true
+
+model:
+  spatial:
+    type: "GAT"
+    hidden_dim: 128
+    num_heads: 4
+    num_layers: 2
+    dropout: 0.3
+  temporal:
+    type: "TCN"
+    num_channels: [64, 128, 128]
+    kernel_size: 7
+    dropout: 0.4
+  climate:
+    type: "CrossAttention"
+    embed_dim: 64
+    num_heads: 4
+    enso_indices: ["oni", "soi", "nino34", "iod"]
+    lags_months: [1, 3, 6]
+  quantile_head:
+    quantiles: [0.1, 0.5, 0.9]
+    forecast_steps: 12  # weeks
+    hidden_dim: 256
+
+mass_balance:
+  evaporation_method: "hargreaves_samani"
+  use_capacity_curves: true
+
+training:
+  finetune:
+    epochs: 200
+    batch_size: 16
+    lr: 0.0001
+    patience: 20
+  loss:
+    quantile_weight: 1.0
+    asymmetric_weight_base: 0.5
+    oni_threshold: 0.5  # activate asymmetric when ONI > this
+  optimizer: "adamw"
+  weight_decay: 0.05
+  scheduler: "cosine"
+
+evaluation:
+  metrics: ["crps", "rmse", "nse", "kge", "threshold_accuracy"]
+  threshold_levels: [0.2, 0.3, 0.5]  # fraction of live capacity
+
+inference:
+  export_format: "onnx"
+  output_units: "mcm"  # million cubic meters
+
+explainability:
+  integrated_gradients:
+    n_steps: 50
+  attention_maps: true

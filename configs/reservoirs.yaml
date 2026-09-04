@@ -1,0 +1,140 @@
+reservoirs:
+  - id: "nagarjuna_sagar"
+    name: "Nagarjuna Sagar"
+    basin: "krishna"
+    river: "Krishna"
+    state: "Telangana/Andhra Pradesh"
+    latitude: 16.57
+    longitude: 79.31
+    gross_capacity_mcm: 11560
+    dead_storage_mcm: 3500
+    catchment_area_km2: 215000
+    elevation_m: 179
+    upstream: ["srisailam"]
+    tribunal: "Krishna Water Disputes Tribunal"
+
+  - id: "srisailam"
+    name: "Srisailam"
+    basin: "krishna"
+    river: "Krishna"
+    state: "Andhra Pradesh"
+    latitude: 16.08
+    longitude: 78.86
+    gross_capacity_mcm: 8560
+    dead_storage_mcm: 2500
+    catchment_area_km2: 194000
+    elevation_m: 270
+    upstream: ["tungabhadra", "almatti"]
+    tribunal: "Krishna Water Disputes Tribunal"
+
+  - id: "almatti"
+    name: "Almatti"
+    basin: "krishna"
+    river: "Krishna"
+    state: "Karnataka"
+    latitude: 16.33
+    longitude: 75.89
+    gross_capacity_mcm: 3440
+    dead_storage_mcm: 1000
+    catchment_area_km2: 97350
+    elevation_m: 519
+    upstream: []
+    tribunal: "Krishna Water Disputes Tribunal"
+
+  - id: "tungabhadra"
+    name: "Tungabhadra"
+    basin: "krishna"
+    river: "Tungabhadra"
+    state: "Karnataka"
+    latitude: 15.24
+    longitude: 76.32
+    gross_capacity_mcm: 3760
+    dead_storage_mcm: 850
+    catchment_area_km2: 28180
+    elevation_m: 497
+    upstream: []
+    tribunal: "Krishna Water Disputes Tribunal"
+
+  - id: "mettur"
+    name: "Mettur"
+    basin: "cauvery"
+    river: "Cauvery"
+    state: "Tamil Nadu"
+    latitude: 11.80
+    longitude: 77.80
+    gross_capacity_mcm: 2646
+    dead_storage_mcm: 200
+    catchment_area_km2: 42200
+    elevation_m: 243
+    upstream: ["krishnaraja_sagara"]
+    tribunal: "Cauvery Water Disputes Tribunal"
+
+  - id: "krishnaraja_sagara"
+    name: "Krishnaraja Sagara"
+    basin: "cauvery"
+    river: "Cauvery"
+    state: "Karnataka"
+    latitude: 12.43
+    longitude: 76.57
+    gross_capacity_mcm: 1400
+    dead_storage_mcm: 124
+    catchment_area_km2: 10600
+    elevation_m: 762
+    upstream: []
+    tribunal: "Cauvery Water Disputes Tribunal"
+
+  - id: "jayakwadi"
+    name: "Jayakwadi"
+    basin: "godavari"
+    river: "Godavari"
+    state: "Maharashtra"
+    latitude: 19.48
+    longitude: 75.31
+    gross_capacity_mcm: 2909
+    dead_storage_mcm: 738
+    catchment_area_km2: 21750
+    elevation_m: 462
+    upstream: []
+    tribunal: "Godavari Water Disputes Tribunal"
+
+  - id: "ujjani"
+    name: "Ujjani"
+    basin: "krishna"
+    river: "Bhima"
+    state: "Maharashtra"
+    latitude: 18.07
+    longitude: 75.12
+    gross_capacity_mcm: 3140
+    dead_storage_mcm: 1800
+    catchment_area_km2: 14850
+    elevation_m: 496
+    upstream: []
+    tribunal: "Krishna Water Disputes Tribunal"
+
+  - id: "sardar_sarovar"
+    name: "Sardar Sarovar"
+    basin: "narmada"
+    river: "Narmada"
+    state: "Gujarat"
+    latitude: 21.83
+    longitude: 73.74
+    gross_capacity_mcm: 9500
+    dead_storage_mcm: 3700
+    catchment_area_km2: 88000
+    elevation_m: 138
+    upstream: []
+    tribunal: "Narmada Water Disputes Tribunal"
+
+  - id: "ukai"
+    name: "Ukai"
+    basin: "tapi"
+    river: "Tapi"
+    state: "Gujarat"
+    latitude: 21.24
+    longitude: 73.58
+    gross_capacity_mcm: 7414
+    dead_storage_mcm: 1534
+    catchment_area_km2: 62225
+    elevation_m: 105
+    upstream: []
+    tribunal: "Tapi Water Disputes Tribunal"

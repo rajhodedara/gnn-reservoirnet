@@ -1,0 +1,72 @@
+# ===== Python =====
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+pytest_temp/
+.venv/
+venv/
+env/
+
+# ===== Archives / big binaries (never upload) =====
+*.zip
+*.pt
+*.onnx
+*.nc
+*.h5
+*.sqlite
+
+# ===== Raw data =====
+# Everything raw is excluded by default; curated, small, reproducibility-
+# critical datasets are un-ignored explicitly below.
+data/raw/*
+!data/raw/wris/
+!data/raw/wris_v2/
+!data/raw/enso/
+!data/raw/climate_indices/
+# wris: keep canonical CSVs + manifests, drop local backups
+data/raw/wris/backup_pre_ka_patch/
+# enso: drop local backup of the pre-IOD climate file
+data/raw/enso/*.backup*
+
+# ===== Karnataka WRD source (needed to reproduce patch_ka_inflow.py) =====
+.cluster/inflow-data/*
+!.cluster/inflow-data/karnataka_man_reservoir_data.csv
+
+# ===== Obsolete / diverged copies & process artifacts =====
+kaggle_stage/
+scratch/
+.agents/
+.cluster/
+.opencode/
+.openclaw/
+.antigravity*
+.gemini/
+.cursor/
+__notebook*//
+
+# ===== Agent-workspace persona files (not project content) =====
+AGENTS.md
+SOUL.md
+IDENTITY.md
+USER.md
+TOOLS.md
+HEARTBEAT.md
+
+# ===== Enso duplicate file =====
+data/raw/enso/enso_phases_copy.csv
+
+# ===== Runs: keep QA reports only =====
+runs/*
+!runs/data_qa_report.json
+!runs/data_qa_report_v2.json
+
+# ===== Root misc =====
+scratch_speedtest.py
+zip_project.py
+
+# ===== OS / editor =====
+.DS_Store
+Thumbs.db
+*.swp
