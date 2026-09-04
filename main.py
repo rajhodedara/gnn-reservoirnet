@@ -16,10 +16,12 @@ Usage:
 
 import argparse
 import logging
+import random
 import sys
 import os
 from pathlib import Path
 
+import numpy as np
 import torch
 import yaml
 
@@ -344,9 +346,8 @@ def evaluate(config: dict, model: ReservoirGNN, graph: object,
     reservoir_names = [r["name"] for r in reservoirs_config["reservoirs"]]
     basin_mapping = {r["name"]: r["basin"] for r in reservoirs_config["reservoirs"]}
 
-    all_obs = []
-    all_pred_med = []
-    all_pred_ens = []
+    all_targets = []
+    all_preds = []
     all_oni = []
 
     val_sample_dates = normalizer.get("val_sample_dates")
@@ -364,26 +365,11 @@ def evaluate(config: dict, model: ReservoirGNN, graph: object,
             targets = batch['targets']
             oni = batch['oni']
             
-            # Select first forecast step (week 1) for evaluation
-            preds_wk1 = preds[:, :, 0, :].cpu().numpy()
-            targets_wk1 = targets[:, :, 0].cpu().numpy()
-            
-            # Un-scale weekly sums of daily z-scores. The dataset target is
-            # sum_i (x_i - mu) / sigma over 7 days, so the exact inverse is
-            # sum_z * sigma + 7 * mu  (the old + 1 * mu under-counted 6 mu).
-            mean = normalizer['mean']
-            std = normalizer['std']
-            
-            targets_wk1 = unscale_weekly_sum(targets_wk1, mean, std)
-            preds_wk1 = unscale_weekly_sum(preds_wk1, mean[:, None], std[:, None]) # scale across quantiles too
-            
-            all_obs.append(targets_wk1)
-            # Assuming quantile 1 is the median (0.1, 0.5, 0.9)
-            all_pred_med.append(preds_wk1[:, :, 1])
-            all_pred_ens.append(preds_wk1)
+            all_targets.append(targets.cpu().numpy())
+            all_preds.append(preds.float().cpu().numpy())
             
             # Stratify ENSO on RAW physical ONI, not z-scores
-            n_samples = preds_wk1.shape[0]
+            n_samples = preds.shape[0]
             if val_sample_dates is not None and len(oni_raw_series) > 0:
                 dates_b = val_sample_dates[sample_offset:sample_offset + n_samples]
                 all_oni.append(np.asarray(oni_raw_series.loc[dates_b].values, dtype=float))
@@ -391,10 +377,22 @@ def evaluate(config: dict, model: ReservoirGNN, graph: object,
                 all_oni.append(oni.cpu().numpy())
             sample_offset += n_samples
             
-    observations = np.concatenate(all_obs, axis=0)
-    predictions_median = np.concatenate(all_pred_med, axis=0)
-    predictions_ensemble = np.concatenate(all_pred_ens, axis=0)
+    targets_full = np.concatenate(all_targets, axis=0)   # (S, N, 12) z-space weekly sums
+    preds_full = np.concatenate(all_preds, axis=0)       # (S, N, 12, Q) z-space
     oni_values = np.concatenate(all_oni, axis=0)
+
+    # Un-scale weekly sums of daily z-scores. The dataset target is
+    # sum_i (x_i - mu) / sigma over 7 days, so the exact inverse is
+    # sum_z * sigma + 7 * mu  (the old + 1 * mu under-counted 6 mu).
+    mean = normalizer['mean']
+    std = normalizer['std']
+    targets_full = unscale_weekly_sum(targets_full, mean[:, None], std[:, None])
+    preds_full = unscale_weekly_sum(preds_full, mean[:, None, None], std[:, None, None])
+
+    # Week-1 arrays drive the existing per-reservoir / per-basin / ENSO reports
+    observations = targets_full[:, :, 0]
+    predictions_median = preds_full[:, :, 0, 1]  # quantile 1 is the median (0.1, 0.5, 0.9)
+    predictions_ensemble = preds_full[:, :, 0, :]
 
     evaluator = Evaluator(reservoir_names, basin_mapping)
     results = evaluator.evaluate(observations, predictions_median, predictions_ensemble, oni_values)
@@ -407,6 +405,22 @@ def evaluate(config: dict, model: ReservoirGNN, graph: object,
     
     if not results['enso_comparison'].empty:
         results['enso_comparison'].to_csv(os.path.join(output_dir, f"evaluation_metrics_enso{suffix}.csv"), index=False)
+
+    # All-12-weeks evaluation: per-week, per-reservoir metrics (design horizon)
+    per_week = []
+    for w in range(targets_full.shape[2]):
+        res_w = evaluator.evaluate(
+            targets_full[:, :, w],
+            preds_full[:, :, w, 1],
+            preds_full[:, :, w, :],
+            oni_values,
+        )
+        df_w = res_w['per_reservoir'].copy()
+        df_w.insert(0, 'Week', w + 1)
+        per_week.append(df_w)
+    by_week = pd.concat(per_week, ignore_index=True)
+    by_week.to_csv(os.path.join(output_dir, f"evaluation_metrics_by_week{suffix}.csv"), index=False)
+    logger.info("Per-week metrics: %d weeks x %d reservoirs", targets_full.shape[2], len(evaluator.reservoir_names))
 
     logger.info("=" * 60)
     logger.info("EVALUATION RESULTS SAVED TO runs/ (Week 1 Forecast, split=%s)", split)
@@ -559,11 +573,22 @@ def main() -> None:
         "--output-dir", type=str, default="runs/",
         help="Directory for outputs (checkpoints, logs, exports)",
     )
+    parser.add_argument(
+        "--seed", type=int, default=42,
+        help="Random seed (python/numpy/torch) for reproducible multi-seed runs",
+    )
 
     args = parser.parse_args()
 
     # Load configuration
     config = load_config(args.config)
+
+    # Reproducibility: seed everything before model construction
+    random.seed(args.seed)
+    np.random.seed(args.seed)
+    torch.manual_seed(args.seed)
+    torch.cuda.manual_seed_all(args.seed)
+    logger.info("Random seed set to %d", args.seed)
 
     # Build reservoir graph
     graph = build_graph(config)
