@@ -250,6 +250,10 @@ class TestExtractionScript:
             f"Expected CLI help text, got stdout: {res.stdout[:200]}"
         )
 
+    @pytest.mark.skipif(
+        not (Path(__file__).resolve().parent.parent / "data" / "raw" / "legacy_cwc_cache").exists(),
+        reason="requires legacy_cwc_cache + nwdp_cache raw caches (not shipped in repo)",
+    )
     def test_pipeline_reexecution_idempotency(self):
         """Verifies that running extraction twice produces identical results without data corruption."""
         import tempfile
