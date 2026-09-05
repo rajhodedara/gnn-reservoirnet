@@ -1,0 +1,14 @@
+{
+  "generated_at": "2026-09-05T18:11:15.220814+00:00",
+  "reservoir": "sardar_sarovar",
+  "patch_window": "2021-01-01..2024-12-31",
+  "source": "CWC Mandleshwar main-stem gauge (NWDP resource e62e4559-8d96-49d1-91e8-29f0750c0324, velocity+discharge 2021-25)",
+  "rationale": "Garudeshwar is just downstream of the SSP dam: measures regulated releases, not inflow. Mandleshwar measures the Narmada upstream of the SSP dam chain (1,826 complete daily rows 2021-2025, max 52,000 m3/s in the 2023 flood).",
+  "unit_conversion": "none (source already m3/s)",
+  "rows_patched": 1461,
+  "gap_days_interpolated": 0,
+  "old_2021_2024_mean": 629.39,
+  "new_2024_mean": 1203.17,
+  "new_2024_max": 12245.0,
+  "known_caveat": "Omkareshwar/Indira Sagar reservoirs lie between Mandleshwar and SSP: some inter-dam regulation not captured. 2010-2020 remains Garudeshwar (release-contaminated); 2021 source break documented here."
+}
