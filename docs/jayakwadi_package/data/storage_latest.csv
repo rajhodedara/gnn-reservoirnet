@@ -1,0 +1,8 @@
+﻿Period,What is reported,Figure / note,Source URL,Retrieved
+2026-09-05 (06:49),Maharashtra WRD dam-safety live report (mwrdpravah.in pdfLatestReportEng),"Designed storage 2,909.04 Mcum; live capacity 2,170.93 Mcum; reported figures 738.11 / 1,977.57 Mcum (column order ambiguous in text layer - verify on portal)",https://mwrdpravah.in/damsafety/control/pdfLatestReportEng,2026-09-06
+2025 (Sep),Times of India: live storage reaches 75% of live capacity,https://timesofindia.indiatimes.com/city/aurangabad/jayakwadi-dams-live-water-storage-increases-to-75/articleshow/122421923.cms,,2026-09-06
+2024-05-27,ThePrint/PTI: storage plummets to 5.19% after evaporation loss,https://theprint.in/india/jayakwadi-dam-water-stock-plummets-to-5-19-pc-of-storage-capacity-after-evaporation-loss-due-to-heat/2104109/,2026-09-06,
+2024-07 (late),Hindustan Times: only 5.21% despite above-normal July rainfall,https://www.hindustantimes.com/cities/pune-news/jayakwadi-dam-storage-only-5-per-cent-despite-above-normal-july-rainfall-101722105261366.html,2026-09-06,
+2019 (Sep),"TOI: 92% of live capacity; inflow up to 4,700 cusec at the time",https://timesofindia.indiatimes.com/city/aurangabad/jayakwadi-dam-reaches-92-live-storage-capacity/articleshow/70681081.cms,2026-09-06,
+2016 (drought),0.5% of live capacity (Marathwada crisis),https://www.facebook.com/Aurangabad/posts/10157139445864721/ (secondary - verify on WRD portal),2026-09-06,
+Compiled daily series,"2010-2024 daily storage (TMC) + inflow (m3/s) from CWC Dhalegaon gauge, cleaned (see repo data/raw/wris_v2/jayakwadi.csv + scripts/build_wris_v2.py)",repo: data/raw/wris_v2/jayakwadi.csv,2026-09-06,

@@ -1,0 +1,25 @@
+﻿Fact,Value / detail,Source(s),Reliability,Retrieved
+Official name,"Jayakwadi Dam (Stage I), Paithan — reservoir locally called Nathsagar",wr: wrd.maharashtra.gov.in ESDD JAYAKWADI PDF; wiki: en.wikipedia.org/wiki/Jayakwadi_Dam,high,2026-09-06
+River,"Godavari (at Paithan, Chhatrapati Sambhajinagar/Aurangabad district, Maharashtra)",wr: wrd.maharashtra.gov.in ESDD PDF; wiki,high,2026-09-06
+Purpose,"Multipurpose: irrigation, drinking water to Chhatrapati Sambhajinagar (Aurangabad), 12 MW hydro","wiki: Jayakwadi Dam; ET Energy (12 MW, commissioned 1976)",high,2026-09-06
+Foundation laid,18 October 1965,wiki; contemporaneous posts citing WRD,medium,2026-09-06
+Dam portion completed / inaugurated,1976 (inaugurated 24 February 1976),wr: ESDD PDF ('dam portion was completed in 1976'); wiki: 'inaugurated on 24 February 1976',high,2026-09-06
+Type,Earthen dam — one of the longest earthen dams in Asia,"wiki; LinkedIn (SE P. Kolhe, WRD)",high,2026-09-06
+Height,41.30 m (~135.5 ft),wiki; multiple secondary sources,high,2026-09-06
+Length,"~10 km (10,337 m per Wikipedia; 'about 10 kilometres')",wiki; LinkedIn,high,2026-09-06
+Catchment area,"21,750 km2",wiki; matches configs/reservoirs.yaml in repo,high,2026-09-06
+Gross storage at FRL,"2,909.041 Mm3 (~102.7 TMC)","wr: ESDD PDF; wiki (2,909 MCM); mwrdpravah.in live report (2,909.04 Mcum)",high,2026-09-06
+Live capacity,"2,170.93 Mcum (~2,170 MCM / 2,170,000 million litres)",mwrdpravah.in live report; secondary posts,high,2026-09-06
+Irrigation potential (command),"1,83,322 ha (WRD); commanding 183,858 ha per Wikipedia",wr: ESDD PDF; wiki,high,2026-09-06
+Left Bank Canal,208 km (Paithan LBC) — reaches Jalna and Parbhani districts,wiki; TOI; ThePrint,high,2026-09-06
+Right Bank Canal,132 km (Paithan RBC),wiki; TOI,high,2026-09-06
+Hydro power,12 MW (commissioned 1976; shut since Dec 2023 for maintenance),wiki; ET Energy,high,2026-09-06
+Siltation,~30-31% of capacity lost per 2003-2012 survey; 14% (10.73 TMC) live-storage loss cited,wiki (silt survey); ThePrint/secondary,medium,2026-09-06
+Bird sanctuary,"Nathsagar/Jayakwadi Bird Sanctuary, notified 1986; ~341 km2 (34,100 ha) across Aurangabad + Ahmednagar districts","TOI (341.05 km2, notified 1986); Key Biodiversity Areas (34,100 ha); Incredible India (1986)",high,2026-09-06
+Sanctuary biodiversity,"234-300+ bird species (counts vary by survey); 67 fish, 8 amphibian, 11 mammal species; flamingos, painted storks, spoonbills; ~30 roosting islands",wiki; forestsclearance.nic.in assessment (251 species); TOI; Incredible India,medium,2026-09-06
+Migratory season,"Winter (Nov-Feb), peak Dec-Jan",TOI; Incredible India; sanctuary descriptions,medium,2026-09-06
+Drought signal,"Live storage fell to 0.5% (2016 crisis), 5.19% (May 2024), 5.21% (Jul 2024); compiled daily record shows annual minimums at dead storage (0.35 TMC) in 2010/2012/2013/2015/2016/2024","ThePrint (PTI, May 2024); Hindustan Times (Jul 2024); repo dataset data/raw/wris_v2/jayakwadi.csv",high,2026-09-06
+Recent good monsoon,92% live storage (2019); ~90%+ (2018); 75% (Sep 2025),TOI 2019; IndianExpress 2018; TOI 2025,high,2026-09-06
+Operator,Godavari Marathwada Irrigation Development Corporation (GMIDC) / Maharashtra WRD,wr: ESDD PDF; TOI Phase-II coverage,high,2026-09-06
+Phase II,"Maharashtra cabinet cleared ~Rs 6,400-6,477 crore for Jayakwadi Phase II (2025)",TOI; Deccan Chronicle,high,2026-09-06
+Data gap: displacement,Original 1965-1976 submergence/displacement figures not consistently published online (one essay mentions 17 villages in the sanctuary context). FLAGGED AS GAP.,sahyadrica.com essay; EAC minutes (2022) refer to a different project phase,low,2026-09-06

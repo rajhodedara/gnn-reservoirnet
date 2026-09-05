@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nathsagar — The Jayakwadi Story</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#e9dfc8;color:#33302a;font-family:Georgia,'Times New Roman',serif;line-height:1.6}
+.wrap{max-width:980px;margin:0 auto;padding:0 26px}
+header{padding:54px 0 30px;border-bottom:3px double #b09b6f}
+.kick{font-family:Verdana,Geneva,sans-serif;font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:#c4552f;font-weight:700}
+h1{font-size:clamp(34px,6vw,58px);font-weight:400;letter-spacing:.01em;margin-top:10px}
+h1 em{font-style:italic;color:#2b5f75}
+.sub{margin-top:12px;font-size:clamp(15px,2.4vw,19px);color:#5c5340;max-width:64ch}
+.metabar{margin-top:20px;display:flex;flex-wrap:wrap;gap:6px 26px;font-family:Verdana,Geneva,sans-serif;font-size:11.5px;color:#6b6049}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1px;background:#c9b98f;border:1px solid #c9b98f;margin:26px 0 0}
+.stat{background:#f4ecd9;padding:14px 16px}
+.stat b{display:block;font-size:clamp(19px,3vw,26px);font-weight:400;color:#2b5f75}
+.stat span{font-family:Verdana,Geneva,sans-serif;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:#8a7a55}
+section{padding:34px 0;border-bottom:1px solid #d8c9a0}
+h2{font-size:clamp(22px,3.4vw,30px);font-weight:400;margin-bottom:6px}
+h2 .no{color:#c4552f;font-family:Verdana,Geneva,sans-serif;font-size:13px;letter-spacing:.2em;vertical-align:middle;margin-right:10px}
+.lede{font-size:17px;color:#4a4335;max-width:70ch;margin-bottom:16px}
+p{max-width:74ch;margin-bottom:12px}
+.mapbox{background:#f4ecd9;border:1px solid #c9b98f;border-radius:6px;box-shadow:0 10px 26px rgba(90,70,40,.14);padding:8px;margin:18px 0}
+.mapbox svg{display:block;width:100%;height:auto}
+.cap{font-family:Verdana,Geneva,sans-serif;font-size:11.5px;color:#7a6f52;padding:8px 6px 2px;border-top:1px dashed #d8c9a0;margin-top:6px}
+.charts{display:grid;grid-template-columns:1fr;gap:20px}
+.chart{background:#fbf6ea;border:1px solid #d8c9a0;border-radius:6px;padding:12px 12px 4px}
+.chart svg{display:block;width:100%;height:auto}
+.bv{font-family:Verdana,Geneva,sans-serif;font-size:10.5px;fill:#5c5340}
+.bl{font-family:Verdana,Geneva,sans-serif;font-size:11px;fill:#7a6f52}
+.yl{font-family:Verdana,Geneva,sans-serif;font-size:11px;fill:#8a7a55}
+.twocol{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.card{background:#fbf6ea;border:1px solid #d8c9a0;border-radius:6px;padding:16px 18px}
+.card h3{font-family:Verdana,Geneva,sans-serif;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#c4552f;margin-bottom:8px}
+.card ul{margin-left:18px}
+.card li{margin-bottom:6px;font-size:14.5px}
+table{width:100%;border-collapse:collapse;font-size:14px;margin:14px 0}
+th{font-family:Verdana,Geneva,sans-serif;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#8a7a55;text-align:left;padding:8px 10px;border-bottom:2px solid #b09b6f}
+td{padding:8px 10px;border-bottom:1px solid #e0d3ad;vertical-align:top}
+td .c{color:#c4552f;font-family:Verdana,Geneva,sans-serif;font-size:11px;white-space:nowrap}
+.gap{background:#f7ece3;border-left:4px solid #c4552f;padding:12px 16px;border-radius:4px;margin:16px 0;font-size:14.5px}
+.gap b{color:#a34421}
+.timeline{position:relative;margin:20px 0 6px;padding-left:26px}
+.timeline:before{content:"";position:absolute;left:8px;top:4px;bottom:4px;width:2px;background:#c9b98f}
+.tl{position:relative;padding:0 0 18px 14px}
+.tl:before{content:"";position:absolute;left:-24px;top:7px;width:11px;height:11px;border-radius:50%;background:#c4552f;border:2px solid #f4ecd9;box-shadow:0 0 0 2px #c4552f}
+.tl b{display:block;font-size:15px}
+.tl span{font-size:14px;color:#5c5340}
+.cite{font-family:Verdana,Geneva,sans-serif;font-size:10.5px;color:#b06a3b;white-space:nowrap}
+a{color:#2b5f75}
+.srctable td{font-size:12.5px}
+footer{padding:26px 0 60px;font-family:Verdana,Geneva,sans-serif;font-size:11.5px;color:#8a7a55;border-top:3px double #b09b6f;margin-top:30px}
+@media(max-width:640px){.twocol{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}}
+@media print{body{background:#fff}}
+</style></head>
+<body><div class="wrap">
+<header>
+  <div class="kick">A reservoir biography · Godavari Basin · Maharashtra</div>
+  <h1>Nathsagar — <em>the Jayakwadi story</em></h1>
+  <div class="sub">One of Asia's longest earthen dams holds back the Godavari at Paithan, watering the drought-prone Marathwada plateau, feeding a city, and — in its shallow backwaters — hosting one of India's great gathering places of migratory birds. This is its profile, its water record, and its trade-offs, with every figure sourced.</div>
+  <div class="metabar"><span>Compiled 2026-09-06</span><span>Sources: 15 (govt portals, encyclopedic references, news archives, peer study)</span><span>Package: jayakwadi_package v1</span></div>
+  <div class="stats">
+    <div class="stat"><b>1976</b><span>Inaugurated 24 Feb</span></div>
+    <div class="stat"><b>2,909 Mm³</b><span>Gross storage at FRL</span></div>
+    <div class="stat"><b>2,171 Mm³</b><span>Live capacity</span></div>
+    <div class="stat"><b>~10 km</b><span>Earthen dam length</span></div>
+    <div class="stat"><b>1.83 lakh ha</b><span>Irrigation command</span></div>
+    <div class="stat"><b>341 km²</b><span>Bird sanctuary (1986)</span></div>
+  </div>
+</header>
+
+<section id="map">
+  <h2><span class="no">01</span>The river and the reservoir</h2>
+  <p class="lede">The Godavari leaves the Western Ghats and crosses the Deccan plateau. At Jayakwadi village near Paithan, an earthen barrier 10 kilometres long quietens it into <b>Nathsagar</b> — a backwater that stretches tens of kilometres upstream and shelters the Jayakwadi Bird Sanctuary on its shallow northern arms.</p>
+  <div class="mapbox">
+<svg viewBox="0 0 940 520" role="img" aria-label="Stylized map of the Godavari, Nathsagar reservoir, Jayakwadi dam, sanctuary and canals">
+  <rect width="940" height="520" fill="#f4ecd9"/>
+  <g opacity="0.5">
+    <path d="M0,60 Q120,40 240,70 T480,60 T720,90 T940,70" fill="none" stroke="#d9c9a3" stroke-width="1"/>
+    <path d="M0,150 Q140,120 300,150 T620,140 T940,160" fill="none" stroke="#d9c9a3" stroke-width="1"/>
+    <path d="M0,430 Q160,450 320,430 T640,440 T940,420" fill="none" stroke="#d9c9a3" stroke-width="1"/>
+  </g>
+  <text x="24" y="40" class="bl" font-size="13" fill="#8a7a55">GAUTAMI GODAVARI — rises in the Western Ghats (Trimbakeshwar, Nashik)</text>
+  <path d="M60,96 C150,120 220,130 300,142 C380,154 430,158 470,162" fill="none" stroke="#2b5f75" stroke-width="5" stroke-linecap="round"/>
+  <text x="70" y="88" class="bl" fill="#2b5f75">Godavari R.</text>
+  <text x="150" y="132" class="bl" fill="#8a7a55" font-size="11">from Nashik / Kopergaon gauge</text>
+  <path d="M470,162 C520,150 560,142 600,138 C660,133 700,136 745,150" fill="none" stroke="#2b5f75" stroke-width="17" stroke-linecap="round" opacity="0.9"/>
+  <path d="M600,138 C640,150 660,168 655,196 C650,222 620,238 585,240" fill="none" stroke="#2b5f75" stroke-width="8" opacity="0.55"/>
+  <text x="560" y="118" fill="#2b5f75" font-size="15" font-style="italic">NATHSAGAR reservoir</text>
+  <text x="560" y="134" class="bl" fill="#7a6f52" font-size="10.5">~50-60 km long backwater · 341 km2 sanctuary zone on shallow arms</text>
+  <g>
+    <circle cx="601" cy="208" r="5" fill="#f4ecd9" stroke="#c4552f" stroke-width="2"/>
+    <circle cx="623" cy="196" r="4" fill="#f4ecd9" stroke="#c4552f" stroke-width="1.6"/>
+    <circle cx="640" cy="186" r="3.4" fill="#f4ecd9" stroke="#c4552f" stroke-width="1.4"/>
+  </g>
+  <text x="612" y="222" class="bl" fill="#7a8c5c" font-size="11">roosting islands</text>
+  <g transform="translate(745,150)">
+    <rect x="-7" y="-26" width="14" height="52" rx="3" fill="#c4552f"/>
+    <text x="0" y="-34" text-anchor="middle" class="bl" font-weight="bold" fill="#c4552f">JAYAKWADI DAM</text>
+    <text x="0" y="40" text-anchor="middle" class="bl" fill="#5c5340">Paithan · 41.3 m high · ~10 km long</text>
+  </g>
+  <path d="M745,150 C800,120 850,100 915,84" fill="none" stroke="#7a8c5c" stroke-width="3" stroke-dasharray="7 5"/>
+  <text x="828" y="74" class="bl" fill="#7a8c5c" font-size="11.5">Paithan Left Bank Canal (208 km) → Jalna, Parbhani</text>
+  <path d="M748,158 C800,180 850,206 910,238" fill="none" stroke="#7a8c5c" stroke-width="3" stroke-dasharray="7 5"/>
+  <text x="800" y="228" class="bl" fill="#7a8c5c" font-size="11.5">Right Bank Canal (132 km) → Ahmednagar, Beed</text>
+  <g transform="translate(790,300)">
+    <rect width="150" height="86" rx="5" fill="#fbf6ea" stroke="#d8c9a0"/>
+    <text x="12" y="22" class="bl" font-weight="bold" fill="#33302a">Downstream the dam</text>
+    <text x="12" y="40" class="bl" font-size="10.5">irrigates 1.83 lakh ha of the</text>
+    <text x="12" y="54" class="bl" font-size="10.5">drought-prone Marathwada</text>
+    <text x="12" y="68" class="bl" font-size="10.5">drinking water: Chh. Sambhajinagar</text>
+  </g>
+  <g transform="translate(80,300)">
+    <rect width="220" height="112" rx="5" fill="#fbf6ea" stroke="#d8c9a0"/>
+    <text x="12" y="22" class="bl" font-weight="bold" fill="#33302a">UPSTREAM (Karnataka/MH border)</text>
+    <text x="12" y="40" class="bl" font-size="10.5">Kopergaon CWC gauge — the inflow signal</text>
+    <text x="12" y="54" class="bl" font-size="10.5">the forecasting model trains on</text>
+    <text x="12" y="68" class="bl" font-size="10.5">80% of its days read zero: dry-season</text>
+    <text x="12" y="82" class="bl" font-size="10.5">reality + gauge limitation (this study)</text>
+  </g>
+  <g transform="translate(860,470)">
+    <line x1="0" y1="0" x2="0" y2="-34" stroke="#33302a" stroke-width="1.6"/>
+    <path d="M0,-40 L5,-28 L0,-31 L-5,-28 Z" fill="#33302a"/>
+    <text x="0" y="-46" text-anchor="middle" class="bl" font-size="12" fill="#33302a">N</text>
+  </g>
+  <text x="30" y="498" class="bl" fill="#8a7a55" font-size="10.5">Stylized map — geometry schematic, not to survey scale. Godavari flows west → east; the reservoir backs up ~50-60 km west of the dam.</text>
+</svg>
+</div>
+  <div class="cap">Schematic map. The dam's two canals carry water away from the Godavari into the interior of the drought-prone Marathwada region: the 208 km Left Bank Canal toward Jalna and Parbhani, and the 132 km Right Bank Canal toward Ahmednagar and Beed. <span class="cite">[3][7][12]</span></div>
+</section>
+
+<section id="facts">
+  <h2><span class="no">02</span>Dam fact sheet</h2>
+  <p class="lede">Every figure below is tied to at least one cited source; key figures carry two independent confirmations. Where public sources disagree, both values are shown.</p>
+  <table>
+    <tr><th>Attribute</th><th>Value</th><th>Sources</th></tr>
+    <tr><td>Official name / location</td><td>Jayakwadi Dam (Stage I), Godavari river at Paithan, Chhatrapati Sambhajinagar (Aurangabad) district, Maharashtra</td><td class="c">[1][2]</td></tr>
+    <tr><td>Type</td><td>Earthen dam — among the longest earthen dams in Asia</td><td class="c">[1][6]</td></tr>
+    <tr><td>Height / Length</td><td>41.30 m / ~10 km</td><td class="c">[1][3][6]</td></tr>
+    <tr><td>Catchment area</td><td>21,750 km²</td><td class="c">[1][11]</td></tr>
+    <tr><td>Gross storage at FRL</td><td>2,909.041 Mm³ (≈ 102.7 TMC)</td><td class="c">[2][1][9]</td></tr>
+    <tr><td>Live capacity</td><td>2,170.93 Mm³</td><td class="c">[9][4]</td></tr>
+    <tr><td>Foundation / Inauguration</td><td>18 Oct 1965 / 24 Feb 1976 (dam portion completed 1976)</td><td class="c">[6][1][2]</td></tr>
+    <tr><td>Command area</td><td>1,83,322 ha (WRD) · commanding 183,858 ha (Wiki)</td><td class="c">[2][1]</td></tr>
+    <tr><td>Canals</td><td>Left Bank Canal 208 km · Right Bank Canal 132 km</td><td class="c">[1][7][12]</td></tr>
+    <tr><td>Hydro</td><td>12 MW power station (commissioned 1976)</td><td class="c">[1][8]</td></tr>
+    <tr><td>Operator</td><td>Godavari Marathwada Irrigation Development Corporation / Maharashtra WRD</td><td class="c">[2][7]</td></tr>
+  </table>
+</section>
+
+<section id="charts">
+  <h2><span class="no">03</span>The water record, 2010–2024</h2>
+  <p class="lede">Four views of the reservoir's pulse, drawn from a cleaned daily series (inflow and storage, 2010–2024) compiled from the CWC Dhalegaon gauge for this project — the same dataset the forecasting model trains on.</p>
+
+  <h3 style="font-family:Verdana,sans-serif;font-size:13px;margin:18px 0 6px">Days with zero recorded inflow, per year</h3>
+  <div class="chart"><svg viewBox="0 0 760 196" role="img"><text x="6" y="12" class="yl">days with zero recorded inflow / yr</text><rect x="8.6" y="26.8" width="33.4" height="148.2" rx="2.5" fill="#c4552f"/><text x="25.3" y="21.8" text-anchor="middle" class="bv">339</text><text x="25.3" y="188.0" text-anchor="middle" class="bl">10</text><rect x="59.3" y="22.0" width="33.4" height="153.0" rx="2.5" fill="#c4552f"/><text x="76.0" y="17.0" text-anchor="middle" class="bv">350</text><text x="76.0" y="188.0" text-anchor="middle" class="bl">11</text><rect x="109.9" y="15.0" width="33.4" height="160.0" rx="2.5" fill="#c4552f"/><text x="126.7" y="10.0" text-anchor="middle" class="bv">366</text><text x="126.7" y="188.0" text-anchor="middle" class="bl">12</text><rect x="160.6" y="15.4" width="33.4" height="159.6" rx="2.5" fill="#c4552f"/><text x="177.3" y="10.4" text-anchor="middle" class="bv">365</text><text x="177.3" y="188.0" text-anchor="middle" class="bl">13</text><rect x="211.3" y="34.2" width="33.4" height="140.8" rx="2.5" fill="#c4552f"/><text x="228.0" y="29.2" text-anchor="middle" class="bv">322</text><text x="228.0" y="188.0" text-anchor="middle" class="bl">14</text><rect x="261.9" y="15.4" width="33.4" height="159.6" rx="2.5" fill="#c4552f"/><text x="278.7" y="10.4" text-anchor="middle" class="bv">365</text><text x="278.7" y="188.0" text-anchor="middle" class="bl">15</text><rect x="312.6" y="34.7" width="33.4" height="140.3" rx="2.5" fill="#c4552f"/><text x="329.3" y="29.7" text-anchor="middle" class="bv">321</text><text x="329.3" y="188.0" text-anchor="middle" class="bl">16</text><rect x="363.3" y="92.4" width="33.4" height="82.6" rx="2.5" fill="#c4552f"/><text x="380.0" y="87.4" text-anchor="middle" class="bv">189</text><text x="380.0" y="188.0" text-anchor="middle" class="bl">17</text><rect x="413.9" y="162.3" width="33.4" height="12.7" rx="2.5" fill="#c4552f"/><text x="430.7" y="157.3" text-anchor="middle" class="bv">29</text><text x="430.7" y="188.0" text-anchor="middle" class="bl">18</text><rect x="464.6" y="173.5" width="33.4" height="1.5" rx="2.5" fill="#c4552f"/><text x="481.3" y="168.5" text-anchor="middle" class="bv">1</text><text x="481.3" y="188.0" text-anchor="middle" class="bl">19</text><rect x="515.3" y="173.5" width="33.4" height="1.5" rx="2.5" fill="#c4552f"/><text x="532.0" y="168.5" text-anchor="middle" class="bv">2</text><text x="532.0" y="188.0" text-anchor="middle" class="bl">20</text><rect x="565.9" y="141.8" width="33.4" height="33.2" rx="2.5" fill="#c4552f"/><text x="582.7" y="136.8" text-anchor="middle" class="bv">76</text><text x="582.7" y="188.0" text-anchor="middle" class="bl">21</text><rect x="616.6" y="68.3" width="33.4" height="106.7" rx="2.5" fill="#c4552f"/><text x="633.3" y="63.3" text-anchor="middle" class="bv">244</text><text x="633.3" y="188.0" text-anchor="middle" class="bl">22</text><rect x="667.3" y="39.5" width="33.4" height="135.5" rx="2.5" fill="#c4552f"/><text x="684.0" y="34.5" text-anchor="middle" class="bv">310</text><text x="684.0" y="188.0" text-anchor="middle" class="bl">23</text><rect x="717.9" y="56.1" width="33.4" height="118.9" rx="2.5" fill="#c4552f"/><text x="734.7" y="51.1" text-anchor="middle" class="bv">272</text><text x="734.7" y="188.0" text-anchor="middle" class="bl">24</text></svg></div>
+  <p style="font-size:13.5px;color:#6b6049">The red bars are the honest caveat of this dataset: the upstream Dhalegaon CWC gauge reads zero on most days — partly the real dry-season silence of a river tapped upstream, partly gauge limitation. 2019 stands out as the year the gauge (and the monsoon) never slept.</p>
+
+  <h3 style="font-family:Verdana,sans-serif;font-size:13px;margin:22px 0 6px">Lowest storage reached each year (TMC)</h3>
+  <div class="chart"><svg viewBox="0 0 760 196" role="img"><text x="6" y="12" class="yl">lowest storage each year (TMC)</text><rect x="8.6" y="172.9" width="33.4" height="2.1" rx="2.5" fill="#2b5f75"/><text x="25.3" y="167.9" text-anchor="middle" class="bv">0</text><text x="25.3" y="188.0" text-anchor="middle" class="bl">10</text><rect x="59.3" y="108.5" width="33.4" height="66.5" rx="2.5" fill="#2b5f75"/><text x="76.0" y="103.5" text-anchor="middle" class="bv">11</text><text x="76.0" y="188.0" text-anchor="middle" class="bl">11</text><rect x="109.9" y="172.9" width="33.4" height="2.1" rx="2.5" fill="#2b5f75"/><text x="126.7" y="167.9" text-anchor="middle" class="bv">0</text><text x="126.7" y="188.0" text-anchor="middle" class="bl">12</text><rect x="160.6" y="172.9" width="33.4" height="2.1" rx="2.5" fill="#2b5f75"/><text x="177.3" y="167.9" text-anchor="middle" class="bv">0</text><text x="177.3" y="188.0" text-anchor="middle" class="bl">13</text><rect x="211.3" y="162.5" width="33.4" height="12.5" rx="2.5" fill="#2b5f75"/><text x="228.0" y="157.5" text-anchor="middle" class="bv">2</text><text x="228.0" y="188.0" text-anchor="middle" class="bl">14</text><rect x="261.9" y="172.9" width="33.4" height="2.1" rx="2.5" fill="#2b5f75"/><text x="278.7" y="167.9" text-anchor="middle" class="bv">0</text><text x="278.7" y="188.0" text-anchor="middle" class="bl">15</text><rect x="312.6" y="172.9" width="33.4" height="2.1" rx="2.5" fill="#2b5f75"/><text x="329.3" y="167.9" text-anchor="middle" class="bv">0</text><text x="329.3" y="188.0" text-anchor="middle" class="bl">16</text><rect x="363.3" y="153.1" width="33.4" height="21.9" rx="2.5" fill="#2b5f75"/><text x="380.0" y="148.1" text-anchor="middle" class="bv">4</text><text x="380.0" y="188.0" text-anchor="middle" class="bl">17</text><rect x="413.9" y="169.4" width="33.4" height="5.6" rx="2.5" fill="#2b5f75"/><text x="430.7" y="164.4" text-anchor="middle" class="bv">1</text><text x="430.7" y="188.0" text-anchor="middle" class="bl">18</text><rect x="464.6" y="166.7" width="33.4" height="8.3" rx="2.5" fill="#2b5f75"/><text x="481.3" y="161.7" text-anchor="middle" class="bv">1</text><text x="481.3" y="188.0" text-anchor="middle" class="bl">19</text><rect x="515.3" y="15.0" width="33.4" height="160.0" rx="2.5" fill="#2b5f75"/><text x="532.0" y="10.0" text-anchor="middle" class="bv">27</text><text x="532.0" y="188.0" text-anchor="middle" class="bl">20</text><rect x="565.9" y="153.7" width="33.4" height="21.3" rx="2.5" fill="#2b5f75"/><text x="582.7" y="148.7" text-anchor="middle" class="bv">4</text><text x="582.7" y="188.0" text-anchor="middle" class="bl">21</text><rect x="616.6" y="153.0" width="33.4" height="22.0" rx="2.5" fill="#2b5f75"/><text x="633.3" y="148.0" text-anchor="middle" class="bv">4</text><text x="633.3" y="188.0" text-anchor="middle" class="bl">22</text><rect x="667.3" y="135.5" width="33.4" height="39.5" rx="2.5" fill="#2b5f75"/><text x="684.0" y="130.5" text-anchor="middle" class="bv">7</text><text x="684.0" y="188.0" text-anchor="middle" class="bl">23</text><rect x="717.9" y="173.5" width="33.4" height="1.5" rx="2.5" fill="#2b5f75"/><text x="734.7" y="168.5" text-anchor="middle" class="bv">0</text><text x="734.7" y="188.0" text-anchor="middle" class="bl">24</text></svg></div>
+  <p style="font-size:13.5px;color:#6b6049">In six of fifteen years the reservoir fell to <b>0.35 TMC — dead storage</b> (2010, 2012, 2013, 2015, 2016, 2024). 2020 was the kindest year on record; 2024 ended at its floor again.</p>
+
+  <h3 style="font-family:Verdana,sans-serif;font-size:13px;margin:22px 0 6px">Highest daily inflow each year (m³/s)</h3>
+  <div class="chart"><svg viewBox="0 0 760 196" role="img"><text x="6" y="12" class="yl">highest daily inflow each year (m3/s)</text><rect x="8.6" y="119.6" width="33.4" height="55.4" rx="2.5" fill="#8fb8bf"/><text x="25.3" y="114.6" text-anchor="middle" class="bv">744</text><text x="25.3" y="188.0" text-anchor="middle" class="bl">10</text><rect x="59.3" y="149.1" width="33.4" height="25.9" rx="2.5" fill="#8fb8bf"/><text x="76.0" y="144.1" text-anchor="middle" class="bv">348</text><text x="76.0" y="188.0" text-anchor="middle" class="bl">11</text><rect x="109.9" y="173.5" width="33.4" height="1.5" rx="2.5" fill="#8fb8bf"/><text x="126.7" y="188.0" text-anchor="middle" class="bl">12</text><rect x="160.6" y="173.5" width="33.4" height="1.5" rx="2.5" fill="#8fb8bf"/><text x="177.3" y="188.0" text-anchor="middle" class="bl">13</text><rect x="211.3" y="101.3" width="33.4" height="73.7" rx="2.5" fill="#8fb8bf"/><text x="228.0" y="96.3" text-anchor="middle" class="bv">991</text><text x="228.0" y="188.0" text-anchor="middle" class="bl">14</text><rect x="261.9" y="173.5" width="33.4" height="1.5" rx="2.5" fill="#8fb8bf"/><text x="278.7" y="188.0" text-anchor="middle" class="bl">15</text><rect x="312.6" y="88.4" width="33.4" height="86.6" rx="2.5" fill="#8fb8bf"/><text x="329.3" y="83.4" text-anchor="middle" class="bv">1165</text><text x="329.3" y="188.0" text-anchor="middle" class="bl">16</text><rect x="363.3" y="48.9" width="33.4" height="126.1" rx="2.5" fill="#8fb8bf"/><text x="380.0" y="43.9" text-anchor="middle" class="bv">1695</text><text x="380.0" y="188.0" text-anchor="middle" class="bl">17</text><rect x="413.9" y="114.7" width="33.4" height="60.3" rx="2.5" fill="#8fb8bf"/><text x="430.7" y="109.7" text-anchor="middle" class="bv">811</text><text x="430.7" y="188.0" text-anchor="middle" class="bl">18</text><rect x="464.6" y="15.0" width="33.4" height="160.0" rx="2.5" fill="#8fb8bf"/><text x="481.3" y="10.0" text-anchor="middle" class="bv">2151</text><text x="481.3" y="188.0" text-anchor="middle" class="bl">19</text><rect x="515.3" y="128.8" width="33.4" height="46.2" rx="2.5" fill="#8fb8bf"/><text x="532.0" y="123.8" text-anchor="middle" class="bv">621</text><text x="532.0" y="188.0" text-anchor="middle" class="bl">20</text><rect x="565.9" y="106.1" width="33.4" height="68.9" rx="2.5" fill="#8fb8bf"/><text x="582.7" y="101.1" text-anchor="middle" class="bv">927</text><text x="582.7" y="188.0" text-anchor="middle" class="bl">21</text><rect x="616.6" y="42.4" width="33.4" height="132.6" rx="2.5" fill="#8fb8bf"/><text x="633.3" y="37.4" text-anchor="middle" class="bv">1782</text><text x="633.3" y="188.0" text-anchor="middle" class="bl">22</text><rect x="667.3" y="132.7" width="33.4" height="42.3" rx="2.5" fill="#8fb8bf"/><text x="684.0" y="127.7" text-anchor="middle" class="bv">569</text><text x="684.0" y="188.0" text-anchor="middle" class="bl">23</text><rect x="717.9" y="69.1" width="33.4" height="105.9" rx="2.5" fill="#8fb8bf"/><text x="734.7" y="64.1" text-anchor="middle" class="bv">1424</text><text x="734.7" y="188.0" text-anchor="middle" class="bl">24</text></svg></div>
+  <p style="font-size:13.5px;color:#6b6049">2019's monsoon delivered the largest recorded pulse (2,151 m³/s). The zero bars of 2012, 2013 and 2015 mark the years the gauge recorded nothing at all.</p>
+
+  <h3 style="font-family:Verdana,sans-serif;font-size:13px;margin:22px 0 6px">The year's rhythm: storage by month (2010–2024)</h3>
+  <div class="chart"><svg viewBox="0 0 760 178"><text x="6" y="12" class="yl">storage (TMC), 2010-2024</text><line x1="46" y1="59.391999999999996" x2="750" y2="59.391999999999996" stroke="#c4552f" stroke-dasharray="4 4" stroke-width="1.2"/><text x="748" y="55.391999999999996" text-anchor="end" class="yl" fill="#c4552f">highest ever in record: 76.6 TMC</text><path d="M46.0,61.1 L109.6,61.6 L173.3,62.2 L236.9,62.2 L300.5,62.8 L364.2,61.6 L427.8,59.4 L491.5,59.4 L555.1,59.4 L618.7,59.4 L682.4,59.4 L746.0,59.4 L746.0,181.4 L682.4,181.4 L618.7,181.4 L555.1,181.4 L491.5,181.4 L427.8,181.4 L364.2,181.4 L300.5,181.4 L236.9,181.4 L173.3,181.4 L109.6,181.4 L46.0,181.6 Z" fill="#b8cfd4" opacity="0.5"/><path d="M46.0,129.5 L109.6,126.5 L173.3,128.6 L236.9,134.3 L300.5,131.3 L364.2,128.5 L427.8,130.4 L491.5,129.9 L555.1,127.4 L618.7,130.2 L682.4,129.0 L746.0,130.1" fill="none" stroke="#2b5f75" stroke-width="2.6"/><text x="46.0" y="172" text-anchor="middle" class="bl">J</text><text x="109.6" y="172" text-anchor="middle" class="bl">F</text><text x="173.3" y="172" text-anchor="middle" class="bl">M</text><text x="236.9" y="172" text-anchor="middle" class="bl">A</text><text x="300.5" y="172" text-anchor="middle" class="bl">M</text><text x="364.2" y="172" text-anchor="middle" class="bl">J</text><text x="427.8" y="172" text-anchor="middle" class="bl">J</text><text x="491.5" y="172" text-anchor="middle" class="bl">A</text><text x="555.1" y="172" text-anchor="middle" class="bl">S</text><text x="618.7" y="172" text-anchor="middle" class="bl">O</text><text x="682.4" y="172" text-anchor="middle" class="bl">N</text><text x="746.0" y="172" text-anchor="middle" class="bl">D</text><text x="46" y="18" class="yl">90 TMC</text></svg></div>
+  <p style="font-size:13.5px;color:#6b6049">The blue line is the average storage by month; the shaded band spans the driest to the wettest year for each month. The dashed red line marks the highest storage ever recorded in this window (76.6 TMC). The rhythm is flatter than most big dams — Jayakwadi's monsoon gift is spent within the same season.</p>
+</section>
+
+<section id="ecology">
+  <h2><span class="no">04</span>The sanctuary in the backwaters</h2>
+  <p class="lede">Where the reservoir shallows into islands and mudflats, the Nathsagar Jayakwadi Bird Sanctuary was notified in 1986 — about 341 km² across Chhatrapati Sambhajinagar and Ahmednagar districts.</p>
+  <div class="twocol">
+    <div class="card"><h3>Who gathers here</h3><ul>
+      <li><b>234–300+ bird species</b> recorded across surveys (counts differ by method and year) <span class="cite">[1][5][10]</span></li>
+      <li>Flamingos, painted storks, spoonbills, white storks, night herons, wagtails, pin-tailed snipe <span class="cite">[1]</span></li>
+      <li><b>67 fish species</b>, 8 amphibians, 11 mammals documented in the 2023 conservation assessment <span class="cite">[10]</span></li>
+      <li>~30 roosting islands in the shallow waters <span class="cite">[13]</span></li>
+    </ul></div>
+    <div class="card"><h3>When to watch</h3><ul>
+      <li><b>Migratory season: November–February</b>, peaking December–January <span class="cite">[14]</span></li>
+      <li>Water level matters: in nearly-full years the shallow mudflats submerge and counts drop; in drawdown years the flats expand and birds crowd in <span class="cite">[15]</span></li>
+      <li>The sanctuary is still awaiting formal upgrade of its protected-area tag <span class="cite">[16]</span></li>
+    </ul></div>
+  </div>
+</section>
+
+<section id="impact">
+  <h2><span class="no">05</span>Benefits and trade-offs</h2>
+  <div class="twocol">
+    <div class="card"><h3>What it gives</h3><ul>
+      <li>Irrigation for <b>~1.83 lakh ha</b> of the drought-prone Marathwada plateau via the 208 km LBC and 132 km RBC <span class="cite">[1][2][7]</span></li>
+      <li>Drinking-water lifeline for Chhatrapati Sambhajinagar (Aurangabad)</li>
+      <li>12 MW of hydropower (commissioned 1976; offline since Dec 2023 for maintenance) <span class="cite">[8]</span></li>
+      <li>Fishing economy and a noted birdwatching destination on the sanctuary's islands</li>
+    </ul></div>
+    <div class="card"><h3>What it costs</h3><ul>
+      <li><b>Siltation</b>: the 2003–2012 survey found ~30–31% of capacity lost; a 14% (10.73 TMC) live-storage loss is cited <span class="cite">[1][17]</span></li>
+      <li><b>Displacement</b>: the 1965–1976 submergence moved villages along the Godavari; consistent public figures are scarce — flagged as a gap in this package</li>
+      <li><b>Drought exposure</b>: in 2016 the reservoir touched 0.5% of live storage; May 2024 fell to 5.19%; Jul 2024 5.21% despite normal rain <span class="cite">[18][19][20]</span></li>
+      <li><b>Canal ageing</b>: the LBC's carrying capacity has roughly halved, with ₹3,000 crore repairs cited <span class="cite">[21]</span></li>
+    </ul></div>
+  </div>
+  <div class="gap"><b>Flagged gaps:</b> original displacement and village-submergence figures are not consistently published online; the WRD live-report text layer lists two candidate storage values (738.11 / 1,977.57 Mcum) whose column mapping should be confirmed on the portal; species counts vary 234–300+ by survey year and method.</div>
+</section>
+
+<section id="timeline">
+  <h2><span class="no">06</span>Timeline</h2>
+  <div class="timeline">
+    <div class="tl"><b>18 Oct 1965</b><span>Foundation of the Jayakwadi project laid <span class="cite">[6]</span></span></div>
+    <div class="tl"><b>24 Feb 1976</b><span>Dam portion completed; inaugurated. Stage I: dam + Paithan Left Bank Canal <span class="cite">[2][1][6]</span></span></div>
+    <div class="tl"><b>1986</b><span>Nathsagar backwaters notified as the Jayakwadi Bird Sanctuary (≈341 km²) <span class="cite">[15][14]</span></span></div>
+    <div class="tl"><b>2003–2012</b><span>Siltation survey: ~30–31% of capacity lost to sediment <span class="cite">[1]</span></span></div>
+    <div class="tl"><b>2016</b><span>Marathwada crisis — Jayakwadi at 0.5% of live storage <span class="cite">[18]</span></span></div>
+    <div class="tl"><b>2019</b><span>A record monsoon: 92% live storage; the dataset's largest inflow pulse (2,151 m³/s) <span class="cite">[22][11]</span></span></div>
+    <div class="tl"><b>2024</b><span>May: 5.19% after evaporation losses; compiled record shows the reservoir at dead storage (0.25–0.35 TMC) <span class="cite">[19][11]</span></span></div>
+    <div class="tl"><b>2025</b><span>Live storage climbs to 75% by September <span class="cite">[23]</span></span></div>
+    <div class="tl"><b>2025–26</b><span>Phase II clears ₹6,400+ crore; WRD live report shows designed storage 2,909.04 Mcum / live capacity 2,170.93 Mcum <span class="cite">[24][9]</span></span></div>
+  </div>
+</section>
+
+<section id="sources">
+  <h2><span class="no">07</span>Sources</h2>
+  <table class="srctable">
+    <tr><th>#</th><th>Source</th><th>Reliability</th></tr>
+    <tr><td>[1]</td><td>Wikipedia — Jayakwadi Dam · en.wikipedia.org/wiki/Jayakwadi_Dam</td><td>secondary; cross-checked</td></tr>
+    <tr><td>[2]</td><td>Maharashtra WRD — ESDD JAYAKWADI PDF · wrd.maharashtra.gov.in/Upload/PDF/ESDD%20JAYAKWADI.pdf</td><td>primary (govt)</td></tr>
+    <tr><td>[3]</td><td>Key Biodiversity Areas — Jaikwadi Wildlife Sanctuary factsheet · keybiodiversityareas.org/site/factsheet/18267</td><td>primary-conservation</td></tr>
+    <tr><td>[4]</td><td>Maharashtra WRD Dam Safety live report · mwrdpravah.in/damsafety/control/pdfLatestReportEng</td><td>primary (govt, live)</td></tr>
+    <tr><td>[5]</td><td>Incredible India — Jayakwadi Bird Sanctuary · incredibleindia.gov.in/en/maharashtra/chhatrapati-sambhaji-nagar/jayakwadi-bird-sanctuary</td><td>secondary (govt tourism)</td></tr>
+    <tr><td>[6]</td><td>LinkedIn — SE Pravin Kolhe, 48th anniversary post (WRD figures) · linkedin.com/posts/pravinkolhe_48th-anniversary-of-jayakwadi-project-activity-7167012128619520000-T0Gj</td><td>secondary (official's post)</td></tr>
+    <tr><td>[7]</td><td>Times of India — Maharashtra cabinet clears ₹6,400+ crore for Jayakwadi Phase II</td><td>secondary (news)</td></tr>
+    <tr><td>[8]</td><td>ET EnergyWorld — Jayakwadi hydro plant (12 MW) shut since Dec 2023</td><td>secondary (news)</td></tr>
+    <tr><td>[9]</td><td>MWDR Pravah live report row for Paithan (Jayakwadi), 05-09-2026</td><td>primary (govt, live)</td></tr>
+    <tr><td>[10]</td><td>Forest clearance conservation-value assessment (2023) · forestsclearance.nic.in</td><td>primary (govt assessment)</td></tr>
+    <tr><td>[11]</td><td>Compiled daily series 2010–2024 · repo data/raw/wris_v2/jayakwadi.csv (CWC Dhalegaon gauge, cleaned)</td><td>primary (this project)</td></tr>
+    <tr><td>[12]</td><td>Deccan Chronicle — Jayakwadi Phase II, canal history</td><td>secondary (news)</td></tr>
+    <tr><td>[13]</td><td>Chhatrapati Sambhajinagar district heritage page — 30 roosting islands</td><td>secondary (district)</td></tr>
+    <tr><td>[14]</td><td>Incredible India — sanctuary declared 1986; seasonality</td><td>secondary (govt tourism)</td></tr>
+    <tr><td>[15]</td><td>Times of India — notified 1986, 341.05 km², attracting fewer birds in full years</td><td>secondary (news)</td></tr>
+    <tr><td>[16]</td><td>Times of India — sanctuary still awaiting upgraded tag</td><td>secondary (news)</td></tr>
+    <tr><td>[17]</td><td>SANDRP — 2024 siltation, safety & sustainability of dams in India</td><td>secondary (advocacy research)</td></tr>
+    <tr><td>[18]</td><td>Facebook/Aurangabad city post — 0.5% live storage (2016 crisis)</td><td>secondary (verify on WRD portal)</td></tr>
+    <tr><td>[19]</td><td>ThePrint/PTI — 5.19% storage, May 2024</td><td>secondary (news)</td></tr>
+    <tr><td>[20]</td><td>Hindustan Times — 5.21% storage, July 2024</td><td>secondary (news)</td></tr>
+    <tr><td>[21]</td><td>ThePrint — LBC capacity halved; ₹3,000 crore repairs</td><td>secondary (news)</td></tr>
+    <tr><td>[22]</td><td>Times of India — 92% live storage, 2019</td><td>secondary (news)</td></tr>
+    <tr><td>[23]</td><td>Times of India — 75% live storage, 2025</td><td>secondary (news)</td></tr>
+    <tr><td>[24]</td><td>Deccan Chronicle — Phase II ₹6,477 crore</td><td>secondary (news)</td></tr>
+  </table>
+</section>
+
+<footer>
+  Jayakwadi research package v1 · compiled 2026-09-06 · part of the GNN-ReservoirNet project (github.com/rajhodedara/gnn-reservoirnet)<br>
+  Companion files: data/jayakwadi_facts.csv · data/storage_latest.csv · data/jayakwadi_inflow_storage_daily_2010_2024.csv · SOURCES.md · HANDOFF.md
+</footer>
+</div></body></html>
