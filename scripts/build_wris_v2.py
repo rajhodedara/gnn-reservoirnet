@@ -303,6 +303,11 @@ def build(wris_dir: Path, legacy_dir: Path, out_dir: Path) -> dict:
         cap = capacity_tmc(slug)
         cur = pd.read_csv(wris_dir / f"{slug}.csv")
         cur["Date"] = pd.to_datetime(cur["Date"])
+        if cur["Inflow (cusecs/cumecs)"].isna().any():
+            raise ValueError(
+                f"{slug}: inflow column contains NaN in data/raw/wris — refusing to "
+                "propagate broken data into wris_v2"
+            )
         cur = cur[(cur["Date"] >= START_DATE) & (cur["Date"] <= END_DATE)].reset_index(drop=True)
         if len(cur) != EXPECTED_ROWS:
             raise ValueError(f"{slug}: current file has {len(cur)} rows in window, expected {EXPECTED_ROWS}")

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-03T21:08:41.077281+00:00",
+  "generated_at": "2026-09-05T17:22:50.981867+00:00",
   "description": "Artifact-cleaned rebuild of WRIS reservoir dataset (storage corrected, inflow preserved verbatim).",
   "transformations": [
     "1. Storage loaded from best available source (legacy 3-col BCM-scale files for almatti/krishnaraja_sagara/tungabhadra; current TMC column otherwise).",
