@@ -142,16 +142,25 @@ def build_datasets(config: dict, graph: object):
 
     reservoirs = config.get("reservoirs", [{"id": f"R{i:02d}"} for i in range(1, 11)])
     num_nodes = graph.num_nodes
-    node_feat_dim = 5 # inflow, storage, rainfall(tp), evap(e), soil_moisture(swvl1)
+    node_feat_dim = 5 # inflow, storage, runoff(sro), evap(e), soil_moisture(swvl1)
 
     import xarray as xr
     import glob
-    era5_files = glob.glob(os.path.join(config["data"].get("era5_data_dir", "data/raw/era5"), "*.nc"))
-    if era5_files:
-        era5_ds = xr.open_mfdataset(era5_files, combine='by_coords')
+    pre_path = os.path.join(config["data"].get("era5_data_dir", "data/raw/era5"), "reservoir_era5_daily.csv")
+    era5_pre = None
+    if os.path.exists(pre_path):
+        era5_pre = pd.read_csv(pre_path, parse_dates=["Date"], index_col="Date")
+        era5_mode = "precomputed"
+        logger.info("ERA5 precomputed point extraction loaded: %s (%d rows)", pre_path, len(era5_pre))
     else:
-        era5_ds = None
-        logger.warning("No ERA5 NetCDF files found. Climate features will be zeroed.")
+        era5_files = glob.glob(os.path.join(config["data"].get("era5_data_dir", "data/raw/era5"), "*.nc"))
+        if era5_files:
+            era5_ds = xr.open_mfdataset(era5_files, combine='by_coords')
+            era5_mode = "netcdf"
+        else:
+            era5_ds = None
+            era5_mode = "none"
+            logger.warning("No ERA5 precomputed CSV or NetCDF files found. Weather features will be zeroed.")
 
     for i, res in enumerate(reservoirs):
         res_id = res["id"]
@@ -169,30 +178,33 @@ def build_datasets(config: dict, graph: object):
                 "Refusing to train on synthetic placeholder data."
             )
 
-        # Merge ERA5 data if available
-        if era5_ds is not None and 'latitude' in res and 'longitude' in res:
+        # Merge ERA5-derived features (runoff, evap, soil moisture)
+        if era5_mode == "precomputed":
+            for feat in ["runoff", "evap", "soil_moisture"]:
+                col = f"{res_id}_{feat}"
+                if col in era5_pre.columns:
+                    df[feat] = era5_pre[col].reindex(df.index).values
+                else:
+                    logger.warning("ERA5 CSV lacks column %s — zero-filling", col)
+                    df[feat] = 0.0
+        elif era5_mode == "netcdf" and 'latitude' in res and 'longitude' in res:
             try:
                 lat, lon = res['latitude'], res['longitude']
                 res_ds = era5_ds.sel(latitude=lat, longitude=lon, method="nearest")
                 
-                # ERA5 time may have hourly/monthly, but we downloaded daily/hourly? Resample to daily if needed.
-                # Assuming ERA5 dataset is daily or we resample:
-                
-                # Extract features: tp (meters -> mm), e (meters -> mm), swvl1 (m3/m3)
-                # Select only numeric columns for resampling to avoid aggregation errors on object dtypes
                 res_df = res_ds.to_dataframe().select_dtypes(include=[np.number]).resample('D').mean()
                 
-                if 'tp' in res_df.columns:
-                    df['rainfall'] = res_df['tp'] * 1000.0
+                if 'sro' in res_df.columns:
+                    df['runoff'] = res_df['sro'] * 1000.0
                 if 'e' in res_df.columns:
-                    df['evap'] = res_df['e'] * 1000.0  # Usually negative, leaving as is
+                    df['evap'] = res_df['e'] * 1000.0  # ERA5 evap is negative by convention
                 if 'swvl1' in res_df.columns:
                     df['soil_moisture'] = res_df['swvl1']
             except Exception as e:
                 logger.warning(f"Failed to extract ERA5 data for {res_id}: {e}")
 
         # Ensure all expected feature columns exist
-        for col in ['inflow', 'storage', 'rainfall', 'evap', 'soil_moisture']:
+        for col in ['inflow', 'storage', 'runoff', 'evap', 'soil_moisture']:
             if col not in df.columns:
                 df[col] = 0.0
 
@@ -201,7 +213,7 @@ def build_datasets(config: dict, graph: object):
         
         # We need to flatten features for all nodes to concatenate horizontally
         # Order MUST match node_feat_dim = 5
-        feats = df[['inflow', 'storage', 'rainfall', 'evap', 'soil_moisture']]
+        feats = df[['inflow', 'storage', 'runoff', 'evap', 'soil_moisture']]
         feats.columns = [f"{res_id}_{c}" for c in feats.columns]
         features_dict[res_id] = feats
 
@@ -451,10 +463,10 @@ def explain(config: dict, model: ReservoirGNN, graph: object,
     ig_explainer = IGExplainer(model, edge_index=edge_index, target_idx=0) # Explaining Week 1 prediction
     attributions = ig_explainer.attribute(node_features, climate_indices)
     
-    # Feature group mapping for node features (inflow, storage, rainfall, evap, soil_moisture)
+    # Feature group mapping for node features (inflow, storage, runoff, evap, soil_moisture)
     node_groups = {
         "Hydrology": [0, 1],
-        "Meteorology": [2, 3, 4]
+        "Runoff & Land": [2, 3, 4]
     }
     
     node_importance = ig_explainer.aggregate_by_group(attributions['node_features'], node_groups)
