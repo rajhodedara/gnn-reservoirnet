@@ -1,0 +1,371 @@
+{
+  "config": {
+    "wris_dir": "/kaggle/working/gnn-reservoirnet/data/raw/wris_v2",
+    "val_years": [
+      2023
+    ],
+    "test_years": [
+      2024
+    ]
+  },
+  "persistence": {
+    "val": {
+      "nagarjuna_sagar": {
+        "NSE": 0.26244505021308984,
+        "RMSE": 362.42096873817206,
+        "MAE": 244.19047397260275,
+        "n": 365,
+        "degenerate_obs": false,
+        "obs_zero_pct": 0.0
+      },
+      "srisailam": {
+        "NSE": 0.0937692374248641,
+        "RMSE": 2174.9442229979936,
+        "MAE": 658.5382356164386,
+        "n": 365,
+        "degenerate_obs": false,
+        "obs_zero_pct": 6.3
+      },
+      "almatti": {
+        "NSE": 0.4538531004171181,
+        "RMSE": 3594.4129483628985,
+        "MAE": 1179.1193479452056,
+        "n": 365,
+        "degenerate_obs": false,
+        "obs_zero_pct": 73.4
+      },
+      "tungabhadra": {
+        "NSE": 0.10515180051981443,
+        "RMSE": 2255.52156902627,
+        "MAE": 676.4186547945205,
+        "n": 365,
+        "degenerate_obs": false,
+        "obs_zero_pct": 33.2
+      },
+      "mettur": {
+        "NSE": 0.08943331324920056,
+        "RMSE": 480.9560181588675,
+        "MAE": 295.60898630136984,
+        "n": 365,
+        "degenerate_obs": false,
+        "obs_zero_pct": 0.0
+      },
+      "krishnaraja_sagara": {
+        "NSE": -0.26320261307842463,
+        "RMSE": 958.0433513002469,
+        "MAE": 332.68431232876713,
+        "n": 365,
+        "degenerate_obs": false,
+        "obs_zero_pct": 0.0
+      },
+      "jayakwadi": {
+        "NSE": -0.2553211812569096,
+        "RMSE": 339.83880028393963,
+        "MAE": 123.98747397260276,
+        "n": 365,
+        "degenerate_obs": false,
+        "obs_zero_pct": 76.2
+      },
+      "ujjani": {
+        "NSE": 0.3881765435480501,
+        "RMSE": 1143.8330894379435,
+        "MAE": 481.3290410958904,
+        "n": 365,
+        "degenerate_obs": false,
+        "obs_zero_pct": 73.2
+      },
+      "sardar_sarovar": {
+        "NSE": -0.3737457796971686,
+        "RMSE": 16253.174687727293,
+        "MAE": 4756.157479452055,
+        "n": 365,
+        "degenerate_obs": false,
+        "obs_zero_pct": 0.0
+      },
+      "ukai": {
+        "NSE": 0.5458289930445246,
+        "RMSE": 984.5508264297681,
+        "MAE": 464.21739178082197,
+        "n": 365,
+        "degenerate_obs": false,
+        "obs_zero_pct": 0.0
+      },
+      "_pooled": {
+        "NSE": -0.07754068235396061,
+        "RMSE": 5390.5190045494055,
+        "MAE": 921.2251397260275,
+        "n": 3650,
+        "excluded_degenerate": []
+      }
+    },
+    "test": {
+      "nagarjuna_sagar": {
+        "NSE": -0.023142973449584936,
+        "RMSE": 11790.282610838818,
+        "MAE": 4259.932977715878,
+        "n": 359,
+        "degenerate_obs": false,
+        "obs_zero_pct": 0.0
+      },
+      "srisailam": {
+        "NSE": 0.4175962837331021,
+        "RMSE": 8848.035242754442,
+        "MAE": 3834.9161476323134,
+        "n": 359,
+        "degenerate_obs": false,
+        "obs_zero_pct": 24.0
+      },
+      "almatti": {
+        "NSE": 0.48832914307964204,
+        "RMSE": 8650.394246606438,
+        "MAE": 3557.830891364902,
+        "n": 359,
+        "degenerate_obs": false,
+        "obs_zero_pct": 52.1
+      },
+      "tungabhadra": {
+        "NSE": 0.611777197694476,
+        "RMSE": 3406.3581351119237,
+        "MAE": 1455.1524902506962,
+        "n": 359,
+        "degenerate_obs": false,
+        "obs_zero_pct": 38.4
+      },
+      "mettur": {
+        "NSE": 0.3524780986316237,
+        "RMSE": 2970.9547612569863,
+        "MAE": 1148.9695543175485,
+        "n": 359,
+        "degenerate_obs": false,
+        "obs_zero_pct": 0.0
+      },
+      "krishnaraja_sagara": {
+        "NSE": 0.4587778615475785,
+        "RMSE": 2182.6730932220476,
+        "MAE": 806.0467771587746,
+        "n": 359,
+        "degenerate_obs": false,
+        "obs_zero_pct": 0.0
+      },
+      "jayakwadi": {
+        "NSE": 0.00794678918920333,
+        "RMSE": 803.7627963129607,
+        "MAE": 353.15270194986067,
+        "n": 359,
+        "degenerate_obs": false,
+        "obs_zero_pct": 71.9
+      },
+      "ujjani": {
+        "NSE": 0.338062839185432,
+        "RMSE": 3752.8489590410495,
+        "MAE": 1591.0157103064066,
+        "n": 359,
+        "degenerate_obs": false,
+        "obs_zero_pct": 55.4
+      },
+      "sardar_sarovar": {
+        "NSE": 0.37569820138213617,
+        "RMSE": 7411.018189509367,
+        "MAE": 3968.657487465181,
+        "n": 359,
+        "degenerate_obs": false,
+        "obs_zero_pct": 0.0
+      },
+      "ukai": {
+        "NSE": 0.6504666893420303,
+        "RMSE": 1377.3252112490213,
+        "MAE": 610.7517548746517,
+        "n": 359,
+        "degenerate_obs": false,
+        "obs_zero_pct": 0.0
+      },
+      "_pooled": {
+        "NSE": 0.39355596797352976,
+        "RMSE": 6235.9590070577115,
+        "MAE": 2158.6426493036215,
+        "n": 3590,
+        "excluded_degenerate": []
+      }
+    }
+  },
+  "climatology": {
+    "val": {
+      "nagarjuna_sagar": {
+        "NSE": -130.7753410132105,
+        "RMSE": 4844.324203051131,
+        "MAE": 2920.1181956820433,
+        "n": 365,
+        "degenerate_obs": false,
+        "obs_zero_pct": 0.0
+      },
+      "srisailam": {
+        "NSE": -2.888561389919705,
+        "RMSE": 4505.294691225154,
+        "MAE": 2320.792270904798,
+        "n": 365,
+        "degenerate_obs": false,
+        "obs_zero_pct": 6.3
+      },
+      "almatti": {
+        "NSE": 0.1761612639135175,
+        "RMSE": 4414.630281030053,
+        "MAE": 2347.2910302448004,
+        "n": 365,
+        "degenerate_obs": false,
+        "obs_zero_pct": 73.4
+      },
+      "tungabhadra": {
+        "NSE": -0.19645064516136945,
+        "RMSE": 2608.0727068545366,
+        "MAE": 1543.3404003904031,
+        "n": 365,
+        "degenerate_obs": false,
+        "obs_zero_pct": 33.2
+      },
+      "mettur": {
+        "NSE": -8.33695606850474,
+        "RMSE": 1540.111424066571,
+        "MAE": 1047.9047973580919,
+        "n": 365,
+        "degenerate_obs": false,
+        "obs_zero_pct": 0.0
+      },
+      "krishnaraja_sagara": {
+        "NSE": -0.6747010403410847,
+        "RMSE": 1103.1061316507632,
+        "MAE": 640.6636275745275,
+        "n": 365,
+        "degenerate_obs": false,
+        "obs_zero_pct": 0.0
+      },
+      "jayakwadi": {
+        "NSE": -1.9895694327910802,
+        "RMSE": 524.4448870003437,
+        "MAE": 460.7809730493395,
+        "n": 365,
+        "degenerate_obs": false,
+        "obs_zero_pct": 76.2
+      },
+      "ujjani": {
+        "NSE": -0.7242420121944295,
+        "RMSE": 1920.2099053857125,
+        "MAE": 995.9730791457162,
+        "n": 365,
+        "degenerate_obs": false,
+        "obs_zero_pct": 73.2
+      },
+      "sardar_sarovar": {
+        "NSE": 0.23569053001126805,
+        "RMSE": 12123.26610051518,
+        "MAE": 4906.750570532423,
+        "n": 365,
+        "degenerate_obs": false,
+        "obs_zero_pct": 0.0
+      },
+      "ukai": {
+        "NSE": 0.4127530031587944,
+        "RMSE": 1119.538001998765,
+        "MAE": 615.6211284863501,
+        "n": 365,
+        "degenerate_obs": false,
+        "obs_zero_pct": 0.0
+      },
+      "_pooled": {
+        "NSE": 0.16254377898524608,
+        "RMSE": 4752.2009862774485,
+        "MAE": 1779.9236073368493,
+        "n": 3650,
+        "excluded_degenerate": []
+      }
+    },
+    "test": {
+      "nagarjuna_sagar": {
+        "NSE": 0.25824691922554155,
+        "RMSE": 10038.890832717789,
+        "MAE": 3447.1720422453727,
+        "n": 359,
+        "degenerate_obs": false,
+        "obs_zero_pct": 0.0
+      },
+      "srisailam": {
+        "NSE": 0.452933653532244,
+        "RMSE": 8575.407658707376,
+        "MAE": 3249.495794978042,
+        "n": 359,
+        "degenerate_obs": false,
+        "obs_zero_pct": 24.0
+      },
+      "almatti": {
+        "NSE": 0.5332026785222601,
+        "RMSE": 8262.371875825846,
+        "MAE": 3058.5245262068556,
+        "n": 359,
+        "degenerate_obs": false,
+        "obs_zero_pct": 52.1
+      },
+      "tungabhadra": {
+        "NSE": 0.542014161901293,
+        "RMSE": 3699.779237982839,
+        "MAE": 1527.4098924635318,
+        "n": 359,
+        "degenerate_obs": false,
+        "obs_zero_pct": 38.4
+      },
+      "mettur": {
+        "NSE": 0.35374016174026457,
+        "RMSE": 2968.0580552164947,
+        "MAE": 1117.8759768308705,
+        "n": 359,
+        "degenerate_obs": false,
+        "obs_zero_pct": 0.0
+      },
+      "krishnaraja_sagara": {
+        "NSE": 0.3817373115868169,
+        "RMSE": 2332.8533428086457,
+        "MAE": 751.7370232191851,
+        "n": 359,
+        "degenerate_obs": false,
+        "obs_zero_pct": 0.0
+      },
+      "jayakwadi": {
+        "NSE": 0.3538953210249409,
+        "RMSE": 648.6521467033228,
+        "MAE": 474.55994713099614,
+        "n": 359,
+        "degenerate_obs": false,
+        "obs_zero_pct": 71.9
+      },
+      "ujjani": {
+        "NSE": 0.35736266130031447,
+        "RMSE": 3697.734131563092,
+        "MAE": 1455.5042430353146,
+        "n": 359,
+        "degenerate_obs": false,
+        "obs_zero_pct": 55.4
+      },
+      "sardar_sarovar": {
+        "NSE": 0.6860900941051937,
+        "RMSE": 5255.125553482473,
+        "MAE": 2909.432389988519,
+        "n": 359,
+        "degenerate_obs": false,
+        "obs_zero_pct": 0.0
+      },
+      "ukai": {
+        "NSE": 0.7910796525177215,
+        "RMSE": 1064.8356475559833,
+        "MAE": 538.6457622421336,
+        "n": 359,
+        "degenerate_obs": false,
+        "obs_zero_pct": 0.0
+      },
+      "_pooled": {
+        "NSE": 0.5113040897316955,
+        "RMSE": 5597.927127794699,
+        "MAE": 1853.035759834082,
+        "n": 3590,
+        "excluded_degenerate": []
+      }
+    }
+  }
+}
