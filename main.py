@@ -273,13 +273,20 @@ def build_datasets(config: dict, graph: object):
     train_idx, val_idx, test_idx = create_temporal_splits(dataset_dates, val_years, test_years)
 
     val_sample_dates = dataset_dates[val_idx]
+    test_sample_dates = dataset_dates[test_idx]
     oni_col = "ONI" if "ONI" in climate_raw.columns else None
     oni_raw_series = (
         climate_raw[oni_col].reindex(val_sample_dates).astype(float)
         if oni_col else pd.Series(dtype=float)
     )
+    oni_raw_series_test = (
+        climate_raw[oni_col].reindex(test_sample_dates).astype(float)
+        if oni_col else pd.Series(dtype=float)
+    )
     normalizer["val_sample_dates"] = val_sample_dates
     normalizer["oni_raw"] = oni_raw_series
+    normalizer["test_sample_dates"] = test_sample_dates
+    normalizer["oni_raw_test"] = oni_raw_series_test
     
     train_dataset = Subset(dataset, train_idx)
     val_dataset = Subset(dataset, val_idx)
@@ -362,8 +369,8 @@ def evaluate(config: dict, model: ReservoirGNN, graph: object,
     all_preds = []
     all_oni = []
 
-    val_sample_dates = normalizer.get("val_sample_dates")
-    oni_raw_series = normalizer.get("oni_raw")
+    val_sample_dates = normalizer.get("val_sample_dates") if split == "val" else normalizer.get("test_sample_dates")
+    oni_raw_series = normalizer.get("oni_raw") if split == "val" else normalizer.get("oni_raw_test")
     sample_offset = 0
 
     with torch.no_grad():
@@ -433,6 +440,17 @@ def evaluate(config: dict, model: ReservoirGNN, graph: object,
     by_week = pd.concat(per_week, ignore_index=True)
     by_week.to_csv(os.path.join(output_dir, f"evaluation_metrics_by_week{suffix}.csv"), index=False)
     logger.info("Per-week metrics: %d weeks x %d reservoirs", targets_full.shape[2], len(evaluator.reservoir_names))
+
+    # Save raw predictions for offline analysis (blending, diagnostics)
+    dates_arr = np.array([str(d.date()) for d in (val_sample_dates if split == "val" else normalizer.get("test_sample_dates"))])
+    np.savez_compressed(
+        os.path.join(output_dir, f"predictions_{split}.npz"),
+        targets=targets_full,
+        preds_median=preds_full[:, :, :, 1],
+        dates=dates_arr,
+        reservoirs=np.array(evaluator.reservoir_names),
+    )
+    logger.info("Raw predictions saved: predictions_%s.npz", split)
 
     logger.info("=" * 60)
     logger.info("EVALUATION RESULTS SAVED TO runs/ (Week 1 Forecast, split=%s)", split)
