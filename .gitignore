@@ -25,6 +25,9 @@ data/raw/*
 !data/raw/wris_v2/
 !data/raw/enso/
 !data/raw/climate_indices/
+!data/raw/era5/
+data/raw/era5/*
+!data/raw/era5/reservoir_era5_daily.csv
 # wris: keep canonical CSVs + manifests, drop local backups
 data/raw/wris/backup_pre_ka_patch/
 # enso: drop local backup of the pre-IOD climate file
