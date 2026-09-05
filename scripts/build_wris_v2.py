@@ -19,6 +19,7 @@ Usage:
 
 import argparse
 import json
+import logging
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
@@ -26,11 +27,30 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
+logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
+logger = logging.getLogger("build_wris_v2")
+
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
 START_DATE = "2010-01-01"
 END_DATE = "2024-12-31"
 EXPECTED_ROWS = 5479
+
+# Physical upper bound on daily inflow per reservoir (m3/s), ~2x the dam's
+# spillway/design discharge capacity. Values above this are telemetry
+# artifacts (e.g. NS 228,396 m3/s in Oct-2019 vs a ~31,000 m3/s record flood).
+INFLOW_MAX_CUMECS = {
+    "almatti": 28000,
+    "tungabhadra": 36000,
+    "krishnaraja_sagara": 17600,
+    "mettur": 17000,
+    "nagarjuna_sagar": 76000,
+    "srisailam": 77000,
+    "jayakwadi": 6800,
+    "ujjani": 24000,
+    "sardar_sarovar": 108000,
+    "ukai": 89000,
+}
 REQUIRED_COLUMNS = [
     "Date",
     "Reservoir_Name",
@@ -308,6 +328,20 @@ def build(wris_dir: Path, legacy_dir: Path, out_dir: Path) -> dict:
                 f"{slug}: inflow column contains NaN in data/raw/wris — refusing to "
                 "propagate broken data into wris_v2"
             )
+        # Mask physically impossible inflow spikes (telemetry artifacts), then
+        # interpolate the few masked days so the copied series stays gap-free.
+        inflow = cur["Inflow (cusecs/cumecs)"].astype(float)
+        over = inflow > INFLOW_MAX_CUMECS[slug]
+        inflow_masked = int(over.sum())
+        if inflow_masked:
+            dates_over = cur.loc[over, "Date"].dt.strftime("%Y-%m-%d").tolist()
+            logger.warning(
+                "%s: masking %d inflow values over physical bound %.0f m3/s at %s",
+                slug, inflow_masked, INFLOW_MAX_CUMECS[slug], dates_over[:6],
+            )
+            inflow[over] = np.nan
+            inflow = inflow.interpolate(method="linear").ffill().bfill()
+        cur["Inflow (cusecs/cumecs)"] = inflow.round(3)
         cur = cur[(cur["Date"] >= START_DATE) & (cur["Date"] <= END_DATE)].reset_index(drop=True)
         if len(cur) != EXPECTED_ROWS:
             raise ValueError(f"{slug}: current file has {len(cur)} rows in window, expected {EXPECTED_ROWS}")

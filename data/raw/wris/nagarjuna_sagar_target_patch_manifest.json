@@ -1,0 +1,22 @@
+{
+  "generated_at": "2026-09-05T18:53:10.788287+00:00",
+  "reservoir": "nagarjuna_sagar",
+  "patch_window": "2010-01-01..2024-12-31",
+  "source": "CWC Wadenepally main-stem gauge (NWDP resource 1b9088b5-d196-4c5d-8780-a888e7e9e86b, River Discharge CWC Telangana 2001-2025 Manual Daily)",
+  "source_resource_id": "1b9088b5-d196-4c5d-8780-a888e7e9e86b",
+  "station": "Wadenepally",
+  "river": "Krishna",
+  "unit": "m3/s",
+  "unit_conversion": "none (source already m3/s)",
+  "rationale": "Srisailam-duplicated series duplicated Srisailam's gauge on 76.62% of days due to a fallback artifact. Srisailam Dam empties directly into Nagarjuna Sagar backwater gorge (~100 km). Wadenepally provides continuous CWC Krishna main-stem discharge (8,673 rows, continuous 2001-2025).",
+  "rows_patched": 5479,
+  "gap_days_interpolated": 465,
+  "old_mean": 267.91,
+  "old_max": 17506.82,
+  "new_mean": 894.55,
+  "new_max": 228396.4,
+  "old_duplication_days_with_srisailam": 4198,
+  "old_duplication_pct": 76.62,
+  "new_duplication_days_with_srisailam": 24,
+  "new_duplication_pct": 0.44
+}
