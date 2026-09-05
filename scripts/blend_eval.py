@@ -56,10 +56,10 @@ def climatology_weekly(daily_single: pd.Series, sample_dates, week: int, train_e
     in_win = dist <= 7
     sums = in_win @ np.nan_to_num(vals)
     counts = in_win.sum(axis=1)
-    means = np.divide(sums, counts[:, None], out=np.full_like(sums, np.nan), where=counts[:, None] > 0)
+    means = np.divide(sums, counts, out=np.full_like(sums, np.nan), where=counts > 0)
     clim_doy = pd.Series(means, index=slots)
 
-    mid_doy = (sample_dates + pd.Timedelta(days=7 * week - 3)).dayofyear.values
+    mid_doy = (sample_dates + pd.Timedelta(days=7 * week - 3)).dt.dayofyear.values
     pred = clim_doy.reindex(np.clip(mid_doy, 1, 366)).values
     fallback = np.nanmean(vals) if len(vals) else 0.0
     pred = np.where(np.isnan(pred), fallback, pred)
