@@ -32,19 +32,25 @@ def main() -> int:
             print(f"WARNING: {f} missing — skipping {d.name}")
             continue
         df = pd.read_csv(f).set_index("Reservoir")
-        frames.append(df[["NSE", "RMSE", "MAE"]].rename(columns=lambda c: f"{c}_{d.name}"))
-        print(f"loaded {d.name}: {len(df)} reservoirs")
+        # Older CSVs may lack some columns (e.g. MAE) — keep whatever exists
+        avail = [c for c in ["NSE", "RMSE", "MAE"] if c in df.columns]
+        if "NSE" not in avail:
+            print(f"WARNING: {f} has no NSE column — skipping {d.name}")
+            continue
+        frames.append(df[avail].rename(columns=lambda c: f"{c}_{d.name}"))
+        print(f"loaded {d.name}: {len(df)} reservoirs ({', '.join(avail)})")
 
     if len(frames) < 2:
         print("Need at least 2 seeds for mean ± std.")
         return 1
 
     merged = pd.concat(frames, axis=1)
+    nse_cols = merged.filter(like="NSE").columns
     summary = pd.DataFrame({
         "NSE_mean": merged.filter(like="NSE").mean(axis=1),
         "NSE_std": merged.filter(like="NSE").std(axis=1),
         "RMSE_mean": merged.filter(like="RMSE").mean(axis=1),
-        "MAE_mean": merged.filter(like="MAE").mean(axis=1),
+        "MAE_mean": merged.filter(like="MAE").mean(axis=1) if "MAE" in merged.columns else np.nan,
         "seeds": merged.filter(like="NSE").notna().sum(axis=1),
     })
     summary = summary.sort_values("NSE_mean", ascending=False)

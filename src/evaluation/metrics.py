@@ -28,6 +28,19 @@ def rmse(obs: np.ndarray, pred: np.ndarray) -> float:
     """
     return float(np.sqrt(np.mean((obs - pred) ** 2)))
 
+def mae(obs: np.ndarray, pred: np.ndarray) -> float:
+    """
+    Mean Absolute Error.
+
+    Args:
+        obs (np.ndarray): Observed values.
+        pred (np.ndarray): Predicted values.
+
+    Returns:
+        float: MAE value.
+    """
+    return float(np.mean(np.abs(obs - pred)))
+
 def nse(obs: np.ndarray, pred: np.ndarray) -> float:
     """
     Nash-Sutcliffe Efficiency.
@@ -94,6 +107,7 @@ def evaluate_model(obs: np.ndarray, pred_median: np.ndarray, pred_ensemble: np.n
     return {
         "CRPS": crps(obs, pred_ensemble),
         "RMSE": rmse(obs, pred_median),
+        "MAE": mae(obs, pred_median),
         "NSE": nse(obs, pred_median),
         "KGE": kge(obs, pred_median)
     }
