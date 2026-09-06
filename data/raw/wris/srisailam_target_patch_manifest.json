@@ -1,0 +1,28 @@
+{
+    "source_url": "http://krmb.gov.in/krmb/getddAvgReport",
+    "projectId": 19,
+    "dates_patched_min": "2014-06-01",
+    "dates_patched_max": "2024-12-31",
+    "rows_patched": 3830,
+    "old_2024_stats": {
+        "count": 366.0,
+        "mean": 718.181868852459,
+        "std": 1740.2119754171201,
+        "min": 0.0,
+        "25%": 0.0,
+        "50%": 22.395,
+        "75%": 315.12825,
+        "max": 9198.0
+    },
+    "new_2024_stats": {
+        "count": 366.0,
+        "mean": 1517.6231496699452,
+        "std": 3618.7438637959735,
+        "min": 0.0,
+        "25%": 4.176728000000001,
+        "50%": 31.0352128,
+        "75%": 992.6100279999999,
+        "max": 39269.455072
+    },
+    "note": "Pre-KRMB source kept for earlier years."
+}
