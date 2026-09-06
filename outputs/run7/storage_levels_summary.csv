@@ -1,0 +1,721 @@
+Split,Reservoir,Week,Model,NSE,RMSE_TMC
+test,Almatti,1,gnn,-14.112,28.59
+test,Almatti,1,persist,-1.138,10.753
+test,Almatti,1,clim,-28.448,39.91
+test,Almatti,2,gnn,-24.111,36.516
+test,Almatti,2,persist,-2.238,13.113
+test,Almatti,2,clim,-28.864,39.822
+test,Almatti,3,gnn,-26.923,38.822
+test,Almatti,3,persist,-1.717,12.11
+test,Almatti,3,clim,-27.666,39.335
+test,Almatti,4,gnn,-28.881,40.619
+test,Almatti,4,persist,0.37,5.899
+test,Almatti,4,clim,-26.584,39.027
+test,Almatti,5,gnn,-30.567,41.83
+test,Almatti,5,persist,-0.389,8.776
+test,Almatti,5,clim,-27.085,39.455
+test,Almatti,6,gnn,-34.678,43.758
+test,Almatti,6,persist,-2.022,12.734
+test,Almatti,6,clim,-28.555,39.826
+test,Almatti,7,gnn,-36.515,44.974
+test,Almatti,7,persist,-2.072,12.869
+test,Almatti,7,clim,-27.751,39.372
+test,Almatti,8,gnn,-37.619,46.155
+test,Almatti,8,persist,-0.541,9.219
+test,Almatti,8,clim,-26.595,39.016
+test,Almatti,9,gnn,-39.91,48.004
+test,Almatti,9,persist,0.508,5.265
+test,Almatti,9,clim,-26.358,39.256
+test,Almatti,10,gnn,-43.832,50.022
+test,Almatti,10,persist,-1.556,11.945
+test,Almatti,10,clim,-27.355,39.781
+test,Almatti,11,gnn,-46.838,51.585
+test,Almatti,11,persist,-2.166,13.27
+test,Almatti,11,clim,-26.977,39.449
+test,Almatti,12,gnn,-48.369,52.381
+test,Almatti,12,persist,-1.258,11.203
+test,Almatti,12,clim,-26.676,39.219
+test,Jayakwadi,1,gnn,-1.908,14.85
+test,Jayakwadi,1,persist,-0.604,11.03
+test,Jayakwadi,1,clim,-3.911,19.298
+test,Jayakwadi,2,gnn,-3.911,18.821
+test,Jayakwadi,2,persist,-1.587,13.659
+test,Jayakwadi,2,clim,-4.033,19.053
+test,Jayakwadi,3,gnn,-4.823,19.981
+test,Jayakwadi,3,persist,-1.505,13.105
+test,Jayakwadi,3,clim,-3.865,18.263
+test,Jayakwadi,4,gnn,-5.599,20.571
+test,Jayakwadi,4,persist,-0.123,8.487
+test,Jayakwadi,4,clim,-3.68,17.324
+test,Jayakwadi,5,gnn,-5.805,20.569
+test,Jayakwadi,5,persist,-0.74,10.4
+test,Jayakwadi,5,clim,-3.689,17.074
+test,Jayakwadi,6,gnn,-6.123,20.681
+test,Jayakwadi,6,persist,-2.241,13.95
+test,Jayakwadi,6,clim,-3.979,17.292
+test,Jayakwadi,7,gnn,-6.193,20.85
+test,Jayakwadi,7,persist,-2.288,14.098
+test,Jayakwadi,7,clim,-3.74,16.925
+test,Jayakwadi,8,gnn,-6.099,20.964
+test,Jayakwadi,8,persist,-0.897,10.838
+test,Jayakwadi,8,clim,-3.527,16.741
+test,Jayakwadi,9,gnn,-5.699,20.495
+test,Jayakwadi,9,persist,0.02,7.841
+test,Jayakwadi,9,clim,-3.59,16.965
+test,Jayakwadi,10,gnn,-5.738,20.497
+test,Jayakwadi,10,persist,-1.803,13.221
+test,Jayakwadi,10,clim,-3.896,17.472
+test,Jayakwadi,11,gnn,-5.701,20.474
+test,Jayakwadi,11,persist,-2.34,14.455
+test,Jayakwadi,11,clim,-3.814,17.353
+test,Jayakwadi,12,gnn,-5.663,20.368
+test,Jayakwadi,12,persist,-1.549,12.596
+test,Jayakwadi,12,clim,-3.875,17.421
+test,Krishnaraja Sagara,1,gnn,-11.279,9.492
+test,Krishnaraja Sagara,1,persist,-1.117,3.941
+test,Krishnaraja Sagara,1,clim,-55.543,20.369
+test,Krishnaraja Sagara,2,gnn,-17.944,11.678
+test,Krishnaraja Sagara,2,persist,-2.276,4.856
+test,Krishnaraja Sagara,2,clim,-56.857,20.409
+test,Krishnaraja Sagara,3,gnn,-20.817,12.624
+test,Krishnaraja Sagara,3,persist,-1.745,4.478
+test,Krishnaraja Sagara,3,clim,-55.454,20.307
+test,Krishnaraja Sagara,4,gnn,-23.239,13.407
+test,Krishnaraja Sagara,4,persist,0.417,2.079
+test,Krishnaraja Sagara,4,clim,-54.16,20.225
+test,Krishnaraja Sagara,5,gnn,-26.789,14.353
+test,Krishnaraja Sagara,5,persist,-0.337,3.148
+test,Krishnaraja Sagara,5,clim,-54.855,20.349
+test,Krishnaraja Sagara,6,gnn,-31.943,15.376
+test,Krishnaraja Sagara,6,persist,-2.064,4.689
+test,Krishnaraja Sagara,6,clim,-57.833,20.548
+test,Krishnaraja Sagara,7,gnn,-35.185,16.152
+test,Krishnaraja Sagara,7,persist,-2.131,4.752
+test,Krishnaraja Sagara,7,clim,-57.058,20.46
+test,Krishnaraja Sagara,8,gnn,-37.088,16.708
+test,Krishnaraja Sagara,8,persist,-0.532,3.351
+test,Krishnaraja Sagara,8,clim,-55.643,20.375
+test,Krishnaraja Sagara,9,gnn,-38.036,17.239
+test,Krishnaraja Sagara,9,persist,0.577,1.794
+test,Krishnaraja Sagara,9,clim,-53.937,20.451
+test,Krishnaraja Sagara,10,gnn,-39.147,18.035
+test,Krishnaraja Sagara,10,persist,-1.406,4.415
+test,Krishnaraja Sagara,10,clim,-52.415,20.803
+test,Krishnaraja Sagara,11,gnn,-38.319,18.725
+test,Krishnaraja Sagara,11,persist,-1.84,5.032
+test,Krishnaraja Sagara,11,clim,-48.108,20.926
+test,Krishnaraja Sagara,12,gnn,-36.879,19.262
+test,Krishnaraja Sagara,12,persist,-0.999,4.425
+test,Krishnaraja Sagara,12,clim,-44.317,21.068
+test,Mettur,1,gnn,-4.255,17.924
+test,Mettur,1,persist,-0.493,9.554
+test,Mettur,1,clim,-13.057,29.314
+test,Mettur,2,gnn,-13.325,28.236
+test,Mettur,2,persist,-1.595,12.018
+test,Mettur,2,clim,-14.245,29.129
+test,Mettur,3,gnn,-16.432,30.781
+test,Mettur,3,persist,-1.547,11.766
+test,Mettur,3,clim,-14.095,28.644
+test,Mettur,4,gnn,-15.357,30.233
+test,Mettur,4,persist,-0.148,8.01
+test,Mettur,4,clim,-13.466,28.432
+test,Mettur,5,gnn,-12.156,28.839
+test,Mettur,5,persist,-0.451,9.578
+test,Mettur,5,clim,-12.404,29.109
+test,Mettur,6,gnn,-10.73,27.682
+test,Mettur,6,persist,-1.515,12.819
+test,Mettur,6,clim,-12.599,29.806
+test,Mettur,7,gnn,-9.491,26.182
+test,Mettur,7,persist,-1.618,13.08
+test,Mettur,7,clim,-12.574,29.781
+test,Mettur,8,gnn,-8.034,24.355
+test,Mettur,8,persist,-0.72,10.628
+test,Mettur,8,clim,-12.313,29.566
+test,Mettur,9,gnn,-6.86,22.351
+test,Mettur,9,persist,-0.09,8.323
+test,Mettur,9,clim,-12.775,29.588
+test,Mettur,10,gnn,-6.889,22.378
+test,Mettur,10,persist,-1.33,12.161
+test,Mettur,10,clim,-13.182,30.004
+test,Mettur,11,gnn,-7.718,23.511
+test,Mettur,11,persist,-1.683,13.042
+test,Mettur,11,clim,-13.326,30.137
+test,Mettur,12,gnn,-8.16,23.962
+test,Mettur,12,persist,-1.038,11.301
+test,Mettur,12,clim,-13.575,30.226
+test,Nagarjuna Sagar,1,gnn,-23.275,32.574
+test,Nagarjuna Sagar,1,persist,-1.127,9.641
+test,Nagarjuna Sagar,1,clim,-139.394,78.338
+test,Nagarjuna Sagar,2,gnn,-40.496,42.143
+test,Nagarjuna Sagar,2,persist,-2.292,11.869
+test,Nagarjuna Sagar,2,clim,-141.011,77.962
+test,Nagarjuna Sagar,3,gnn,-52.901,48.524
+test,Nagarjuna Sagar,3,persist,-1.737,10.934
+test,Nagarjuna Sagar,3,clim,-135.728,77.284
+test,Nagarjuna Sagar,4,gnn,-66.946,54.895
+test,Nagarjuna Sagar,4,persist,0.413,5.1
+test,Nagarjuna Sagar,4,clim,-131.643,76.7
+test,Nagarjuna Sagar,5,gnn,-81.986,60.503
+test,Nagarjuna Sagar,5,persist,-0.346,7.707
+test,Nagarjuna Sagar,5,clim,-134.923,77.432
+test,Nagarjuna Sagar,6,gnn,-98.605,65.217
+test,Nagarjuna Sagar,6,persist,-2.082,11.472
+test,Nagarjuna Sagar,6,clim,-141.443,77.991
+test,Nagarjuna Sagar,7,gnn,-105.36,67.612
+test,Nagarjuna Sagar,7,persist,-2.13,11.599
+test,Nagarjuna Sagar,7,clim,-137.671,77.202
+test,Nagarjuna Sagar,8,gnn,-113.652,70.986
+test,Nagarjuna Sagar,8,persist,-0.493,8.101
+test,Nagarjuna Sagar,8,clim,-132.278,76.535
+test,Nagarjuna Sagar,9,gnn,-123.411,74.727
+test,Nagarjuna Sagar,9,persist,0.541,4.541
+test,Nagarjuna Sagar,9,clim,-130.559,76.843
+test,Nagarjuna Sagar,10,gnn,-135.789,79.341
+test,Nagarjuna Sagar,10,persist,-1.503,10.732
+test,Nagarjuna Sagar,10,clim,-130.818,77.886
+test,Nagarjuna Sagar,11,gnn,-125.278,78.155
+test,Nagarjuna Sagar,11,persist,-2.017,12.081
+test,Nagarjuna Sagar,11,clim,-123.378,77.565
+test,Nagarjuna Sagar,12,gnn,-103.907,72.839
+test,Nagarjuna Sagar,12,persist,-1.113,10.338
+test,Nagarjuna Sagar,12,clim,-117.716,77.484
+test,Sardar Sarovar,1,gnn,0.092,32.155
+test,Sardar Sarovar,1,persist,0.676,19.194
+test,Sardar Sarovar,1,clim,-0.121,35.716
+test,Sardar Sarovar,2,gnn,-1.682,54.32
+test,Sardar Sarovar,2,persist,0.076,31.88
+test,Sardar Sarovar,2,clim,-0.125,35.171
+test,Sardar Sarovar,3,gnn,-3.621,72.192
+test,Sardar Sarovar,3,persist,-0.616,42.687
+test,Sardar Sarovar,3,clim,-0.117,35.5
+test,Sardar Sarovar,4,gnn,-4.73,83.794
+test,Sardar Sarovar,4,persist,-1.139,51.199
+test,Sardar Sarovar,4,clim,-0.143,37.429
+test,Sardar Sarovar,5,gnn,-5.389,90.145
+test,Sardar Sarovar,5,persist,-1.467,56.011
+test,Sardar Sarovar,5,clim,-0.164,38.482
+test,Sardar Sarovar,6,gnn,-5.817,92.843
+test,Sardar Sarovar,6,persist,-1.696,58.388
+test,Sardar Sarovar,6,clim,-0.18,38.625
+test,Sardar Sarovar,7,gnn,-6.119,93.093
+test,Sardar Sarovar,7,persist,-1.838,58.781
+test,Sardar Sarovar,7,clim,-0.177,37.852
+test,Sardar Sarovar,8,gnn,-6.565,93.005
+test,Sardar Sarovar,8,persist,-1.853,57.111
+test,Sardar Sarovar,8,clim,-0.188,36.86
+test,Sardar Sarovar,9,gnn,-7.434,93.994
+test,Sardar Sarovar,9,persist,-1.721,53.385
+test,Sardar Sarovar,9,clim,-0.235,35.963
+test,Sardar Sarovar,10,gnn,-8.308,95.4
+test,Sardar Sarovar,10,persist,-1.442,48.862
+test,Sardar Sarovar,10,clim,-0.314,35.849
+test,Sardar Sarovar,11,gnn,-8.655,97.415
+test,Sardar Sarovar,11,persist,-1.092,45.346
+test,Sardar Sarovar,11,clim,-0.311,35.895
+test,Sardar Sarovar,12,gnn,-8.963,99.701
+test,Sardar Sarovar,12,persist,-0.875,43.25
+test,Sardar Sarovar,12,clim,-0.286,35.814
+test,Srisailam,1,gnn,0.938,17.976
+test,Srisailam,1,persist,0.909,21.83
+test,Srisailam,1,clim,0.659,42.192
+test,Srisailam,2,gnn,0.898,23.882
+test,Srisailam,2,persist,0.782,34.868
+test,Srisailam,2,clim,0.706,40.488
+test,Srisailam,3,gnn,0.858,28.9
+test,Srisailam,3,persist,0.684,43.178
+test,Srisailam,3,clim,0.742,38.977
+test,Srisailam,4,gnn,0.816,33.409
+test,Srisailam,4,persist,0.585,50.241
+test,Srisailam,4,clim,0.771,37.295
+test,Srisailam,5,gnn,0.78,36.811
+test,Srisailam,5,persist,0.477,56.729
+test,Srisailam,5,clim,0.793,35.661
+test,Srisailam,6,gnn,0.739,40.164
+test,Srisailam,6,persist,0.362,62.793
+test,Srisailam,6,clim,0.811,34.203
+test,Srisailam,7,gnn,0.687,43.816
+test,Srisailam,7,persist,0.227,68.847
+test,Srisailam,7,clim,0.824,32.887
+test,Srisailam,8,gnn,0.611,48.494
+test,Srisailam,8,persist,0.074,74.819
+test,Srisailam,8,clim,0.825,32.523
+test,Srisailam,9,gnn,0.453,57.621
+test,Srisailam,9,persist,-0.108,82.002
+test,Srisailam,9,clim,0.791,35.646
+test,Srisailam,10,gnn,0.314,64.54
+test,Srisailam,10,persist,-0.295,88.675
+test,Srisailam,10,clim,0.756,38.491
+test,Srisailam,11,gnn,0.177,70.635
+test,Srisailam,11,persist,-0.503,95.472
+test,Srisailam,11,clim,0.726,40.738
+test,Srisailam,12,gnn,0.029,76.599
+test,Srisailam,12,persist,-0.741,102.547
+test,Srisailam,12,clim,0.699,42.666
+test,Tungabhadra,1,gnn,-38.728,12.767
+test,Tungabhadra,1,persist,-1.154,2.973
+test,Tungabhadra,1,clim,-578.548,48.763
+test,Tungabhadra,2,gnn,-98.392,19.979
+test,Tungabhadra,2,persist,-2.228,3.6
+test,Tungabhadra,2,clim,-590.647,48.745
+test,Tungabhadra,3,gnn,-143.884,24.361
+test,Tungabhadra,3,persist,-1.715,3.335
+test,Tungabhadra,3,clim,-570.038,48.364
+test,Tungabhadra,4,gnn,-172.861,27.113
+test,Tungabhadra,4,persist,0.319,1.697
+test,Tungabhadra,4,clim,-541.292,47.884
+test,Tungabhadra,5,gnn,-196.344,28.759
+test,Tungabhadra,5,persist,-0.436,2.453
+test,Tungabhadra,5,clim,-549.648,48.04
+test,Tungabhadra,6,gnn,-202.867,28.69
+test,Tungabhadra,6,persist,-2.025,3.495
+test,Tungabhadra,6,clim,-581.483,48.495
+test,Tungabhadra,7,gnn,-186.176,27.581
+test,Tungabhadra,7,persist,-2.066,3.53
+test,Tungabhadra,7,clim,-569.02,48.131
+test,Tungabhadra,8,gnn,-154.667,25.529
+test,Tungabhadra,8,persist,-0.57,2.564
+test,Tungabhadra,8,clim,-543.02,47.725
+test,Tungabhadra,9,gnn,-118.803,22.359
+test,Tungabhadra,9,persist,0.433,1.538
+test,Tungabhadra,9,clim,-542.581,47.627
+test,Tungabhadra,10,gnn,-84.493,18.53
+test,Tungabhadra,10,persist,-1.676,3.278
+test,Tungabhadra,10,clim,-575.326,48.111
+test,Tungabhadra,11,gnn,-48.013,14.49
+test,Tungabhadra,11,persist,-2.121,3.657
+test,Tungabhadra,11,clim,-532.87,47.824
+test,Tungabhadra,12,gnn,-21.963,11.013
+test,Tungabhadra,12,persist,-1.011,3.259
+test,Tungabhadra,12,clim,-426.661,47.527
+test,Ujjani,1,gnn,-7.235,13.008
+test,Ujjani,1,persist,0.911,1.354
+test,Ujjani,1,clim,-105.988,46.886
+test,Ujjani,2,gnn,-26.973,20.275
+test,Ujjani,2,persist,0.549,2.573
+test,Ujjani,2,clim,-150.762,47.226
+test,Ujjani,3,gnn,-61.717,25.435
+test,Ujjani,3,persist,-0.29,3.647
+test,Ujjani,3,clim,-217.698,47.496
+test,Ujjani,4,gnn,-113.475,29.04
+test,Ujjani,4,persist,-1.813,4.552
+test,Ujjani,4,clim,-307.986,47.709
+test,Ujjani,5,gnn,-172.854,31.199
+test,Ujjani,5,persist,-3.932,5.255
+test,Ujjani,5,clim,-408.23,47.866
+test,Ujjani,6,gnn,-221.458,32.466
+test,Ujjani,6,persist,-6.023,5.768
+test,Ujjani,6,clim,-484.749,47.975
+test,Ujjani,7,gnn,-249.513,33.549
+test,Ujjani,7,persist,-7.251,6.089
+test,Ujjani,7,clim,-512.965,48.055
+test,Ujjani,8,gnn,-260.745,34.494
+test,Ujjani,8,persist,-7.441,6.194
+test,Ujjani,8,clim,-507.307,48.069
+test,Ujjani,9,gnn,-272.46,35.292
+test,Ujjani,9,persist,-7.022,6.045
+test,Ujjani,9,clim,-504.678,47.992
+test,Ujjani,10,gnn,-297.786,36.036
+test,Ujjani,10,persist,-6.386,5.666
+test,Ujjani,10,clim,-527.847,47.943
+test,Ujjani,11,gnn,-311.411,36.783
+test,Ujjani,11,persist,-5.682,5.379
+test,Ujjani,11,clim,-529.6,47.937
+test,Ujjani,12,gnn,-320.21,37.532
+test,Ujjani,12,persist,-5.264,5.241
+test,Ujjani,12,clim,-523.261,47.949
+test,Ukai,1,gnn,0.598,36.958
+test,Ukai,1,persist,0.872,20.842
+test,Ukai,1,clim,-0.16,62.8
+test,Ukai,2,gnn,-0.34,67.795
+test,Ukai,2,persist,0.637,35.291
+test,Ukai,2,clim,-0.126,62.135
+test,Ukai,3,gnn,-1.714,95.374
+test,Ukai,3,persist,0.35,46.659
+test,Ukai,3,clim,-0.078,60.094
+test,Ukai,4,gnn,-3.26,115.458
+test,Ukai,4,persist,0.059,54.259
+test,Ukai,4,clim,-0.068,57.808
+test,Ukai,5,gnn,-5.016,128.843
+test,Ukai,5,persist,-0.264,59.055
+test,Ukai,5,clim,-0.112,55.385
+test,Ukai,6,gnn,-6.938,136.67
+test,Ukai,6,persist,-0.664,62.572
+test,Ukai,6,clim,-0.228,53.748
+test,Ukai,7,gnn,-9.269,140.673
+test,Ukai,7,persist,-1.188,64.936
+test,Ukai,7,clim,-0.268,49.426
+test,Ukai,8,gnn,-12.838,143.553
+test,Ukai,8,persist,-1.937,66.133
+test,Ukai,8,clim,-0.31,44.173
+test,Ukai,9,gnn,-19.661,146.741
+test,Ukai,9,persist,-3.181,66.013
+test,Ukai,9,clim,-0.451,38.888
+test,Ukai,10,gnn,-33.001,148.543
+test,Ukai,10,persist,-5.623,65.557
+test,Ukai,10,clim,-1.186,37.667
+test,Ukai,11,gnn,-44.214,149.418
+test,Ukai,11,persist,-7.786,65.865
+test,Ukai,11,clim,-1.615,35.935
+test,Ukai,12,gnn,-45.564,149.519
+test,Ukai,12,persist,-8.209,66.493
+test,Ukai,12,clim,-1.713,36.089
+val,Almatti,1,gnn,-1.453,31.775
+val,Almatti,1,persist,-0.679,26.289
+val,Almatti,1,clim,-0.338,23.467
+val,Almatti,2,gnn,-3.161,41.936
+val,Almatti,2,persist,-1.371,31.652
+val,Almatti,2,clim,-0.358,23.956
+val,Almatti,3,gnn,-3.628,44.815
+val,Almatti,3,persist,-1.056,29.869
+val,Almatti,3,clim,-0.418,24.808
+val,Almatti,4,gnn,-3.969,46.391
+val,Almatti,4,persist,0.236,18.19
+val,Almatti,4,clim,-0.483,25.344
+val,Almatti,5,gnn,-4.588,48.848
+val,Almatti,5,persist,-0.375,24.232
+val,Almatti,5,clim,-0.527,25.533
+val,Almatti,6,gnn,-5.097,51.592
+val,Almatti,6,persist,-1.251,31.35
+val,Almatti,6,clim,-0.514,25.711
+val,Almatti,7,gnn,-5.078,52.185
+val,Almatti,7,persist,-1.244,31.708
+val,Almatti,7,clim,-0.565,26.479
+val,Almatti,8,gnn,-5.001,51.789
+val,Almatti,8,persist,-0.483,25.746
+val,Almatti,8,clim,-0.636,27.037
+val,Almatti,9,gnn,-5.061,51.444
+val,Almatti,9,persist,-0.221,23.092
+val,Almatti,9,clim,-0.693,27.194
+val,Almatti,10,gnn,-4.924,51.349
+val,Almatti,10,persist,-1.19,31.22
+val,Almatti,10,clim,-0.682,27.364
+val,Almatti,11,gnn,-4.697,50.985
+val,Almatti,11,persist,-1.372,32.896
+val,Almatti,11,clim,-0.733,28.123
+val,Almatti,12,gnn,-4.557,50.37
+val,Almatti,12,persist,-0.907,29.502
+val,Almatti,12,clim,-0.803,28.687
+val,Jayakwadi,1,gnn,-0.511,19.086
+val,Jayakwadi,1,persist,0.031,15.283
+val,Jayakwadi,1,clim,-0.175,16.831
+val,Jayakwadi,2,gnn,-1.975,27.554
+val,Jayakwadi,2,persist,-0.554,19.913
+val,Jayakwadi,2,clim,-0.167,17.255
+val,Jayakwadi,3,gnn,-2.459,30.419
+val,Jayakwadi,3,persist,-0.493,19.983
+val,Jayakwadi,3,clim,-0.204,17.95
+val,Jayakwadi,4,gnn,-2.595,31.238
+val,Jayakwadi,4,persist,-0.041,16.809
+val,Jayakwadi,4,clim,-0.262,18.506
+val,Jayakwadi,5,gnn,-3.027,32.502
+val,Jayakwadi,5,persist,-0.424,19.325
+val,Jayakwadi,5,clim,-0.312,18.551
+val,Jayakwadi,6,gnn,-3.138,33.379
+val,Jayakwadi,6,persist,-0.846,22.294
+val,Jayakwadi,6,clim,-0.286,18.61
+val,Jayakwadi,7,gnn,-3.104,33.223
+val,Jayakwadi,7,persist,-0.982,23.091
+val,Jayakwadi,7,clim,-0.336,18.954
+val,Jayakwadi,8,gnn,-3.118,32.454
+val,Jayakwadi,8,persist,-0.87,21.87
+val,Jayakwadi,8,clim,-0.408,18.979
+val,Jayakwadi,9,gnn,-3.24,31.519
+val,Jayakwadi,9,persist,-0.961,21.438
+val,Jayakwadi,9,clim,-0.481,18.63
+val,Jayakwadi,10,gnn,-3.08,31.279
+val,Jayakwadi,10,persist,-1.047,22.157
+val,Jayakwadi,10,clim,-0.451,18.651
+val,Jayakwadi,11,gnn,-2.984,30.862
+val,Jayakwadi,11,persist,-1.074,22.265
+val,Jayakwadi,11,clim,-0.513,19.016
+val,Jayakwadi,12,gnn,-3.008,30.177
+val,Jayakwadi,12,persist,-1.075,21.714
+val,Jayakwadi,12,clim,-0.6,19.068
+val,Krishnaraja Sagara,1,gnn,-1.389,11.613
+val,Krishnaraja Sagara,1,persist,-0.849,10.216
+val,Krishnaraja Sagara,1,clim,-0.917,10.403
+val,Krishnaraja Sagara,2,gnn,-3.698,16.672
+val,Krishnaraja Sagara,2,persist,-1.836,12.953
+val,Krishnaraja Sagara,2,clim,-0.91,10.632
+val,Krishnaraja Sagara,3,gnn,-3.939,17.471
+val,Krishnaraja Sagara,3,persist,-1.212,11.693
+val,Krishnaraja Sagara,3,clim,-0.956,10.994
+val,Krishnaraja Sagara,4,gnn,-4.088,17.821
+val,Krishnaraja Sagara,4,persist,0.431,5.962
+val,Krishnaraja Sagara,4,clim,-1.058,11.334
+val,Krishnaraja Sagara,5,gnn,-4.925,19.122
+val,Krishnaraja Sagara,5,persist,-0.22,8.677
+val,Krishnaraja Sagara,5,clim,-1.169,11.57
+val,Krishnaraja Sagara,6,gnn,-5.033,19.743
+val,Krishnaraja Sagara,6,persist,-1.488,12.677
+val,Krishnaraja Sagara,6,clim,-1.122,11.707
+val,Krishnaraja Sagara,7,gnn,-4.815,19.738
+val,Krishnaraja Sagara,7,persist,-1.448,12.806
+val,Krishnaraja Sagara,7,clim,-1.15,12.003
+val,Krishnaraja Sagara,8,gnn,-4.639,19.51
+val,Krishnaraja Sagara,8,persist,-0.237,9.137
+val,Krishnaraja Sagara,8,clim,-1.249,12.322
+val,Krishnaraja Sagara,9,gnn,-4.579,19.165
+val,Krishnaraja Sagara,9,persist,0.239,7.078
+val,Krishnaraja Sagara,9,clim,-1.385,12.532
+val,Krishnaraja Sagara,10,gnn,-4.317,19.092
+val,Krishnaraja Sagara,10,persist,-1.123,12.065
+val,Krishnaraja Sagara,10,clim,-1.341,12.668
+val,Krishnaraja Sagara,11,gnn,-4.093,18.992
+val,Krishnaraja Sagara,11,persist,-1.532,13.392
+val,Krishnaraja Sagara,11,clim,-1.366,12.946
+val,Krishnaraja Sagara,12,gnn,-3.922,18.765
+val,Krishnaraja Sagara,12,persist,-0.79,11.318
+val,Krishnaraja Sagara,12,clim,-1.455,13.254
+val,Mettur,1,gnn,-1.087,25.992
+val,Mettur,1,persist,-0.539,22.321
+val,Mettur,1,clim,-0.529,22.244
+val,Mettur,2,gnn,-3.689,41.186
+val,Mettur,2,persist,-1.747,31.525
+val,Mettur,2,clim,-0.445,22.863
+val,Mettur,3,gnn,-4.434,46.009
+val,Mettur,3,persist,-0.939,27.481
+val,Mettur,3,clim,-0.421,23.525
+val,Mettur,4,gnn,-4.931,48.818
+val,Mettur,4,persist,0.514,13.968
+val,Mettur,4,clim,-0.397,23.696
+val,Mettur,5,gnn,-6.396,54.18
+val,Mettur,5,persist,0.008,19.846
+val,Mettur,5,clim,-0.355,23.187
+val,Mettur,6,gnn,-6.679,56.323
+val,Mettur,6,persist,-1.396,31.464
+val,Mettur,6,clim,-0.296,23.139
+val,Mettur,7,gnn,-6.486,56.282
+val,Mettur,7,persist,-1.34,31.467
+val,Mettur,7,clim,-0.297,23.427
+val,Mettur,8,gnn,-6.248,55.753
+val,Mettur,8,persist,-0.046,21.185
+val,Mettur,8,clim,-0.309,23.69
+val,Mettur,9,gnn,-6.187,54.845
+val,Mettur,9,persist,0.242,17.813
+val,Mettur,9,clim,-0.31,23.412
+val,Mettur,10,gnn,-5.859,54.403
+val,Mettur,10,persist,-0.991,29.31
+val,Mettur,10,clim,-0.267,23.385
+val,Mettur,11,gnn,-5.679,54.242
+val,Mettur,11,persist,-1.478,33.038
+val,Mettur,11,clim,-0.272,23.675
+val,Mettur,12,gnn,-5.464,53.744
+val,Mettur,12,persist,-0.58,26.574
+val,Mettur,12,clim,-0.29,24.011
+val,Nagarjuna Sagar,1,gnn,-1.158,62.13
+val,Nagarjuna Sagar,1,persist,-0.863,57.73
+val,Nagarjuna Sagar,1,clim,-0.436,50.685
+val,Nagarjuna Sagar,2,gnn,-2.245,76.966
+val,Nagarjuna Sagar,2,persist,-2.052,74.641
+val,Nagarjuna Sagar,2,clim,-0.446,51.381
+val,Nagarjuna Sagar,3,gnn,-1.575,69.455
+val,Nagarjuna Sagar,3,persist,-1.373,66.667
+val,Nagarjuna Sagar,3,clim,-0.479,52.634
+val,Nagarjuna Sagar,4,gnn,-1.336,66.051
+val,Nagarjuna Sagar,4,persist,0.427,32.708
+val,Nagarjuna Sagar,4,clim,-0.533,53.514
+val,Nagarjuna Sagar,5,gnn,-1.819,71.58
+val,Nagarjuna Sagar,5,persist,-0.253,47.712
+val,Nagarjuna Sagar,5,clim,-0.577,53.529
+val,Nagarjuna Sagar,6,gnn,-1.833,72.352
+val,Nagarjuna Sagar,6,persist,-1.748,71.256
+val,Nagarjuna Sagar,6,clim,-0.572,53.895
+val,Nagarjuna Sagar,7,gnn,-1.755,72.091
+val,Nagarjuna Sagar,7,persist,-1.74,71.891
+val,Nagarjuna Sagar,7,clim,-0.6,54.931
+val,Nagarjuna Sagar,8,gnn,-1.664,70.819
+val,Nagarjuna Sagar,8,persist,-0.318,49.816
+val,Nagarjuna Sagar,8,clim,-0.669,56.049
+val,Nagarjuna Sagar,9,gnn,-1.615,68.979
+val,Nagarjuna Sagar,9,persist,0.278,36.241
+val,Nagarjuna Sagar,9,clim,-0.74,56.272
+val,Nagarjuna Sagar,10,gnn,-1.571,68.917
+val,Nagarjuna Sagar,10,persist,-1.325,65.539
+val,Nagarjuna Sagar,10,clim,-0.735,56.615
+val,Nagarjuna Sagar,11,gnn,-1.504,68.657
+val,Nagarjuna Sagar,11,persist,-1.897,73.844
+val,Nagarjuna Sagar,11,clim,-0.761,57.579
+val,Nagarjuna Sagar,12,gnn,-1.423,67.625
+val,Nagarjuna Sagar,12,persist,-0.976,61.073
+val,Nagarjuna Sagar,12,clim,-0.825,58.694
+val,Sardar Sarovar,1,gnn,0.408,40.977
+val,Sardar Sarovar,1,persist,0.589,34.143
+val,Sardar Sarovar,1,clim,-0.972,74.792
+val,Sardar Sarovar,2,gnn,-0.773,69.854
+val,Sardar Sarovar,2,persist,-0.232,58.229
+val,Sardar Sarovar,2,clim,-1.041,74.931
+val,Sardar Sarovar,3,gnn,-1.978,90.011
+val,Sardar Sarovar,3,persist,-1.153,76.535
+val,Sardar Sarovar,3,clim,-1.067,74.991
+val,Sardar Sarovar,4,gnn,-2.824,102.373
+val,Sardar Sarovar,4,persist,-1.9,89.149
+val,Sardar Sarovar,4,clim,-1.047,74.901
+val,Sardar Sarovar,5,gnn,-3.196,108.419
+val,Sardar Sarovar,5,persist,-2.302,96.182
+val,Sardar Sarovar,5,clim,-0.977,74.426
+val,Sardar Sarovar,6,gnn,-3.392,111.322
+val,Sardar Sarovar,6,persist,-2.407,98.052
+val,Sardar Sarovar,6,clim,-0.875,72.742
+val,Sardar Sarovar,7,gnn,-3.382,111.111
+val,Sardar Sarovar,7,persist,-2.239,95.53
+val,Sardar Sarovar,7,clim,-0.814,71.485
+val,Sardar Sarovar,8,gnn,-3.043,108.282
+val,Sardar Sarovar,8,persist,-1.865,91.155
+val,Sardar Sarovar,8,clim,-0.723,70.684
+val,Sardar Sarovar,9,gnn,-2.645,105.441
+val,Sardar Sarovar,9,persist,-1.433,86.142
+val,Sardar Sarovar,9,clim,-0.612,70.119
+val,Sardar Sarovar,10,gnn,-2.378,103.726
+val,Sardar Sarovar,10,persist,-1.035,80.506
+val,Sardar Sarovar,10,clim,-0.517,69.502
+val,Sardar Sarovar,11,gnn,-2.254,102.522
+val,Sardar Sarovar,11,persist,-0.734,74.835
+val,Sardar Sarovar,11,clim,-0.492,69.42
+val,Sardar Sarovar,12,gnn,-2.196,101.525
+val,Sardar Sarovar,12,persist,-0.48,69.099
+val,Sardar Sarovar,12,clim,-0.497,69.494
+val,Srisailam,1,gnn,0.707,12.307
+val,Srisailam,1,persist,0.671,13.035
+val,Srisailam,1,clim,-6.012,60.174
+val,Srisailam,2,gnn,0.293,18.848
+val,Srisailam,2,persist,0.235,19.607
+val,Srisailam,2,clim,-6.389,60.931
+val,Srisailam,3,gnn,-0.197,24.402
+val,Srisailam,3,persist,-0.172,24.151
+val,Srisailam,3,clim,-6.604,61.507
+val,Srisailam,4,gnn,-0.746,29.45
+val,Srisailam,4,persist,-0.48,27.116
+val,Srisailam,4,clim,-6.731,61.977
+val,Srisailam,5,gnn,-1.295,33.828
+val,Srisailam,5,persist,-0.595,28.2
+val,Srisailam,5,clim,-6.793,62.336
+val,Srisailam,6,gnn,-1.729,36.988
+val,Srisailam,6,persist,-0.571,28.07
+val,Srisailam,6,clim,-6.82,62.617
+val,Srisailam,7,gnn,-1.989,38.852
+val,Srisailam,7,persist,-0.58,28.249
+val,Srisailam,7,clim,-6.816,62.828
+val,Srisailam,8,gnn,-2.256,40.683
+val,Srisailam,8,persist,-0.655,29.0
+val,Srisailam,8,clim,-6.796,62.949
+val,Srisailam,9,gnn,-2.5,42.287
+val,Srisailam,9,persist,-0.789,30.235
+val,Srisailam,9,clim,-6.773,63.022
+val,Srisailam,10,gnn,-2.682,43.5
+val,Srisailam,10,persist,-0.995,32.017
+val,Srisailam,10,clim,-6.744,63.086
+val,Srisailam,11,gnn,-2.861,44.631
+val,Srisailam,11,persist,-1.183,33.561
+val,Srisailam,11,clim,-6.723,63.118
+val,Srisailam,12,gnn,-3.054,45.751
+val,Srisailam,12,persist,-1.343,34.784
+val,Srisailam,12,clim,-6.717,63.125
+val,Tungabhadra,1,gnn,-1.235,30.641
+val,Tungabhadra,1,persist,-0.867,28.007
+val,Tungabhadra,1,clim,-1.143,30.004
+val,Tungabhadra,2,gnn,-2.338,37.744
+val,Tungabhadra,2,persist,-1.954,35.51
+val,Tungabhadra,2,clim,-1.146,30.265
+val,Tungabhadra,3,gnn,-2.011,36.362
+val,Tungabhadra,3,persist,-1.339,32.05
+val,Tungabhadra,3,clim,-1.187,30.991
+val,Tungabhadra,4,gnn,-1.989,36.291
+val,Tungabhadra,4,persist,0.439,15.723
+val,Tungabhadra,4,clim,-1.295,31.797
+val,Tungabhadra,5,gnn,-2.187,37.003
+val,Tungabhadra,5,persist,-0.246,23.142
+val,Tungabhadra,5,clim,-1.42,32.248
+val,Tungabhadra,6,gnn,-2.153,37.042
+val,Tungabhadra,6,persist,-1.644,33.921
+val,Tungabhadra,6,clim,-1.405,32.35
+val,Tungabhadra,7,gnn,-2.049,36.83
+val,Tungabhadra,7,persist,-1.618,34.129
+val,Tungabhadra,7,clim,-1.432,32.891
+val,Tungabhadra,8,gnn,-1.939,36.203
+val,Tungabhadra,8,persist,-0.282,23.908
+val,Tungabhadra,8,clim,-1.538,33.644
+val,Tungabhadra,9,gnn,-1.873,35.206
+val,Tungabhadra,9,persist,0.251,17.972
+val,Tungabhadra,9,clim,-1.695,34.098
+val,Tungabhadra,10,gnn,-1.835,35.16
+val,Tungabhadra,10,persist,-1.274,31.493
+val,Tungabhadra,10,clim,-1.683,34.205
+val,Tungabhadra,11,gnn,-1.759,35.021
+val,Tungabhadra,11,persist,-1.744,34.928
+val,Tungabhadra,11,clim,-1.707,34.691
+val,Tungabhadra,12,gnn,-1.665,34.51
+val,Tungabhadra,12,persist,-0.899,29.133
+val,Tungabhadra,12,clim,-1.804,35.399
+val,Ujjani,1,gnn,0.653,8.759
+val,Ujjani,1,persist,0.717,7.911
+val,Ujjani,1,clim,-4.723,35.565
+val,Ujjani,2,gnn,-0.109,15.048
+val,Ujjani,2,persist,0.076,13.737
+val,Ujjani,2,clim,-5.29,35.837
+val,Ujjani,3,gnn,-0.989,19.331
+val,Ujjani,3,persist,-0.693,17.833
+val,Ujjani,3,clim,-5.963,36.167
+val,Ujjani,4,gnn,-1.864,22.205
+val,Ujjani,4,persist,-1.487,20.693
+val,Ujjani,4,clim,-6.757,36.541
+val,Ujjani,5,gnn,-2.697,24.296
+val,Ujjani,5,persist,-2.273,22.861
+val,Ujjani,5,clim,-7.546,36.938
+val,Ujjani,6,gnn,-3.226,25.706
+val,Ujjani,6,persist,-2.795,24.36
+val,Ujjani,6,clim,-7.881,37.265
+val,Ujjani,7,gnn,-3.507,26.586
+val,Ujjani,7,persist,-3.072,25.268
+val,Ujjani,7,clim,-7.994,37.555
+val,Ujjani,8,gnn,-3.556,26.934
+val,Ujjani,8,persist,-3.104,25.561
+val,Ujjani,8,clim,-7.961,37.771
+val,Ujjani,9,gnn,-3.464,26.801
+val,Ujjani,9,persist,-2.933,25.157
+val,Ujjani,9,clim,-7.911,37.868
+val,Ujjani,10,gnn,-3.372,26.562
+val,Ujjani,10,persist,-2.64,24.237
+val,Ujjani,10,clim,-7.895,37.887
+val,Ujjani,11,gnn,-3.267,26.191
+val,Ujjani,11,persist,-2.27,22.93
+val,Ujjani,11,clim,-7.915,37.861
+val,Ujjani,12,gnn,-3.015,25.27
+val,Ujjani,12,persist,-1.831,21.219
+val,Ujjani,12,clim,-7.974,37.777
+val,Ukai,1,gnn,0.06,54.892
+val,Ukai,1,persist,0.391,44.163
+val,Ukai,1,clim,-0.335,65.403
+val,Ukai,2,gnn,-1.638,92.717
+val,Ukai,2,persist,-0.541,70.875
+val,Ukai,2,clim,-0.329,65.81
+val,Ukai,3,gnn,-3.186,119.606
+val,Ukai,3,persist,-1.262,87.918
+val,Ukai,3,clim,-0.321,67.197
+val,Ukai,4,gnn,-3.883,133.821
+val,Ukai,4,persist,-1.46,94.987
+val,Ukai,4,clim,-0.295,68.925
+val,Ukai,5,gnn,-3.869,138.849
+val,Ukai,5,persist,-1.217,93.684
+val,Ukai,5,clim,-0.243,70.164
+val,Ukai,6,gnn,-3.833,141.798
+val,Ukai,6,persist,-0.822,87.071
+val,Ukai,6,clim,-0.141,68.905
+val,Ukai,7,gnn,-3.704,142.497
+val,Ukai,7,persist,-0.569,82.312
+val,Ukai,7,clim,-0.154,70.579
+val,Ukai,8,gnn,-3.457,141.433
+val,Ukai,8,persist,-0.545,83.272
+val,Ukai,8,clim,-0.184,72.903
+val,Ukai,9,gnn,-3.148,139.207
+val,Ukai,9,persist,-0.715,89.5
+val,Ukai,9,clim,-0.208,75.119
+val,Ukai,10,gnn,-2.902,137.208
+val,Ukai,10,persist,-0.853,94.557
+val,Ukai,10,clim,-0.163,74.919
+val,Ukai,11,gnn,-2.802,135.837
+val,Ukai,11,persist,-0.89,95.764
+val,Ukai,11,clim,-0.184,75.791
+val,Ukai,12,gnn,-2.785,135.432
+val,Ukai,12,persist,-0.742,91.87
+val,Ukai,12,clim,-0.191,75.964
