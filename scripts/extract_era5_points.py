@@ -37,7 +37,7 @@ def main() -> int:
     ds = xr.open_mfdataset(files, combine="by_coords")
 
     # Optional: true rainfall (tp) daily sums from the CDS download
-    tp_file = ERA5_DIR / "era5_tp_peninsular_2010_2024.nc"
+    tp_file = ERA5_DIR / "era5_tp_peninsular_2010_2024_full.nc"
     tp_daily = xr.open_dataset(tp_file) if tp_file.exists() else None
     if tp_daily is not None:
         print(f"tp daily sums available: {tp_file.name}")
