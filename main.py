@@ -25,6 +25,8 @@ import numpy as np
 import torch
 import yaml
 
+TMC_PER_M3SDAY_TMC = 86400.0 * 35.3146667 / 1e9  # weekly m3/s-days -> TMC
+
 from src.data.graph_builder import build_reservoir_graph
 from src.data.dataset import ReservoirInflowDataset, create_temporal_splits
 from src.data.enso_loader import create_climate_tensor, classify_enso_phase
@@ -245,6 +247,14 @@ def build_datasets(config: dict, graph: object):
     storage_df = storage_df.loc[common_idx]
 
     # Standardize data to prevent NaN losses (FP16 overflow and exploding gradients)
+    # Observed daily releases (MCM): R(t) = S(t) + I(t)*0.0864 - S(t+1), clipped >= 0.
+    # Negative daily values = reservoir filling faster than recorded inflow (gauge noise).
+    releases_df = pd.DataFrame(index=storage_df.index)
+    for c in storage_df.columns:
+        s_mcm = storage_df[c].astype(float)
+        i_mcm = inflow_df[c].astype(float) * 0.0864
+        releases_df[c] = (s_mcm + i_mcm - s_mcm.shift(-1)).clip(lower=0.0)
+
     def standardize(df):
         df = df.fillna(0.0)
         return (df - df.mean()) / (df.std().replace(0, 1) + 1e-8)
@@ -254,9 +264,24 @@ def build_datasets(config: dict, graph: object):
     climate_raw = climate_df.copy()
 
     # Save target normalization constants for un-scaling during evaluation
+    storage_raw_dict = {c: storage_df[c].copy() for c in storage_df.columns}
+
     inflow_mean = inflow_df.mean().values
     inflow_std = inflow_df.std().replace(0, 1).values + 1e-8
     normalizer = {"mean": inflow_mean, "std": inflow_std}
+    
+    release_mean = releases_df.mean().values
+    release_std = releases_df.std().replace(0, 1).values + 1e-8
+    releases_norm = (releases_df - release_mean) / release_std
+    normalizer["release_mean"] = release_mean
+    normalizer["release_std"] = release_std
+    normalizer["storage_raw"] = storage_raw_dict
+    
+    release_mean = releases_df.mean().values
+    release_std = releases_df.std().replace(0, 1).values + 1e-8
+    normalizer["release_mean"] = release_mean
+    normalizer["release_std"] = release_std
+    normalizer["storage_raw"] = {s: storage_raw_dict[s] for s in storage_raw_dict}
 
     features_df = standardize(features_df)
     climate_df = standardize(climate_df)
@@ -268,6 +293,7 @@ def build_datasets(config: dict, graph: object):
         climate_df=climate_df,
         inflow_df=inflow_df,
         storage_df=storage_df,
+        releases_df=releases_norm,
         window_size=config["data"]["lookback_days"],
         target_weeks=config["model"]["quantile_head"]["forecast_steps"],
         num_nodes=num_nodes,
@@ -382,13 +408,19 @@ def evaluate(config: dict, model: ReservoirGNN, graph: object,
     val_sample_dates = normalizer.get("val_sample_dates") if split == "val" else normalizer.get("test_sample_dates")
     oni_raw_series = normalizer.get("oni_raw") if split == "val" else normalizer.get("oni_raw_test")
     sample_offset = 0
+    all_rel = []
+    all_s0 = []
 
     with torch.no_grad():
         for batch in loader:
             batch = {k: v.to(device) if isinstance(v, torch.Tensor) else v for k, v in batch.items()}
             # preds shape: (batch, num_nodes, forecast_steps, num_quantiles)
             with torch.amp.autocast('cuda', enabled=(device.type == 'cuda')):
-                preds = model(batch['node_features'], batch['climate_indices'], graph.edge_index.to(device))
+                model_out = model(batch['node_features'], batch['climate_indices'], graph.edge_index.to(device))
+                if isinstance(model_out, tuple):
+                    preds, rel_out = model_out
+                else:
+                    preds, rel_out = model_out, None
             
             # targets shape: (batch, num_nodes, forecast_steps)
             targets = batch['targets']
@@ -396,6 +428,9 @@ def evaluate(config: dict, model: ReservoirGNN, graph: object,
             
             all_targets.append(targets.cpu().numpy())
             all_preds.append(preds.float().cpu().numpy())
+            all_s0.append(batch['current_storage'].float().cpu().numpy())
+            if isinstance(model_out, tuple):
+                all_rel.append(rel_out.float().cpu().numpy())
             
             # Stratify ENSO on RAW physical ONI, not z-scores
             n_samples = preds.shape[0]
@@ -422,6 +457,58 @@ def evaluate(config: dict, model: ReservoirGNN, graph: object,
     observations = targets_full[:, :, 0]
     predictions_median = preds_full[:, :, 0, 1]  # quantile 1 is the median (0.1, 0.5, 0.9)
     predictions_ensemble = preds_full[:, :, 0, :]
+
+    # ---- Stage-2: reservoir storage (LEVEL) forecast via mass balance ----
+    # Releases: predicted by the release head (normalized space -> MCM) when
+    # enabled; fall back to the operational mode (actual implied releases).
+    storage_rows = []
+    rel_norm_full = None
+    if all_rel:
+        rel_norm_full = np.concatenate(all_rel, axis=0)  # (S, N, 12) normalized releases
+    release_mean = normalizer.get("release_mean")
+    release_std = normalizer.get("release_std")
+    storage_lookup = normalizer.get("storage_raw")
+    dates_split = normalizer.get("val_sample_dates") if split == "val" else normalizer.get("test_sample_dates")
+    n_samples, n_nodes, n_weeks = targets_full.shape
+    for j, res in enumerate(reservoirs):
+        slug = res.lower().replace(" ", "_")
+        s_series = storage_lookup.get(slug) if storage_lookup else None
+        if s_series is None:
+            continue
+        mu_r = float(release_mean[j]) if release_mean is not None else 0.0
+        sd_r = float(release_std[j]) if release_std is not None else 1.0
+        for i in range(n_samples):
+            t = dates_split.iloc[i] if dates_split is not None else None
+            if t is None or (t + pd.Timedelta(days=84)) > s_series.index.max():
+                continue
+            s0 = float(np.clip(s_series.asof(t), 0, None))
+            cap = float(s_series.max())
+            cum_i = 0.0
+            for w in range(1, n_weeks + 1):
+                i_tmc = targets_full[i, j, w - 1] * TMC_PER_M3SDAY_TMC  # m3/s-days -> TMC
+                i_mcm = i_tmc * 28.3168466
+                if rel_norm_full is not None:
+                    r_mcm = max(0.0, rel_norm_full[i, j, w - 1, 1] * sd_r + mu_r)  # median quantile
+                else:
+                    win = s_series.loc[t + pd.Timedelta(days=7 * (w - 1) + 1): t + pd.Timedelta(days=7 * w)]
+                    i_obs = float(win.sum()) * TMC_PER_M3SDAY_TMC * 28.3168466
+                    r_mcm = max(0.0, s_series.asof(t + pd.Timedelta(days=7 * (w - 1))) + i_obs - float(s_series.asof(t + pd.Timedelta(days=7 * w))))
+                cum_i += i_mcm
+                s_pred = float(np.clip(s0 + cum_i - r_mcm, 0.0, cap))
+                s_act = float(np.clip(s_series.asof(t + pd.Timedelta(days=7 * w)), 0, None))
+                storage_rows.append({"Split": split, "Reservoir": res, "Week": w, "Date": str(t.date()),
+                                     "Storage_actual_MCM": s_act, "Storage_pred_MCM": s_pred})
+    storage_df_out = pd.DataFrame(storage_rows)
+    storage_nse_rows = []
+    if not storage_df_out.empty:
+        for (sp, res, w), g in storage_df_out.groupby(["Split", "Reservoir", "Week"]):
+            o, p = g["Storage_actual_MCM"].values, g["Storage_pred_MCM"].values
+            d = ((o - o.mean()) ** 2).sum()
+            nse_v = float(1 - ((p - o) ** 2).sum() / d) if d > 0 else float("nan")
+            storage_nse_rows.append({"Split": sp, "Reservoir": res, "Week": int(w), "NSE_storage": round(nse_v, 3)})
+    storage_nse = pd.DataFrame(storage_nse_rows)
+    if not storage_nse.empty:
+        storage_nse.to_csv(os.path.join(output_dir, f"evaluation_metrics_storage_{split}.csv"), index=False)
 
     evaluator = Evaluator(reservoir_names, basin_mapping)
     results = evaluator.evaluate(observations, predictions_median, predictions_ensemble, oni_values)

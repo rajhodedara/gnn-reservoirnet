@@ -1,0 +1,412 @@
+[
+  {
+    "file": "data\\raw\\wris\\almatti.csv",
+    "schema": "new_4col",
+    "columns_raw": [
+      "Date",
+      "Reservoir_Name",
+      "Inflow (cusecs/cumecs)",
+      "Storage (TMC/MCM)"
+    ],
+    "rows_total": 5479,
+    "date_min_total": "2010-01-01",
+    "date_max_total": "2024-12-31",
+    "rows_in_window": 5479,
+    "missing_days_in_window": 0,
+    "storage": {
+      "col": "Storage (TMC/MCM)",
+      "min": 0.0,
+      "mean": 60.181,
+      "max": 109.829,
+      "capacity_tmc": 121.5,
+      "max_over_capacity_pct": -9.6,
+      "nan_in_window": 0,
+      "ds_std_tmc_per_day": 17.04,
+      "ds_max_abs_tmc": 109.83,
+      "zero_storage_days": 106,
+      "artifact_days_gt_10pct_cap": 892
+    },
+    "inflow": {
+      "col": "Inflow (cusecs/cumecs)",
+      "min": 0.0,
+      "mean": 54.774,
+      "p99": 687.032,
+      "max": 1115.82,
+      "zero_pct": 63.9,
+      "monsoon_jjas_share_pct": 86.4,
+      "nan_in_window": 0,
+      "corr_inflow_vs_maxDeltaS": 0.004,
+      "match_inflow_eq_maxDeltaS_pct": 42.8,
+      "corr_inflow_vs_nextday_storage_gain": 0.008
+    }
+  },
+  {
+    "file": "data\\raw\\wris\\jayakwadi.csv",
+    "schema": "new_4col",
+    "columns_raw": [
+      "Date",
+      "Reservoir_Name",
+      "Inflow (cusecs/cumecs)",
+      "Storage (TMC/MCM)"
+    ],
+    "rows_total": 5479,
+    "date_min_total": "2010-01-01",
+    "date_max_total": "2024-12-31",
+    "rows_in_window": 5479,
+    "missing_days_in_window": 0,
+    "storage": {
+      "col": "Storage (TMC/MCM)",
+      "min": 0.0,
+      "mean": 32.417,
+      "max": 76.633,
+      "capacity_tmc": 102.7,
+      "max_over_capacity_pct": -25.4,
+      "nan_in_window": 0,
+      "ds_std_tmc_per_day": 9.76,
+      "ds_max_abs_tmc": 76.63,
+      "zero_storage_days": 323,
+      "artifact_days_gt_10pct_cap": 359
+    },
+    "inflow": {
+      "col": "Inflow (cusecs/cumecs)",
+      "min": 0.0,
+      "mean": 63.226,
+      "p99": 822.2,
+      "max": 9080.48,
+      "zero_pct": 80.4,
+      "monsoon_jjas_share_pct": 47.8,
+      "nan_in_window": 0,
+      "corr_inflow_vs_maxDeltaS": 0.02,
+      "match_inflow_eq_maxDeltaS_pct": 48.1,
+      "corr_inflow_vs_nextday_storage_gain": 0.027
+    }
+  },
+  {
+    "file": "data\\raw\\wris\\krishnaraja_sagara.csv",
+    "schema": "new_4col",
+    "columns_raw": [
+      "Date",
+      "Reservoir_Name",
+      "Inflow (cusecs/cumecs)",
+      "Storage (TMC/MCM)"
+    ],
+    "rows_total": 5479,
+    "date_min_total": "2010-01-01",
+    "date_max_total": "2024-12-31",
+    "rows_in_window": 5479,
+    "missing_days_in_window": 0,
+    "storage": {
+      "col": "Storage (TMC/MCM)",
+      "min": 0.0,
+      "mean": 25.064,
+      "max": 40.965,
+      "capacity_tmc": 49.4,
+      "max_over_capacity_pct": -17.1,
+      "nan_in_window": 0,
+      "ds_std_tmc_per_day": 5.83,
+      "ds_max_abs_tmc": 40.97,
+      "zero_storage_days": 86,
+      "artifact_days_gt_10pct_cap": 913
+    },
+    "inflow": {
+      "col": "Inflow (cusecs/cumecs)",
+      "min": 0.0,
+      "mean": 14.919,
+      "p99": 123.959,
+      "max": 624.156,
+      "zero_pct": 0.1,
+      "monsoon_jjas_share_pct": 74.3,
+      "nan_in_window": 365,
+      "corr_inflow_vs_maxDeltaS": 0.019,
+      "match_inflow_eq_maxDeltaS_pct": 0.2,
+      "corr_inflow_vs_nextday_storage_gain": 0.027
+    }
+  },
+  {
+    "file": "data\\raw\\wris\\mettur.csv",
+    "schema": "new_4col",
+    "columns_raw": [
+      "Date",
+      "Reservoir_Name",
+      "Inflow (cusecs/cumecs)",
+      "Storage (TMC/MCM)"
+    ],
+    "rows_total": 5479,
+    "date_min_total": "2010-01-01",
+    "date_max_total": "2024-12-31",
+    "rows_in_window": 5479,
+    "missing_days_in_window": 0,
+    "storage": {
+      "col": "Storage (TMC/MCM)",
+      "min": 0.0,
+      "mean": 50.665,
+      "max": 93.584,
+      "capacity_tmc": 93.4,
+      "max_over_capacity_pct": 0.2,
+      "nan_in_window": 0,
+      "ds_std_tmc_per_day": 10.03,
+      "ds_max_abs_tmc": 93.58,
+      "zero_storage_days": 50,
+      "artifact_days_gt_10pct_cap": 653
+    },
+    "inflow": {
+      "col": "Inflow (cusecs/cumecs)",
+      "min": 0.0,
+      "mean": 513.943,
+      "p99": 8756.19,
+      "max": 113409.94,
+      "zero_pct": 1.4,
+      "monsoon_jjas_share_pct": 60.9,
+      "nan_in_window": 0,
+      "corr_inflow_vs_maxDeltaS": 0.031,
+      "match_inflow_eq_maxDeltaS_pct": 1.3,
+      "corr_inflow_vs_nextday_storage_gain": 0.028
+    }
+  },
+  {
+    "file": "data\\raw\\wris\\nagarjuna_sagar.csv",
+    "schema": "new_4col",
+    "columns_raw": [
+      "Date",
+      "Reservoir_Name",
+      "Inflow (cusecs/cumecs)",
+      "Storage (TMC/MCM)"
+    ],
+    "rows_total": 5479,
+    "date_min_total": "2010-01-01",
+    "date_max_total": "2024-12-31",
+    "rows_in_window": 5479,
+    "missing_days_in_window": 0,
+    "storage": {
+      "col": "Storage (TMC/MCM)",
+      "min": 0.0,
+      "mean": 79.929,
+      "max": 180.458,
+      "capacity_tmc": 408.2,
+      "max_over_capacity_pct": -55.8,
+      "nan_in_window": 0,
+      "ds_std_tmc_per_day": 24.32,
+      "ds_max_abs_tmc": 180.46,
+      "zero_storage_days": 377,
+      "artifact_days_gt_10pct_cap": 269
+    },
+    "inflow": {
+      "col": "Inflow (cusecs/cumecs)",
+      "min": 0.0,
+      "mean": 267.908,
+      "p99": 5122.906,
+      "max": 17506.822,
+      "zero_pct": 14.8,
+      "monsoon_jjas_share_pct": 84.9,
+      "nan_in_window": 0,
+      "corr_inflow_vs_maxDeltaS": 0.015,
+      "match_inflow_eq_maxDeltaS_pct": 10.0,
+      "corr_inflow_vs_nextday_storage_gain": 0.025
+    }
+  },
+  {
+    "file": "data\\raw\\wris\\sardar_sarovar.csv",
+    "schema": "new_4col",
+    "columns_raw": [
+      "Date",
+      "Reservoir_Name",
+      "Inflow (cusecs/cumecs)",
+      "Storage (TMC/MCM)"
+    ],
+    "rows_total": 5479,
+    "date_min_total": "2010-01-01",
+    "date_max_total": "2024-12-31",
+    "rows_in_window": 5479,
+    "missing_days_in_window": 0,
+    "storage": {
+      "col": "Storage (TMC/MCM)",
+      "min": 0.0,
+      "mean": 49.412,
+      "max": 203.059,
+      "capacity_tmc": 335.5,
+      "max_over_capacity_pct": -39.5,
+      "nan_in_window": 0,
+      "ds_std_tmc_per_day": 22.88,
+      "ds_max_abs_tmc": 203.06,
+      "zero_storage_days": 978,
+      "artifact_days_gt_10pct_cap": 304
+    },
+    "inflow": {
+      "col": "Inflow (cusecs/cumecs)",
+      "min": 0.0,
+      "mean": 590.538,
+      "p99": 8996.594,
+      "max": 52283.0,
+      "zero_pct": 0.1,
+      "monsoon_jjas_share_pct": 81.0,
+      "nan_in_window": 0,
+      "corr_inflow_vs_maxDeltaS": -0.007,
+      "match_inflow_eq_maxDeltaS_pct": 0.1,
+      "corr_inflow_vs_nextday_storage_gain": -0.017
+    }
+  },
+  {
+    "file": "data\\raw\\wris\\srisailam.csv",
+    "schema": "new_4col",
+    "columns_raw": [
+      "Date",
+      "Reservoir_Name",
+      "Inflow (cusecs/cumecs)",
+      "Storage (TMC/MCM)"
+    ],
+    "rows_total": 5479,
+    "date_min_total": "2010-01-01",
+    "date_max_total": "2024-12-31",
+    "rows_in_window": 5479,
+    "missing_days_in_window": 0,
+    "storage": {
+      "col": "Storage (TMC/MCM)",
+      "min": 0.0,
+      "mean": 99.884,
+      "max": 261.262,
+      "capacity_tmc": 302.3,
+      "max_over_capacity_pct": -13.6,
+      "nan_in_window": 0,
+      "ds_std_tmc_per_day": 11.71,
+      "ds_max_abs_tmc": 211.18,
+      "zero_storage_days": 12,
+      "artifact_days_gt_10pct_cap": 47
+    },
+    "inflow": {
+      "col": "Inflow (cusecs/cumecs)",
+      "min": 0.0,
+      "mean": 425.228,
+      "p99": 6774.3,
+      "max": 17506.822,
+      "zero_pct": 13.6,
+      "monsoon_jjas_share_pct": 82.1,
+      "nan_in_window": 0,
+      "corr_inflow_vs_maxDeltaS": 0.14,
+      "match_inflow_eq_maxDeltaS_pct": 12.0,
+      "corr_inflow_vs_nextday_storage_gain": 0.152
+    }
+  },
+  {
+    "file": "data\\raw\\wris\\tungabhadra.csv",
+    "schema": "new_4col",
+    "columns_raw": [
+      "Date",
+      "Reservoir_Name",
+      "Inflow (cusecs/cumecs)",
+      "Storage (TMC/MCM)"
+    ],
+    "rows_total": 5479,
+    "date_min_total": "2010-01-01",
+    "date_max_total": "2024-12-31",
+    "rows_in_window": 5479,
+    "missing_days_in_window": 0,
+    "storage": {
+      "col": "Storage (TMC/MCM)",
+      "min": 0.0,
+      "mean": 51.104,
+      "max": 115.832,
+      "capacity_tmc": 132.8,
+      "max_over_capacity_pct": -12.8,
+      "nan_in_window": 0,
+      "ds_std_tmc_per_day": 13.67,
+      "ds_max_abs_tmc": 99.23,
+      "zero_storage_days": 5,
+      "artifact_days_gt_10pct_cap": 855
+    },
+    "inflow": {
+      "col": "Inflow (cusecs/cumecs)",
+      "min": 0.0,
+      "mean": 380.645,
+      "p99": 4510.675,
+      "max": 7837.977,
+      "zero_pct": 15.8,
+      "monsoon_jjas_share_pct": 64.9,
+      "nan_in_window": 0,
+      "corr_inflow_vs_maxDeltaS": 0.018,
+      "match_inflow_eq_maxDeltaS_pct": 7.6,
+      "corr_inflow_vs_nextday_storage_gain": 0.015
+    }
+  },
+  {
+    "file": "data\\raw\\wris\\ujjani.csv",
+    "schema": "new_4col",
+    "columns_raw": [
+      "Date",
+      "Reservoir_Name",
+      "Inflow (cusecs/cumecs)",
+      "Storage (TMC/MCM)"
+    ],
+    "rows_total": 5479,
+    "date_min_total": "2010-01-01",
+    "date_max_total": "2024-12-31",
+    "rows_in_window": 5479,
+    "missing_days_in_window": 0,
+    "storage": {
+      "col": "Storage (TMC/MCM)",
+      "min": 0.0,
+      "mean": 45.224,
+      "max": 53.678,
+      "capacity_tmc": 110.9,
+      "max_over_capacity_pct": -51.6,
+      "nan_in_window": 0,
+      "ds_std_tmc_per_day": 4.88,
+      "ds_max_abs_tmc": 53.68,
+      "zero_storage_days": 673,
+      "artifact_days_gt_10pct_cap": 73
+    },
+    "inflow": {
+      "col": "Inflow (cusecs/cumecs)",
+      "min": 0.0,
+      "mean": 210.075,
+      "p99": 3020.541,
+      "max": 39222.5,
+      "zero_pct": 67.0,
+      "monsoon_jjas_share_pct": 61.6,
+      "nan_in_window": 0,
+      "corr_inflow_vs_maxDeltaS": 0.023,
+      "match_inflow_eq_maxDeltaS_pct": 63.0,
+      "corr_inflow_vs_nextday_storage_gain": 0.018
+    }
+  },
+  {
+    "file": "data\\raw\\wris\\ukai.csv",
+    "schema": "new_4col",
+    "columns_raw": [
+      "Date",
+      "Reservoir_Name",
+      "Inflow (cusecs/cumecs)",
+      "Storage (TMC/MCM)"
+    ],
+    "rows_total": 5479,
+    "date_min_total": "2010-01-01",
+    "date_max_total": "2024-12-31",
+    "rows_in_window": 5479,
+    "missing_days_in_window": 0,
+    "storage": {
+      "col": "Storage (TMC/MCM)",
+      "min": 0.0,
+      "mean": 116.847,
+      "max": 233.783,
+      "capacity_tmc": 261.8,
+      "max_over_capacity_pct": -10.7,
+      "nan_in_window": 0,
+      "ds_std_tmc_per_day": 38.82,
+      "ds_max_abs_tmc": 233.78,
+      "zero_storage_days": 926,
+      "artifact_days_gt_10pct_cap": 603
+    },
+    "inflow": {
+      "col": "Inflow (cusecs/cumecs)",
+      "min": 0.0,
+      "mean": 172.973,
+      "p99": 1647.97,
+      "max": 12938.0,
+      "zero_pct": 19.5,
+      "monsoon_jjas_share_pct": 84.8,
+      "nan_in_window": 0,
+      "corr_inflow_vs_maxDeltaS": 0.004,
+      "match_inflow_eq_maxDeltaS_pct": 11.8,
+      "corr_inflow_vs_nextday_storage_gain": -0.005
+    }
+  }
+]
