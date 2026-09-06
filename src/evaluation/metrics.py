@@ -50,13 +50,45 @@ def nse(obs: np.ndarray, pred: np.ndarray) -> float:
         pred (np.ndarray): Predicted values.
 
     Returns:
-        float: NSE value.
+        float: NSE value. Returns NaN if variance is too low to compute stable NSE.
     """
     obs_mean = np.mean(obs)
     numerator = np.sum((obs - pred) ** 2)
     denominator = np.sum((obs - obs_mean) ** 2)
+    
+    # Kaggle fix 1: Low-variance NSE guard
+    variance = np.var(obs) if len(obs) > 0 else 0
+    if variance < 1000 or denominator == 0:
+        return float('nan')
+        
+    return float(1 - (numerator / denominator))
+
+def event_nse(obs: np.ndarray, pred: np.ndarray, event_threshold: float = 10.0) -> float:
+    """
+    Event-only NSE computation (Kaggle fix 2).
+    Only computes NSE on days where observed flow > event_threshold.
+    """
+    mask = obs > event_threshold
+    if not np.any(mask):
+        return float('nan')
+    return nse(obs[mask], pred[mask])
+
+def log_nse(obs: np.ndarray, pred: np.ndarray) -> float:
+    """
+    Log-NSE option (Kaggle fix 3).
+    """
+    safe_obs = np.maximum(obs, 0)
+    safe_pred = np.maximum(pred, 0)
+    log_obs = np.log1p(safe_obs)
+    log_pred = np.log1p(safe_pred)
+    
+    obs_mean = np.mean(log_obs)
+    numerator = np.sum((log_obs - log_pred) ** 2)
+    denominator = np.sum((log_obs - obs_mean) ** 2)
+    
     if denominator == 0:
         return float('nan')
+        
     return float(1 - (numerator / denominator))
 
 def kge(obs: np.ndarray, pred: np.ndarray) -> float:
@@ -109,5 +141,7 @@ def evaluate_model(obs: np.ndarray, pred_median: np.ndarray, pred_ensemble: np.n
         "RMSE": rmse(obs, pred_median),
         "MAE": mae(obs, pred_median),
         "NSE": nse(obs, pred_median),
+        "Event_NSE": event_nse(obs, pred_median),
+        "Log_NSE": log_nse(obs, pred_median),
         "KGE": kge(obs, pred_median)
     }

@@ -46,7 +46,7 @@ class Evaluator:
         df_res = pd.DataFrame(per_reservoir_metrics)
         
         # Per-basin analysis
-        df_basin = df_res.groupby('Basin')[['CRPS', 'RMSE', 'NSE', 'KGE']].mean().reset_index()
+        df_basin = df_res.groupby('Basin')[['CRPS', 'RMSE', 'NSE', 'Event_NSE', 'Log_NSE', 'KGE']].mean().reset_index()
         
         # El Nino vs Neutral
         el_nino_idx = np.where(oni_values >= 0.5)[0]
@@ -72,7 +72,7 @@ class Evaluator:
                 metrics_nu['Condition'] = 'Neutral'
                 enso_metrics.append(metrics_nu)
                 
-            df_enso = pd.DataFrame(enso_metrics).groupby('Condition')[['CRPS', 'RMSE', 'NSE', 'KGE']].mean().reset_index()
+            df_enso = pd.DataFrame(enso_metrics).groupby('Condition')[['CRPS', 'RMSE', 'NSE', 'Event_NSE', 'Log_NSE', 'KGE']].mean().reset_index()
 
         return {
             'per_reservoir': df_res,
