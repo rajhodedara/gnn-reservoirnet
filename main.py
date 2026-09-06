@@ -142,7 +142,7 @@ def build_datasets(config: dict, graph: object):
 
     reservoirs = config.get("reservoirs", [{"id": f"R{i:02d}"} for i in range(1, 11)])
     num_nodes = graph.num_nodes
-    node_feat_dim = 5 # inflow, storage, runoff(sro), evap(e), soil_moisture(swvl1)
+    node_feat_dim = 5 # inflow, storage, rainfall(tp; runoff proxy if tp absent), evap(e), soil_moisture(swvl1)
 
     import xarray as xr
     import glob
@@ -178,9 +178,18 @@ def build_datasets(config: dict, graph: object):
                 "Refusing to train on synthetic placeholder data."
             )
 
-        # Merge ERA5-derived features (runoff, evap, soil moisture)
+        # Merge ERA5-derived features: true rainfall (tp) preferred, runoff proxy fallback
         if era5_mode == "precomputed":
-            for feat in ["runoff", "evap", "soil_moisture"]:
+            if f"{res_id}_rainfall" in era5_pre.columns:
+                df["rainfall"] = era5_pre[f"{res_id}_rainfall"].reindex(df.index).values
+                logger.info("%s: rainfall slot = ERA5 total precipitation (tp)", res_id)
+            elif f"{res_id}_runoff" in era5_pre.columns:
+                df["rainfall"] = era5_pre[f"{res_id}_runoff"].reindex(df.index).values
+                logger.warning("%s: rainfall slot filled with ERA5 surface-runoff PROXY (tp unavailable)", res_id)
+            else:
+                logger.warning("%s: no ERA5 rainfall/runoff column — zero-filling", res_id)
+                df["rainfall"] = 0.0
+            for feat in ["evap", "soil_moisture"]:
                 col = f"{res_id}_{feat}"
                 if col in era5_pre.columns:
                     df[feat] = era5_pre[col].reindex(df.index).values
@@ -203,8 +212,9 @@ def build_datasets(config: dict, graph: object):
             except Exception as e:
                 logger.warning(f"Failed to extract ERA5 data for {res_id}: {e}")
 
-        # Ensure all expected feature columns exist
-        for col in ['inflow', 'storage', 'runoff', 'evap', 'soil_moisture']:
+        # Ensure all expected feature columns exist. The 'rainfall' slot carries
+        # true ERA5 tp when the extraction provides it, else the runoff proxy.
+        for col in ['inflow', 'storage', 'rainfall', 'evap', 'soil_moisture']:
             if col not in df.columns:
                 df[col] = 0.0
 
@@ -213,7 +223,7 @@ def build_datasets(config: dict, graph: object):
         
         # We need to flatten features for all nodes to concatenate horizontally
         # Order MUST match node_feat_dim = 5
-        feats = df[['inflow', 'storage', 'runoff', 'evap', 'soil_moisture']]
+        feats = df[['inflow', 'storage', 'rainfall', 'evap', 'soil_moisture']]
         feats.columns = [f"{res_id}_{c}" for c in feats.columns]
         features_dict[res_id] = feats
 

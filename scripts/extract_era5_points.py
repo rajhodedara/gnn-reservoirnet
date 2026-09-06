@@ -29,12 +29,18 @@ def main() -> int:
     with open(PROJECT_ROOT / "configs" / "reservoirs.yaml") as f:
         reservoirs = yaml.safe_load(f)["reservoirs"]
 
-    files = sorted(ERA5_DIR.glob("*.nc"))
+    files = sorted(ERA5_DIR.glob("era5_land_peninsular_india_*.nc"))
     if not files:
         print(f"No NetCDF files in {ERA5_DIR}")
         return 1
     print(f"Opening {len(files)} ERA5 files...")
     ds = xr.open_mfdataset(files, combine="by_coords")
+
+    # Optional: true rainfall (tp) daily sums from the CDS download
+    tp_file = ERA5_DIR / "era5_tp_peninsular_2010_2024.nc"
+    tp_daily = xr.open_dataset(tp_file) if tp_file.exists() else None
+    if tp_daily is not None:
+        print(f"tp daily sums available: {tp_file.name}")
 
     out = None
     for res in reservoirs:
@@ -45,6 +51,13 @@ def main() -> int:
         sub[f"{res_id}_runoff"] = pdf["sro"] * 1000.0 if "sro" in pdf else np.nan
         sub[f"{res_id}_evap"] = pdf["e"] * 1000.0 if "e" in pdf else np.nan
         sub[f"{res_id}_soil_moisture"] = pdf["swvl1"] if "swvl1" in pdf else np.nan
+        if tp_daily is not None:
+            tpt = tp_daily.sel(latitude=lat, longitude=lon, method="nearest")
+            tdf = tpt.to_dataframe().select_dtypes(include=[np.number]).resample("D").sum()
+            vcol = next((c for c in tdf.columns if "rain" in c.lower()), tdf.columns[0])
+            sub[f"{res_id}_rainfall"] = tdf[vcol]
+        else:
+            sub[f"{res_id}_rainfall"] = np.nan
         out = sub if out is None else out.join(sub, how="outer")
         print(f"  {res_id}: extracted (nearest grid point used)")
 
