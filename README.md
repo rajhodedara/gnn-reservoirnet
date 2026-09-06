@@ -2,30 +2,30 @@
 
 Spatio-temporal GNN forecasting weekly inflow volumes for **10 major dams of Peninsular India** — built on a fully provenance-tracked, real-measured dataset, benchmarked against persistence and climatology baselines.
 
-![status](https://img.shields.io/badge/dataset-wris__v2--verified-2b5f75) ![results](https://img.shields.io/badge/held--out%20NSE-0.4--0.66%20(9%2F10%20dams)-c4552f)
+![status](https://img.shields.io/badge/dataset-wris__v2--verified-2b5f75) ![results](https://img.shields.io/badge/held--out%20NSE-0.29--0.67%20(10%2F10%20dams%20%3E%20persistence)-c4552f)
 
 ## What this is
 
 A research project forecasting **next-1-to-12-week inflow volumes** (P10/P50/P90 quantiles) for 10 Peninsular-Indian reservoirs — Almatti, Tungabhadra, Krishnaraja Sagara, Mettur, Nagarjuna Sagar, Srisailam, Jayakwadi, Ujjani, Sardar Sarovar, Ukai — using a **GAT (spatial) + TCN (temporal) + ENSO/IOD cross-attention** architecture, with a physical mass-balance storage stage.
 
-## Headline results (held-out 2024, week-1, seed-averaged over 3 seeds)
+## Headline results (held-out 2024, week-1, seed-averaged over 3 seeds, ERA5 true rainfall)
 
 | Reservoir | GNN NSE | Persistence | Climatology |
 |---|---|---|---|
-| Tungabhadra | 0.656 ± 0.052 | 0.612 | 0.542 |
-| Ukai | 0.642 ± 0.042 | 0.650 | 0.791 |
-| Mettur | 0.615 ± 0.030 | 0.352 | −2.376 |
-| Srisailam | 0.605 ± 0.046 | 0.418 | 0.453 |
-| Almatti | 0.591 ± 0.039 | 0.488 | 0.533 |
-| Krishnaraja Sagara | 0.579 ± 0.030 | 0.459 | 0.382 |
-| Sardar Sarovar | 0.514 ± 0.049 | 0.376 | 0.530 |
-| Ujjani | 0.504 ± 0.056 | 0.338 | 0.358 |
-| Nagarjuna Sagar | 0.413 ± 0.044 | 0.162 | 0.526 |
-| Jayakwadi | 0.236 ± 0.026 | −0.318 | 0.369 |
+| Ukai | 0.672 ± 0.047 | 0.650 | 0.791 |
+| Tungabhadra | 0.642 ± 0.059 | 0.612 | 0.542 |
+| Srisailam | 0.605 ± 0.051 | 0.418 | 0.453 |
+| Mettur | 0.600 ± 0.031 | 0.352 | −2.376 |
+| Krishnaraja Sagara | 0.586 ± 0.042 | 0.459 | 0.382 |
+| Almatti | 0.582 ± 0.036 | 0.488 | 0.533 |
+| Sardar Sarovar | 0.540 ± 0.040 | 0.376 | 0.530 |
+| Ujjani | 0.497 ± 0.073 | 0.338 | 0.358 |
+| Nagarjuna Sagar | 0.413 ± 0.063 | 0.162 | 0.526 |
+| Jayakwadi | 0.291 ± 0.035 | −0.318 | 0.369 |
 
-**10/10 reservoirs positive NSE · 9/10 beat persistence · 7/10 beat seasonal climatology · seed std ≤ 0.056.**
+**10/10 reservoirs positive NSE · 10/10 beat persistence · 7/10 beat seasonal climatology · mean 0.543 · seed std ≤ 0.073.**
 
-Full archive: `outputs/run1…run6/` (5 evaluated runs, each reproducible).
+**Ablation (same model, only the rainfall feature changed):** true ERA5 precipitation vs surface-runoff proxy improves **10/10 reservoirs** (+0.033 mean NSE; Jayakwadi +0.062, Srisailam +0.051, KRS +0.045). Blending GNN with seasonal climatology keeps weeks 3–5 competitive (see `scripts/blend_eval.py`).
 
 ## The dataset (`data/raw/wris_v2/`)
 
