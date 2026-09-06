@@ -24,35 +24,62 @@ def year_days(year: int) -> list[str]:
     return [f"{d:02d}" for d in range(1, 32)]
 
 
-def fetch_year(c: cdsapi.Client, year: int) -> Path:
-    out = ERA5 / f"era5_tp_hourly_peninsular_{year}.nc"
-    if out.exists() and out.stat().st_size > 100_000:
-        print(f"  {year}: already fetched ({out.stat().st_size/1e6:.1f} MB)", flush=True)
-        return out
-    request = {
-        "product_type": ["reanalysis"],
-        "variable": ["total_precipitation"],
-        "year": [str(year)],
-        "month": [f"{m:02d}" for m in range(1, 13)],
-        "day": year_days(year),
-        "time": [f"{h:02d}:00" for h in range(24)],
-        "area": [23, 73, 8, 85],
-        "data_format": "netcdf",
-        "download_format": "unarchived",
-    }
-    print(f"  {year}: submitting hourly request...", flush=True)
-    c.retrieve("reanalysis-era5-single-levels", request).download(str(out))
-    print(f"  {year}: saved {out.stat().st_size/1e6:.1f} MB", flush=True)
-    return out
+def fetch_year(c: cdsapi.Client, year: int) -> list[Path]:
+    out1 = ERA5 / f"era5_tp_hourly_peninsular_{year}_s1.nc"
+    out2 = ERA5 / f"era5_tp_hourly_peninsular_{year}_s2.nc"
+    
+    parts = []
+    
+    # Semester 1
+    if out1.exists() and out1.stat().st_size > 10_000:
+        print(f"  {year} S1: already fetched ({out1.stat().st_size/1e6:.1f} MB)", flush=True)
+        parts.append(out1)
+    else:
+        req1 = {
+            "product_type": ["reanalysis"],
+            "variable": ["total_precipitation"],
+            "year": [str(year)],
+            "month": [f"{m:02d}" for m in range(1, 7)],
+            "day": year_days(year),
+            "time": [f"{h:02d}:00" for h in range(24)],
+            "area": [23, 73, 8, 85],
+            "data_format": "netcdf",
+            "download_format": "unarchived",
+        }
+        print(f"  {year} S1: submitting...", flush=True)
+        c.retrieve("reanalysis-era5-single-levels", req1).download(str(out1))
+        parts.append(out1)
+        
+    # Semester 2
+    if out2.exists() and out2.stat().st_size > 10_000:
+        print(f"  {year} S2: already fetched ({out2.stat().st_size/1e6:.1f} MB)", flush=True)
+        parts.append(out2)
+    else:
+        req2 = {
+            "product_type": ["reanalysis"],
+            "variable": ["total_precipitation"],
+            "year": [str(year)],
+            "month": [f"{m:02d}" for m in range(7, 13)],
+            "day": year_days(year),
+            "time": [f"{h:02d}:00" for h in range(24)],
+            "area": [23, 73, 8, 85],
+            "data_format": "netcdf",
+            "download_format": "unarchived",
+        }
+        print(f"  {year} S2: submitting...", flush=True)
+        c.retrieve("reanalysis-era5-single-levels", req2).download(str(out2))
+        parts.append(out2)
+
+    return parts
 
 
 def main() -> int:
-    c = cdsapi.Client(quiet=True, progress=False)
+    c = cdsapi.Client()
     files = []
     failures = []
     for y in YEARS:
         try:
-            files.append(fetch_year(c, y))
+            files.extend(fetch_year(c, y))
         except Exception as e:
             print(f"  {y}: FAILED {type(e).__name__}: {str(e)[:200]}", flush=True)
             failures.append(y)
