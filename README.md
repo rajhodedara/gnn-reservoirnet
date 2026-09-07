@@ -12,18 +12,18 @@ A research project forecasting **next-1-to-12-week inflow volumes** (P10/P50/P90
 
 | Reservoir | GNN NSE | Persistence | Climatology |
 |---|---|---|---|
-| Ukai | 0.705 ± 0.019 | 0.650 | 0.791 |
-| Tungabhadra | 0.644 ± 0.024 | 0.612 | 0.542 |
-| Srisailam | 0.614 ± 0.018 | 0.418 | 0.453 |
-| Mettur | 0.607 ± 0.007 | 0.352 | 0.354 |
-| Almatti | 0.587 ± 0.021 | 0.488 | 0.533 |
-| Krishnaraja Sagara | 0.585 ± 0.014 | 0.459 | 0.382 |
-| Nagarjuna Sagar | 0.573 ± 0.018 | -0.023 | 0.258 |
-| Sardar Sarovar | 0.569 ± 0.018 | 0.376 | 0.686 |
-| Ujjani | 0.520 ± 0.017 | 0.338 | 0.357 |
-| Jayakwadi | 0.311 ± 0.022 | 0.008 | 0.354 |
+| Ukai | 0.703 ± 0.020 | 0.650 | 0.791 |
+| Tungabhadra | 0.664 ± 0.036 | 0.612 | 0.542 |
+| Srisailam | 0.625 ± 0.022 | 0.418 | 0.453 |
+| Mettur | 0.623 ± 0.038 | 0.352 | 0.354 |
+| Krishnaraja Sagara | 0.601 ± 0.033 | 0.459 | 0.382 |
+| Almatti | 0.596 ± 0.018 | 0.488 | 0.533 |
+| Nagarjuna Sagar | 0.585 ± 0.021 | −0.023 | 0.258 |
+| Sardar Sarovar | 0.575 ± 0.010 | 0.376 | 0.686 |
+| Ujjani | 0.539 ± 0.028 | 0.338 | 0.357 |
+| Jayakwadi | 0.295 ± 0.025 | 0.008 | 0.354 |
 
-**10/10 reservoirs positive NSE · 10/10 beat persistence · 7/10 beat seasonal climatology · mean 0.572 · 5 seeds · seed std ≤ 0.024.** (Run #8: KRMB board data for NS + Srisailam, Mettur/SSP target patches, ERA5 true rainfall, release head trained jointly. NS gained +0.17 from its own real KRMB data - from the weakest node to a climatology-beater.)
+**10/10 reservoirs positive NSE · 10/10 beat persistence · 7/10 beat seasonal climatology · mean 0.581 · 5 seeds · seed std ≤ 0.038.** (KRMB board data for NS + Srisailam, Mettur/SSP target patches, ERA5 true rainfall, release head trained jointly, Jayakwadi fake-zero mask. The mask slightly lowered Jayakwadi's own score (0.311 → 0.295, within seed noise) while improving 8/9 other dams through cleaner graph message passing — net +0.009 system-wide. NS gained +0.17 from its own real KRMB data — from the weakest node to a climatology-beater.)
 
 **Ablation (same model, only the rainfall feature changed):** true ERA5 precipitation vs surface-runoff proxy improves **10/10 reservoirs** (+0.033 mean NSE; Jayakwadi +0.062, Srisailam +0.051, KRS +0.045). Blending GNN with seasonal climatology keeps weeks 3-5 competitive (see `scripts/blend_eval.py`).
 
@@ -97,7 +97,7 @@ python scripts/diagnose_nodes.py                 # per-node predictability
 ## Honest limitations
 
 - **Skill horizon**: weeks 1-2 standalone; **blending with climatology keeps weeks 3-5 competitive** (see `scripts/blend_eval.py`)
-- **Jayakwadi** capped by its gauge (Dhalegaon: 64.8% zeros, monsoon pulse magnitudes poorly tracked — weekly gauge-vs-storage-Δ correlation r≈0.13 even after our fake-zero mask; no better source found after exhaustive search, incl. two documented dead ends: `docs/jayakwadi_package/OCR_DEADEND.md`)
+- **Jayakwadi** capped by its gauge (Dhalegaon: 64.8% zeros, monsoon pulse magnitudes poorly tracked - weekly gauge-vs-storage-Δ correlation r≈0.13 even after our fake-zero mask; no better source found after exhaustive search, incl. two documented dead ends: `docs/jayakwadi_package/OCR_DEADEND.md`)
 - **Sardar Sarovar 2010-2020** remains release-contaminated (Garudeshwar); Mandleshwar covers 2021+
 - **No `tp` rainfall band** in the ERA5 bundle - weather slot uses surface runoff (sro)
 - NS inflow remains a documented proxy
