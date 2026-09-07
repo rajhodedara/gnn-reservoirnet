@@ -470,7 +470,7 @@ def evaluate(config: dict, model: ReservoirGNN, graph: object,
     storage_lookup = normalizer.get("storage_raw")
     dates_split = normalizer.get("val_sample_dates") if split == "val" else normalizer.get("test_sample_dates")
     n_samples, n_nodes, n_weeks = targets_full.shape
-    for j, res in enumerate(reservoirs):
+    for j, res in enumerate(reservoir_names):
         slug = res.lower().replace(" ", "_")
         s_series = storage_lookup.get(slug) if storage_lookup else None
         if s_series is None:
@@ -753,7 +753,10 @@ def main() -> None:
         else:
             logger.warning("Best checkpoint %s not found; evaluating final weights (not recommended).", best_ckpt)
             evaluate(config, model, graph)
-        explain(config, model, graph)
+        if getattr(model, 'predict_releases', False):
+            logger.info("Skipping explain(): explainability not yet supported with the release head enabled")
+        else:
+            explain(config, model, graph)
 
         logger.info("=" * 60)
         logger.info("Pipeline complete. Outputs saved to: %s", args.output_dir)
