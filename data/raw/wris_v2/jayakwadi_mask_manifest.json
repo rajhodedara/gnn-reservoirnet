@@ -1,0 +1,81 @@
+{
+ "operation": "fake-zero mask (no synthesis)",
+ "reservoir": "jayakwadi",
+ "rule": "Inflow == 0 AND same-day Storage rise > 1.0 TMC -> set to missing (NaN)",
+ "evidence": {
+  "zero_inflow_days": 3551,
+  "masked_days": 998,
+  "mask_pct_of_zeros": 28.1,
+  "storage_rise_on_masked_days_min_tmc": 1.0,
+  "rationale": "storage cannot rise without inflow; releases/evaporation only lower it; direct rainfall on reservoir < 0.15 TMC/day",
+  "weekly_monsoon_corr_gauge_vs_storage_delta_before": 0.127
+ },
+ "per_year": {
+  "2010": {
+   "masked": 69,
+   "zeros_total": 339,
+   "mask_pct": 20.4
+  },
+  "2011": {
+   "masked": 55,
+   "zeros_total": 350,
+   "mask_pct": 15.7
+  },
+  "2012": {
+   "masked": 230,
+   "zeros_total": 366,
+   "mask_pct": 62.8
+  },
+  "2013": {
+   "masked": 83,
+   "zeros_total": 365,
+   "mask_pct": 22.7
+  },
+  "2014": {
+   "masked": 38,
+   "zeros_total": 322,
+   "mask_pct": 11.8
+  },
+  "2015": {
+   "masked": 36,
+   "zeros_total": 365,
+   "mask_pct": 9.9
+  },
+  "2016": {
+   "masked": 89,
+   "zeros_total": 321,
+   "mask_pct": 27.7
+  },
+  "2017": {
+   "masked": 46,
+   "zeros_total": 189,
+   "mask_pct": 24.3
+  },
+  "2018": {
+   "masked": 23,
+   "zeros_total": 29,
+   "mask_pct": 79.3
+  },
+  "2021": {
+   "masked": 12,
+   "zeros_total": 76,
+   "mask_pct": 15.8
+  },
+  "2022": {
+   "masked": 66,
+   "zeros_total": 244,
+   "mask_pct": 27.0
+  },
+  "2023": {
+   "masked": 140,
+   "zeros_total": 310,
+   "mask_pct": 45.2
+  },
+  "2024": {
+   "masked": 111,
+   "zeros_total": 272,
+   "mask_pct": 40.8
+  }
+ },
+ "policy": "masked days are treated as missing measurements and filled by the existing time-interpolation policy (data_formatter), consistent with manifest_v2.json days_interpolated convention"
+}
