@@ -28,3 +28,15 @@ The **India-WRIS (Water Resources Information System)** Data Portal API.
 
 **Why it remains untried and why it is the best path forward:** 
 The instructions explicitly constrained the search to locating and downloading "archival PDFs" for OCR. India-WRIS does possess extensive historical reservoir level and inflow data, but it is served via a dynamic web application powered by backend REST/GraphQL APIs, rather than static downloadable PDFs. Since the PDF OCR avenue is blocked by data-retention policies and inaccessible domains, intercepting the network requests on the India-WRIS portal or utilizing their telemetry API is the most viable method to extract the 2010-2024 daily inflow telemetry for Jayakwadi.
+
+## Addendum: India-WRIS API Extraction Attempt
+
+### API Discovery Log
+We attempted to intercept the India-WRIS backend API (e.g., `https://indiawris.gov.in/wris/` and `https://nwic.gov.in/`) to extract the reservoir telemetry programmatically. 
+
+*   **Network Probe:** All direct HTTPS/HTTP requests to `indiawris.gov.in` (IP: 164.100.85.36) resulted in hard connection timeouts (`curl: (28) Connection timed out after 21117 ms`). The NWIC/NIC infrastructure appears to actively drop packets from international cloud/datacenter IP ranges, making the portal completely unreachable from this execution environment.
+*   **Alternative Endpoints:** Probed `nwic.gov.in` which was accessible, but it only contains public notices and static links to the (blocked) `indiawris.gov.in` subdomains. No functional API endpoints for reservoir data were exposed on the accessible domain.
+
+### Gate Verdict: FAILED
+Because the API servers are inaccessible, the data retrieval rate is 0% (100% missing). This fails the established gate constraint of requiring missing/zero values to be `< 60%`. Consequently, building a patch CSV via this automated pipeline is impossible. The current `jayakwadi.csv` series (~80% zeros) remains the baseline until the WRIS portal can be scraped from an unblocked residential Indian IP.
+
