@@ -480,7 +480,7 @@ def evaluate(config: dict, model: ReservoirGNN, graph: object,
         mu_r = float(release_mean[j]) if release_mean is not None else 0.0
         sd_r = float(release_std[j]) if release_std is not None else 1.0
         for i in range(n_samples):
-            t = dates_split.iloc[i] if dates_split is not None else None
+            t = dates_split[i] if dates_split is not None else None
             if t is None or (t + pd.Timedelta(days=84)) > s_series.index.max():
                 continue
             s0 = float(np.clip(s_series.asof(t), 0, None))
@@ -490,7 +490,7 @@ def evaluate(config: dict, model: ReservoirGNN, graph: object,
                 i_tmc = targets_full[i, j, w - 1] * TMC_PER_M3SDAY_TMC  # m3/s-days -> TMC
                 i_mcm = i_tmc * 28.3168466
                 if rel_norm_full is not None:
-                    r_mcm = max(0.0, rel_norm_full[i, j, w - 1, 1] * sd_r + mu_r)  # median quantile
+                    r_mcm = max(0.0, rel_norm_full[i, j, w - 1, 1] * sd_r + 7.0 * mu_r)  # weekly z-sum: +7*mu (median quantile)
                 else:
                     win = s_series.loc[t + pd.Timedelta(days=7 * (w - 1) + 1): t + pd.Timedelta(days=7 * w)]
                     i_obs = float(win.sum()) * TMC_PER_M3SDAY_TMC * 28.3168466
