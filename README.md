@@ -40,6 +40,20 @@ Two complementary LEVEL results, both on held-out 2024 (storage NSE, TMC):
 **Honest negative result** (`docs/levels_ds_negative_result.md`): a direct ΔS regressor (GradientBoosting) loses to storage persistence on 9/10 dams — weekly storage is persistence-dominated; the physics constraint prevents catastrophic drift but does not manufacture skill the features don't carry. Full details: `docs/levels_ds_negative_result.md`.
 
 
+## Robustness: rolling-origin across five test years (2020–2024)
+
+Expanding-window refits (fold Y: test = Y, val = Y−1, train ≤ Y−2), 1 seed per fold, leakage-free — the sweep machinery lives in `scripts/rolling_origin_eval.py` + the notebook's Step 12:
+
+| Test year | Week-1 NSE | Week-4 | Week-12 | Pooled mean |
+|---|---|---|---|---|
+| 2020 | 0.755 | 0.150 | −0.083 | 0.549 |
+| 2021 | 0.602 | 0.551 | 0.344 | 0.356 |
+| 2022 | 0.671 | 0.379 | −0.053 | 0.641 |
+| 2023 (El Niño onset) | 0.556 | 0.149 | 0.141 | 0.156 |
+| 2024 | 0.683 | 0.246 | −0.289 | 0.572 |
+
+**Week-1 skill holds in all five years (0.56–0.75), including three non-El-Niño years — the headline result is not a test-year artifact.** Fold-2024's pooled mean (0.5716) reproduces the canonical 5-seed scoreboard (0.5715) as a consistency anchor. Week-12 skill is honestly year-dependent (positive 2021/2023, near-zero elsewhere); 2023's El Niño onset is the hardest year pooled.
+
 ## The dataset (`data/raw/wris_v2/`)
 
 Ten reservoir CSVs — daily, 2010-01-01 → 2024-12-31, 5,479 rows each:
