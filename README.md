@@ -8,22 +8,22 @@ Spatio-temporal GNN forecasting weekly inflow volumes for **10 major dams of Pen
 
 A research project forecasting **next-1-to-12-week inflow volumes** (P10/P50/P90 quantiles) for 10 Peninsular-Indian reservoirs — Almatti, Tungabhadra, Krishnaraja Sagara, Mettur, Nagarjuna Sagar, Srisailam, Jayakwadi, Ujjani, Sardar Sarovar, Ukai — using a **GAT (spatial) + TCN (temporal) + ENSO/IOD cross-attention** architecture, with a physical mass-balance storage stage.
 
-## Headline results (held-out 2024, week-1, seed-averaged over 3 seeds, ERA5 true rainfall)
+## Headline results (held-out 2024, week-1, seed-averaged over 5 seeds, ERA5 true rainfall)
 
 | Reservoir | GNN NSE | Persistence | Climatology |
 |---|---|---|---|
-| Ukai | 0.702 ± 0.023 | 0.650 | 0.791 |
-| Tungabhadra | 0.663 ± 0.003 | 0.612 | 0.542 |
-| Mettur | 0.623 ± 0.022 | 0.352 | 0.354 |
-| Srisailam | 0.620 ± 0.012 | 0.418 | 0.453 |
-| Krishnaraja Sagara | 0.604 ± 0.017 | 0.459 | 0.382 |
-| Almatti | 0.594 ± 0.011 | 0.488 | 0.533 |
-| Nagarjuna Sagar | 0.580 ± 0.011 | −0.023 | 0.258 |
-| Sardar Sarovar | 0.572 ± 0.006 | 0.376 | 0.686 |
-| Ujjani | 0.526 ± 0.004 | 0.338 | 0.357 |
-| Jayakwadi | 0.290 ± 0.008 | 0.008 | 0.354 |
+| Ukai | 0.705 ± 0.019 | 0.650 | 0.791 |
+| Tungabhadra | 0.644 ± 0.024 | 0.612 | 0.542 |
+| Srisailam | 0.614 ± 0.018 | 0.418 | 0.453 |
+| Mettur | 0.607 ± 0.007 | 0.352 | 0.354 |
+| Almatti | 0.587 ± 0.021 | 0.488 | 0.533 |
+| Krishnaraja Sagara | 0.585 ± 0.014 | 0.459 | 0.382 |
+| Nagarjuna Sagar | 0.573 ± 0.018 | −0.023 | 0.258 |
+| Sardar Sarovar | 0.569 ± 0.018 | 0.376 | 0.686 |
+| Ujjani | 0.520 ± 0.017 | 0.338 | 0.357 |
+| Jayakwadi | 0.311 ± 0.022 | 0.008 | 0.354 |
 
-**10/10 reservoirs positive NSE · 10/10 beat persistence · 7/10 beat seasonal climatology · mean 0.577 · seed std ≤ 0.023.** (Run #8: KRMB board data for NS + Srisailam, Mettur/SSP target patches, ERA5 true rainfall, release head trained jointly. NS gained +0.17 from its own real KRMB data — from the weakest node to a climatology-beater.)
+**10/10 reservoirs positive NSE · 10/10 beat persistence · 7/10 beat seasonal climatology · mean 0.572 · 5 seeds · seed std ≤ 0.024.** (Run #8: KRMB board data for NS + Srisailam, Mettur/SSP target patches, ERA5 true rainfall, release head trained jointly. NS gained +0.17 from its own real KRMB data — from the weakest node to a climatology-beater.)
 
 **Ablation (same model, only the rainfall feature changed):** true ERA5 precipitation vs surface-runoff proxy improves **10/10 reservoirs** (+0.033 mean NSE; Jayakwadi +0.062, Srisailam +0.051, KRS +0.045). Blending GNN with seasonal climatology keeps weeks 3–5 competitive (see `scripts/blend_eval.py`).
 
