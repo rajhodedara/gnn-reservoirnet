@@ -77,7 +77,7 @@ def main() -> int:
     summary.to_csv(OUT / "seed_summary.csv")
 
     print("=" * 84)
-    print("3-SEED HELD-OUT (2024) SUMMARY — next-7-day inflow volume")
+    print(f"{len(frames)}-SEED HELD-OUT (2024) SUMMARY - next-7-day inflow volume")
     print("=" * 84)
     print(f"{'reservoir':<22}{'GNN mean':>9}{'+/-':>5}{'PERSIST':>9}{'CLIM':>8}")
     print("-" * 84)
