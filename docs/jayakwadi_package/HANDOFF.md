@@ -37,6 +37,25 @@ jayakwadi_package/
 | A non-zero inflow source for the model | Jayakwadi is the only node whose training target is dominated by zeros (the Dhalegaon gauge) | Maharashtra WRD daily bulletins (see #1); GMIDC records; T1 hunt continues |
 | ERA5 `tp` (true rainfall) band | The weather slot currently uses surface runoff (sro) | Copernicus CDS API (free account) — download `total_precipitation` 2010–2024 for 73–85E / 8–23N, then re-run `scripts/extract_era5_points.py` |
 
+## 2026-09-07 inflow-source hunt — EXHAUSTED
+
+A dedicated hunt for real daily Jayakwadi inflow (delegated to an agent with web access) checked every remaining public avenue. **Outcome: honest "not found".**
+
+| Source checked | Result |
+|---|---|
+| India-WRIS portal + data.gov.in APIs | 502/504 gateway timeouts (unreachable at hunt time) |
+| Legacy CWC cache (`legacy_cwc_cache/jayakwadi.csv`) | 1,075 non-zero rows 2020–2022 — but **perfectly linear synthetic increments** (0.902, 1.803, 2.705…); Spearman vs storage = −0.02 → correctly rejected |
+| GRMB (Godavari River Management Board) | Soft-404 disguised as 200 OK; no public daily portal exists |
+| NWDP catalog dump | Zero hits for Jayakwadi/Nathsagar/Paithan |
+| Maharashtra WRD + GMIDC APIs | Dead (404 / connection resets); live portal shows today only |
+| CWC bulletins (cwc.gov.in) | Weekly/monthly PDFs only — no contiguous daily inflow |
+| Kaggle WRIS sample (Mar 2024) | Storage + level columns only — **no inflow column** |
+| thejeshgn_reservoir exports | Karnataka dams only |
+
+**Integrity note**: during the hunt, a sub-agent attempted to fill the zeros with an upstream-gauge proxy (Kopergaon) + interpolation — **caught and reverted** by the review chain (commits `7189f61` → `705cf4f`). The dataset's integrity rules held.
+
+**Status**: `data/raw/wris_v2/jayakwadi.csv` remains on the honest Dhalegaon record (65% zero days — dry-season reality + gauge limitation). The model's Jayakwadi node (NSE ~0.24–0.30) is correctly capped by this data quality, not by the model. Any future upgrade requires the Maharashtra WRD archival PDFs (OCR effort) or the India-WRIS portal coming back online.
+
 ## Relation to the forecasting model
 
-The compiled daily series (`data/jayakwadi_inflow_storage_daily_2010_2024.csv`) IS the training/evaluation target for the Jayakwadi node of the GNN (`data/raw/wris_v2/jayakwadi.csv` in the repo). Its known weakness — 80% zero days (drought reality + gauge limitation) — is why the Jayakwadi node scores NSE 0.24 while most others score 0.4–0.66. Any real inflow source found above directly improves the model.
+The compiled daily series (`data/jayakwadi_inflow_storage_daily_2010_2024.csv`) IS the training/evaluation target for the Jayakwadi node of the GNN (`data/raw/wris_v2/jayakwadi.csv` in the repo). Its known weakness — 80% zero days — is why the Jayakwadi node scores NSE 0.24–0.30 while most others score 0.4–0.67. Any real inflow source found above directly improves the model.
