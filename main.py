@@ -382,6 +382,8 @@ def evaluate(config: dict, model: ReservoirGNN, graph: object,
     import os
     
     assert split in ("val", "test"), f"split must be 'val' or 'test', got {split!r}"
+    output_dir = "runs"
+    os.makedirs(output_dir, exist_ok=True)
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     if checkpoint_path:
         state_dict = torch.load(checkpoint_path, map_location=device)
@@ -513,8 +515,6 @@ def evaluate(config: dict, model: ReservoirGNN, graph: object,
     evaluator = Evaluator(reservoir_names, basin_mapping)
     results = evaluator.evaluate(observations, predictions_median, predictions_ensemble, oni_values)
     
-    output_dir = "runs"
-    os.makedirs(output_dir, exist_ok=True)
     suffix = "" if split == "val" else f"_{split}"
     results['per_reservoir'].to_csv(os.path.join(output_dir, f"evaluation_metrics_per_reservoir{suffix}.csv"), index=False)
     results['per_basin'].to_csv(os.path.join(output_dir, f"evaluation_metrics_per_basin{suffix}.csv"), index=False)
