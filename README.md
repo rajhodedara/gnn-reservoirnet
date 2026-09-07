@@ -27,6 +27,17 @@ A research project forecasting **next-1-to-12-week inflow volumes** (P10/P50/P90
 
 **Ablation (same model, only the rainfall feature changed):** true ERA5 precipitation vs surface-runoff proxy improves **10/10 reservoirs** (+0.033 mean NSE; Jayakwadi +0.062, Srisailam +0.051, KRS +0.045). Blending GNN with seasonal climatology keeps weeks 3–5 competitive (see `scripts/blend_eval.py`).
 
+## LEVEL forecasting (physics-informed mass balance, `predict_releases` era)
+
+Two complementary LEVEL results, both on held-out 2024 (storage NSE, TMC):
+
+**1. Operational mode** (`scripts/eval_levels_v3.py` — GNN inflow + known releases, the standard reservoir-study assumption): week-1 mean **0.545** across 10 dams; **0.675 during the 2023 El Niño onset**.
+
+**2. Physics-constrained model** (`src/models/physics_constrained_gnn.py` — differentiable mass-balance rollout inside the forward pass, no known-releases assumption): approaches persistence on most dams (NS −1.10 vs −1.13; KRS −1.07 vs −1.13) and beats the ΔS regressor on 7–8/10 (Tungabhadra −1.15 vs −65; NS −1.09 vs −35).
+
+**Honest negative result** (`docs/levels_ds_negative_result.md`): a direct ΔS regressor (GradientBoosting) loses to storage persistence on 9/10 dams — weekly storage is persistence-dominated; the physics constraint prevents catastrophic drift but does not manufacture skill the features don't carry. Full details: `docs/levels_ds_negative_result.md`.
+
+
 ## The dataset (`data/raw/wris_v2/`)
 
 Ten reservoir CSVs — daily, 2010-01-01 → 2024-12-31, 5,479 rows each:
