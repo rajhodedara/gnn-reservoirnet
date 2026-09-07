@@ -242,13 +242,14 @@ def train_single_dam(
     n_features: int,
     device: torch.device,
     epochs: int = 80,
+    alpha: float = 0.85,
     lr: float = 3e-4,
     patience: int = 15,
     batch_size: int = 64,
 ) -> nn.Module:
     """Train one physics-constrained model per dam."""
     model = build_single_node_model(n_features, gross_tmc, device)
-    criterion = PhysicsInformedStorageLoss(alpha=0.85, median_idx=1)
+    criterion = PhysicsInformedStorageLoss(alpha=alpha, median_idx=1)
     optimizer = AdamW(model.parameters(), lr=lr, weight_decay=1e-3)
     scheduler = CosineAnnealingLR(optimizer, T_max=epochs)
 
@@ -476,6 +477,7 @@ def main():
     parser.add_argument("--epochs", type=int, default=80, help="Training epochs per dam")
     parser.add_argument("--lr", type=float, default=3e-4)
     parser.add_argument("--patience", type=int, default=15)
+    parser.add_argument("--alpha", type=float, default=0.85)
     parser.add_argument("--no-cuda", action="store_true")
     args = parser.parse_args()
 
@@ -542,6 +544,7 @@ def main():
             n_features=n_features,
             device=device,
             epochs=args.epochs,
+            alpha=args.alpha,
             lr=args.lr,
             patience=args.patience,
         )
