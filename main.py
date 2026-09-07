@@ -366,7 +366,7 @@ def train(config: dict, model: ReservoirGNN, graph: object, output_dir: str = "r
     logger.info("=" * 60)
 
     trainer.train(train_loader, val_loader, epochs=config["training"]["finetune"]["epochs"], 
-                  lr=config["training"]["finetune"]["lr"], save_dir="runs", 
+                  lr=config["training"]["finetune"]["lr"], save_dir=output_dir, 
                   phase="finetune", patience=config["training"]["finetune"]["patience"],
                   weight_decay=config["training"].get("weight_decay", 0.05))
 
