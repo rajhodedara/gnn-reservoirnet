@@ -335,7 +335,7 @@ def build_datasets(config: dict, graph: object):
 
     return train_loader, val_loader, test_loader, normalizer
 
-def train(config: dict, model: ReservoirGNN, graph: object) -> ReservoirGNN:
+def train(config: dict, model: ReservoirGNN, graph: object, output_dir: str = "runs") -> ReservoirGNN:
     """Run the training pipeline."""
     import torch
     from src.training.losses import CombinedLoss
@@ -355,7 +355,7 @@ def train(config: dict, model: ReservoirGNN, graph: object) -> ReservoirGNN:
         criterion=loss_fn,
         edge_index=graph.edge_index,
         device=device,
-        log_dir="runs"
+        log_dir=output_dir
     )
 
     logger.info("Building datasets from raw WRIS/ENSO sources...")
@@ -374,7 +374,7 @@ def train(config: dict, model: ReservoirGNN, graph: object) -> ReservoirGNN:
 
 
 def evaluate(config: dict, model: ReservoirGNN, graph: object,
-             checkpoint_path: str | None = None, split: str = "val") -> dict:
+             checkpoint_path: str | None = None, split: str = "val", output_dir: str = "runs") -> dict:
     import numpy as np
     import pandas as pd
     from src.evaluation.evaluator import Evaluator
@@ -382,7 +382,7 @@ def evaluate(config: dict, model: ReservoirGNN, graph: object,
     import os
     
     assert split in ("val", "test"), f"split must be 'val' or 'test', got {split!r}"
-    output_dir = "runs"
+    output_dir = output_dir
     os.makedirs(output_dir, exist_ok=True)
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     if checkpoint_path:
@@ -555,7 +555,7 @@ def evaluate(config: dict, model: ReservoirGNN, graph: object,
     return results
 
 def explain(config: dict, model: ReservoirGNN, graph: object,
-            checkpoint_path: str | None = None) -> None:
+            checkpoint_path: str | None = None, output_dir: str = "runs") -> None:
     import json
     import os
     
@@ -615,7 +615,7 @@ def explain(config: dict, model: ReservoirGNN, graph: object,
         "spatial_attention": attention_map_json
     }
     
-    output_dir = "runs"
+    output_dir = output_dir
     os.makedirs(output_dir, exist_ok=True)
     with open(os.path.join(output_dir, "explainability_report.json"), "w") as f:
         json.dump(report, f, indent=4)
@@ -737,26 +737,26 @@ def main() -> None:
                      output_path=str(Path(args.output_dir) / "model.onnx"))
 
     elif args.explain:
-        explain(config, model, graph, args.checkpoint)
+        explain(config, model, graph, args.checkpoint, output_dir=args.output_dir)
 
     else:
         # Full training pipeline
-        model = train(config, model, graph)
+        model = train(config, model, graph, args.output_dir)
         # Evaluate the BEST validation checkpoint, not the final weights:
         # trainer.train() leaves the model at the last epoch, while the best
         # weights are saved to runs/best_model_finetune.pt on val improvement.
-        best_ckpt = os.path.join("runs", "best_model_finetune.pt")
+        best_ckpt = os.path.join(args.output_dir, "best_model_finetune.pt")
         if os.path.exists(best_ckpt):
-            evaluate(config, model, graph, checkpoint_path=best_ckpt, split="val")
+            evaluate(config, model, graph, checkpoint_path=best_ckpt, split="val", output_dir=args.output_dir)
             # Held-out test split: the number compared against the baselines.
-            evaluate(config, model, graph, checkpoint_path=best_ckpt, split="test")
+            evaluate(config, model, graph, checkpoint_path=best_ckpt, split="test", output_dir=args.output_dir)
         else:
             logger.warning("Best checkpoint %s not found; evaluating final weights (not recommended).", best_ckpt)
-            evaluate(config, model, graph)
+            evaluate(config, model, graph, output_dir=args.output_dir)
         if getattr(model, 'predict_releases', False):
             logger.info("Skipping explain(): explainability not yet supported with the release head enabled")
         else:
-            explain(config, model, graph)
+            explain(config, model, graph, output_dir=args.output_dir)
 
         logger.info("=" * 60)
         logger.info("Pipeline complete. Outputs saved to: %s", args.output_dir)
