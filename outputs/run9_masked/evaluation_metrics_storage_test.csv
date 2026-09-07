@@ -1,0 +1,121 @@
+Split,Reservoir,Week,NSE_storage
+test,Almatti,1,-11.775
+test,Almatti,2,-26.695
+test,Almatti,3,-38.397
+test,Almatti,4,-43.646
+test,Almatti,5,-52.503
+test,Almatti,6,-61.523
+test,Almatti,7,-65.144
+test,Almatti,8,-65.185
+test,Almatti,9,-66.687
+test,Almatti,10,-72.127
+test,Almatti,11,-76.973
+test,Almatti,12,-79.481
+test,Jayakwadi,1,-0.732
+test,Jayakwadi,2,-1.78
+test,Jayakwadi,3,-2.254
+test,Jayakwadi,4,-1.032
+test,Jayakwadi,5,-1.978
+test,Jayakwadi,6,-3.965
+test,Jayakwadi,7,-5.104
+test,Jayakwadi,8,-4.526
+test,Jayakwadi,9,-4.475
+test,Jayakwadi,10,-7.249
+test,Jayakwadi,11,-8.582
+test,Jayakwadi,12,-9.477
+test,Krishnaraja Sagara,1,-7.006
+test,Krishnaraja Sagara,2,-17.428
+test,Krishnaraja Sagara,3,-24.625
+test,Krishnaraja Sagara,4,-28.463
+test,Krishnaraja Sagara,5,-40.917
+test,Krishnaraja Sagara,6,-55.554
+test,Krishnaraja Sagara,7,-64.824
+test,Krishnaraja Sagara,8,-69.574
+test,Krishnaraja Sagara,9,-75.782
+test,Krishnaraja Sagara,10,-79.419
+test,Krishnaraja Sagara,11,-77.199
+test,Krishnaraja Sagara,12,-73.999
+test,Mettur,1,-1.524
+test,Mettur,2,-7.79
+test,Mettur,3,-11.637
+test,Mettur,4,-13.954
+test,Mettur,5,-16.148
+test,Mettur,6,-20.333
+test,Mettur,7,-23.781
+test,Mettur,8,-26.659
+test,Mettur,9,-31.71
+test,Mettur,10,-38.473
+test,Mettur,11,-43.064
+test,Mettur,12,-46.569
+test,Nagarjuna Sagar,1,-23.374
+test,Nagarjuna Sagar,2,-85.901
+test,Nagarjuna Sagar,3,-133.656
+test,Nagarjuna Sagar,4,-179.059
+test,Nagarjuna Sagar,5,-226.103
+test,Nagarjuna Sagar,6,-259.835
+test,Nagarjuna Sagar,7,-273.451
+test,Nagarjuna Sagar,8,-280.244
+test,Nagarjuna Sagar,9,-294.246
+test,Nagarjuna Sagar,10,-303.956
+test,Nagarjuna Sagar,11,-305.381
+test,Nagarjuna Sagar,12,-307.311
+test,Sardar Sarovar,1,0.103
+test,Sardar Sarovar,2,-3.401
+test,Sardar Sarovar,3,-5.22
+test,Sardar Sarovar,4,-6.192
+test,Sardar Sarovar,5,-6.926
+test,Sardar Sarovar,6,-7.865
+test,Sardar Sarovar,7,-9.047
+test,Sardar Sarovar,8,-9.882
+test,Sardar Sarovar,9,-11.057
+test,Sardar Sarovar,10,-12.418
+test,Sardar Sarovar,11,-12.886
+test,Sardar Sarovar,12,-13.219
+test,Srisailam,1,0.869
+test,Srisailam,2,0.742
+test,Srisailam,3,0.723
+test,Srisailam,4,0.71
+test,Srisailam,5,0.683
+test,Srisailam,6,0.647
+test,Srisailam,7,0.595
+test,Srisailam,8,0.482
+test,Srisailam,9,0.268
+test,Srisailam,10,0.055
+test,Srisailam,11,-0.151
+test,Srisailam,12,-0.355
+test,Tungabhadra,1,-23.474
+test,Tungabhadra,2,-201.083
+test,Tungabhadra,3,-337.029
+test,Tungabhadra,4,-466.608
+test,Tungabhadra,5,-655.956
+test,Tungabhadra,6,-882.154
+test,Tungabhadra,7,-1027.98
+test,Tungabhadra,8,-1098.022
+test,Tungabhadra,9,-1172.955
+test,Tungabhadra,10,-1285.429
+test,Tungabhadra,11,-1257.189
+test,Tungabhadra,12,-1061.604
+test,Ujjani,1,-7.122
+test,Ujjani,2,-33.925
+test,Ujjani,3,-74.116
+test,Ujjani,4,-116.45
+test,Ujjani,5,-172.866
+test,Ujjani,6,-219.407
+test,Ujjani,7,-243.663
+test,Ujjani,8,-253.148
+test,Ujjani,9,-267.866
+test,Ujjani,10,-295.621
+test,Ujjani,11,-307.018
+test,Ujjani,12,-315.269
+test,Ukai,1,0.694
+test,Ukai,2,0.478
+test,Ukai,3,0.185
+test,Ukai,4,-0.224
+test,Ukai,5,-0.674
+test,Ukai,6,-1.199
+test,Ukai,7,-1.885
+test,Ukai,8,-3.062
+test,Ukai,9,-5.255
+test,Ukai,10,-9.564
+test,Ukai,11,-13.858
+test,Ukai,12,-15.001
