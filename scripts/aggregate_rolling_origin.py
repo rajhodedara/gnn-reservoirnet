@@ -24,9 +24,9 @@ def main():
         
         if week_csv.exists():
             week_df = pd.read_csv(week_csv)
-            # Assuming columns: 'week', 'NSE', ...
+            # Assuming columns: 'Week', 'NSE', ...
             for _, w_row in week_df.iterrows():
-                row[f"week_{int(w_row['week'])}"] = w_row["NSE"]
+                row[f"week_{int(w_row['Week'])}"] = w_row["NSE"]
                 
         if res_csv.exists():
             res_df = pd.read_csv(res_csv)

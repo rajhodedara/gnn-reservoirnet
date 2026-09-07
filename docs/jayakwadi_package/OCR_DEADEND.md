@@ -40,3 +40,19 @@ We attempted to intercept the India-WRIS backend API (e.g., `https://indiawris.g
 ### Gate Verdict: FAILED
 Because the API servers are inaccessible, the data retrieval rate is 0% (100% missing). This fails the established gate constraint of requiring missing/zero values to be `< 60%`. Consequently, building a patch CSV via this automated pipeline is impossible. The current `jayakwadi.csv` series (~80% zeros) remains the baseline until the WRIS portal can be scraped from an unblocked residential Indian IP.
 
+
+## Addendum: Maharashtra State Portals (Vector 2)
+
+### s.mahawrd.org WAF/IP Block Assessment
+*   **Target:** https://rs.mahawrd.org/ which was assumed to contain daily dynamic status reports.
+*   **Result & Failure:** The ConnectionResetError and 436 status codes were not the result of a sophisticated WAF or IP ban. The domain s.mahawrd.org has expired and is currently a parked domain squatting on Sedo Domain Parking. There is no portal here.
+
+### wrd.maharashtra.gov.in and gidcdashboard.in Scraping
+*   **Target:** Flood Control Bulletins and GMIDC Daily Reservoir Data.
+*   **Result & Failure:** A deep scraper was built to recursively parse ViewPDFList endpoints across the official WRD portal. We successfully extracted the Godavari/Jayakwadi PURNIYANTRAN_BOOK_GMIDC.pdf (Flood Control Booklet) and JID Paithan.pdf. 
+    *   Analysis of these PDFs via PyMuPDF confirmed they are static manuals and farmer irrigation ledgers (474 pages of individual permit holders), not daily telemetry reports.
+    *   Network interception of gidcdashboard.in confirmed it is a static React UI gallery with no live daily storage API routes.
+
+### Gate Verdict: FAILED
+Because the domain is parked and the available state PDFs are static procedural manuals rather than daily logs, the data retrieval rate is 0%. This fails the established gate constraint. Do not build a patch from failing data. The satellite bathymetry proxy (Earth Engine SAR) is the only remaining viable vector for purely physical data.
+
