@@ -1,0 +1,121 @@
+Split,Reservoir,Week,NSE_storage
+val,Almatti,1,-0.624
+val,Almatti,2,-1.264
+val,Almatti,3,-1.651
+val,Almatti,4,-1.03
+val,Almatti,5,-1.278
+val,Almatti,6,-1.664
+val,Almatti,7,-1.963
+val,Almatti,8,-2.088
+val,Almatti,9,-1.944
+val,Almatti,10,-2.229
+val,Almatti,11,-2.477
+val,Almatti,12,-2.843
+val,Jayakwadi,1,0.006
+val,Jayakwadi,2,-0.288
+val,Jayakwadi,3,-0.418
+val,Jayakwadi,4,-0.224
+val,Jayakwadi,5,-0.338
+val,Jayakwadi,6,-0.434
+val,Jayakwadi,7,-0.612
+val,Jayakwadi,8,-0.921
+val,Jayakwadi,9,-0.777
+val,Jayakwadi,10,-0.451
+val,Jayakwadi,11,-0.276
+val,Jayakwadi,12,-0.663
+val,Krishnaraja Sagara,1,-0.596
+val,Krishnaraja Sagara,2,-1.119
+val,Krishnaraja Sagara,3,-1.279
+val,Krishnaraja Sagara,4,-0.326
+val,Krishnaraja Sagara,5,-0.886
+val,Krishnaraja Sagara,6,-1.631
+val,Krishnaraja Sagara,7,-2.099
+val,Krishnaraja Sagara,8,-1.672
+val,Krishnaraja Sagara,9,-1.728
+val,Krishnaraja Sagara,10,-2.73
+val,Krishnaraja Sagara,11,-2.963
+val,Krishnaraja Sagara,12,-2.882
+val,Mettur,1,-0.345
+val,Mettur,2,-1.009
+val,Mettur,3,-0.726
+val,Mettur,4,0.309
+val,Mettur,5,0.053
+val,Mettur,6,-0.842
+val,Mettur,7,-1.003
+val,Mettur,8,-0.292
+val,Mettur,9,-0.063
+val,Mettur,10,-1.077
+val,Mettur,11,-1.393
+val,Mettur,12,-1.007
+val,Nagarjuna Sagar,1,-0.588
+val,Nagarjuna Sagar,2,-1.075
+val,Nagarjuna Sagar,3,-1.105
+val,Nagarjuna Sagar,4,0.286
+val,Nagarjuna Sagar,5,-0.201
+val,Nagarjuna Sagar,6,-0.791
+val,Nagarjuna Sagar,7,-1.131
+val,Nagarjuna Sagar,8,-0.615
+val,Nagarjuna Sagar,9,0.033
+val,Nagarjuna Sagar,10,-1.046
+val,Nagarjuna Sagar,11,-1.214
+val,Nagarjuna Sagar,12,-1.349
+val,Sardar Sarovar,1,0.464
+val,Sardar Sarovar,2,-0.733
+val,Sardar Sarovar,3,-1.595
+val,Sardar Sarovar,4,-2.409
+val,Sardar Sarovar,5,-2.613
+val,Sardar Sarovar,6,-2.648
+val,Sardar Sarovar,7,-2.976
+val,Sardar Sarovar,8,-3.131
+val,Sardar Sarovar,9,-2.851
+val,Sardar Sarovar,10,-2.518
+val,Sardar Sarovar,11,-2.333
+val,Sardar Sarovar,12,-2.455
+val,Srisailam,1,0.79
+val,Srisailam,2,0.618
+val,Srisailam,3,0.409
+val,Srisailam,4,0.175
+val,Srisailam,5,0.032
+val,Srisailam,6,-0.114
+val,Srisailam,7,-0.59
+val,Srisailam,8,-1.031
+val,Srisailam,9,-1.454
+val,Srisailam,10,-1.818
+val,Srisailam,11,-2.328
+val,Srisailam,12,-2.735
+val,Tungabhadra,1,-0.522
+val,Tungabhadra,2,-1.176
+val,Tungabhadra,3,-1.441
+val,Tungabhadra,4,-0.188
+val,Tungabhadra,5,-0.93
+val,Tungabhadra,6,-1.698
+val,Tungabhadra,7,-2.238
+val,Tungabhadra,8,-1.62
+val,Tungabhadra,9,-1.461
+val,Tungabhadra,10,-2.52
+val,Tungabhadra,11,-2.946
+val,Tungabhadra,12,-2.72
+val,Ujjani,1,0.626
+val,Ujjani,2,-0.25
+val,Ujjani,3,-1.449
+val,Ujjani,4,-2.574
+val,Ujjani,5,-3.716
+val,Ujjani,6,-4.369
+val,Ujjani,7,-4.941
+val,Ujjani,8,-5.287
+val,Ujjani,9,-5.092
+val,Ujjani,10,-4.797
+val,Ujjani,11,-4.542
+val,Ujjani,12,-4.594
+val,Ukai,1,0.359
+val,Ukai,2,-0.749
+val,Ukai,3,-1.712
+val,Ukai,4,-2.114
+val,Ukai,5,-1.226
+val,Ukai,6,-0.659
+val,Ukai,7,-0.593
+val,Ukai,8,-0.802
+val,Ukai,9,-0.825
+val,Ukai,10,-0.787
+val,Ukai,11,-0.767
+val,Ukai,12,-0.967

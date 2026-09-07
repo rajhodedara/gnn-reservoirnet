@@ -12,18 +12,18 @@ A research project forecasting **next-1-to-12-week inflow volumes** (P10/P50/P90
 
 | Reservoir | GNN NSE | Persistence | Climatology |
 |---|---|---|---|
-| Ukai | 0.672 ± 0.047 | 0.650 | 0.791 |
-| Tungabhadra | 0.642 ± 0.059 | 0.612 | 0.542 |
-| Srisailam | 0.605 ± 0.051 | 0.418 | 0.453 |
-| Mettur | 0.600 ± 0.031 | 0.352 | −2.376 |
-| Krishnaraja Sagara | 0.586 ± 0.042 | 0.459 | 0.382 |
-| Almatti | 0.582 ± 0.036 | 0.488 | 0.533 |
-| Sardar Sarovar | 0.540 ± 0.040 | 0.376 | 0.530 |
-| Ujjani | 0.497 ± 0.073 | 0.338 | 0.358 |
-| Nagarjuna Sagar | 0.413 ± 0.063 | 0.162 | 0.526 |
-| Jayakwadi | 0.291 ± 0.035 | −0.318 | 0.369 |
+| Ukai | 0.702 ± 0.023 | 0.650 | 0.791 |
+| Tungabhadra | 0.663 ± 0.003 | 0.612 | 0.542 |
+| Mettur | 0.623 ± 0.022 | 0.352 | 0.354 |
+| Srisailam | 0.620 ± 0.012 | 0.418 | 0.453 |
+| Krishnaraja Sagara | 0.604 ± 0.017 | 0.459 | 0.382 |
+| Almatti | 0.594 ± 0.011 | 0.488 | 0.533 |
+| Nagarjuna Sagar | 0.580 ± 0.011 | −0.023 | 0.258 |
+| Sardar Sarovar | 0.572 ± 0.006 | 0.376 | 0.686 |
+| Ujjani | 0.526 ± 0.004 | 0.338 | 0.357 |
+| Jayakwadi | 0.290 ± 0.008 | 0.008 | 0.354 |
 
-**10/10 reservoirs positive NSE · 10/10 beat persistence · 7/10 beat seasonal climatology · mean 0.543 · seed std ≤ 0.073.**
+**10/10 reservoirs positive NSE · 10/10 beat persistence · 7/10 beat seasonal climatology · mean 0.577 · seed std ≤ 0.023.** (Run #8: KRMB board data for NS + Srisailam, Mettur/SSP target patches, ERA5 true rainfall, release head trained jointly. NS gained +0.17 from its own real KRMB data — from the weakest node to a climatology-beater.)
 
 **Ablation (same model, only the rainfall feature changed):** true ERA5 precipitation vs surface-runoff proxy improves **10/10 reservoirs** (+0.033 mean NSE; Jayakwadi +0.062, Srisailam +0.051, KRS +0.045). Blending GNN with seasonal climatology keeps weeks 3–5 competitive (see `scripts/blend_eval.py`).
 
@@ -34,6 +34,8 @@ Two complementary LEVEL results, both on held-out 2024 (storage NSE, TMC):
 **1. Operational mode** (`scripts/eval_levels_v3.py` — GNN inflow + known releases, the standard reservoir-study assumption): week-1 mean **0.545** across 10 dams; **0.675 during the 2023 El Niño onset**.
 
 **2. Physics-constrained model** (`src/models/physics_constrained_gnn.py` — differentiable mass-balance rollout inside the forward pass, no known-releases assumption): approaches persistence on most dams (NS −1.10 vs −1.13; KRS −1.07 vs −1.13) and beats the ΔS regressor on 7–8/10 (Tungabhadra −1.15 vs −65; NS −1.09 vs −35).
+
+**Fundamental negative result — inflow routing cannot beat persistence** (run #8 closed-loop test): routing even the *best-case* GNN inflow forecast through mass balance (restart from observed storage each week, subtract observed releases) loses to persistence on **10/10 dams at every horizon** (week-1 pooled NSE **−6.4 vs −0.23**). Reason: the closed-loop level error equals the inflow forecast error, and inflow RMSE (even at NSE 0.58) is larger than the entire weekly ΔS signal (1–5% of capacity) on these dams. Open-loop 12-week rollouts (release-head routed) compound the same error and are catastrophic (NSE −7 to −10³). Level skill must come from *predicting ΔS directly* (physics model, above) or from known releases (operational mode, above) — not from inflow routing. Reproduce: `scratch/closed_loop_v2.py`.
 
 **Honest negative result** (`docs/levels_ds_negative_result.md`): a direct ΔS regressor (GradientBoosting) loses to storage persistence on 9/10 dams — weekly storage is persistence-dominated; the physics constraint prevents catastrophic drift but does not manufacture skill the features don't carry. Full details: `docs/levels_ds_negative_result.md`.
 
