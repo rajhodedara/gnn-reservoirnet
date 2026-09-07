@@ -18,12 +18,12 @@ A research project forecasting **next-1-to-12-week inflow volumes** (P10/P50/P90
 | Mettur | 0.623 ± 0.038 | 0.352 | 0.354 |
 | Krishnaraja Sagara | 0.601 ± 0.033 | 0.459 | 0.382 |
 | Almatti | 0.596 ± 0.018 | 0.488 | 0.533 |
-| Nagarjuna Sagar | 0.585 ± 0.021 | −0.023 | 0.258 |
+| Nagarjuna Sagar | 0.585 ± 0.021 | -0.023 | 0.258 |
 | Sardar Sarovar | 0.575 ± 0.010 | 0.376 | 0.686 |
 | Ujjani | 0.539 ± 0.028 | 0.338 | 0.357 |
 | Jayakwadi | 0.295 ± 0.025 | 0.008 | 0.354 |
 
-**10/10 reservoirs positive NSE · 10/10 beat persistence · 7/10 beat seasonal climatology · mean 0.581 · 5 seeds · seed std ≤ 0.038.** (KRMB board data for NS + Srisailam, Mettur/SSP target patches, ERA5 true rainfall, release head trained jointly, Jayakwadi fake-zero mask. The mask slightly lowered Jayakwadi's own score (0.311 → 0.295, within seed noise) while improving 8/9 other dams through cleaner graph message passing — net +0.009 system-wide. NS gained +0.17 from its own real KRMB data — from the weakest node to a climatology-beater.)
+**10/10 reservoirs positive NSE · 10/10 beat persistence · 7/10 beat seasonal climatology · mean 0.581 · 5 seeds · seed std ≤ 0.038.** (KRMB board data for NS + Srisailam, Mettur/SSP target patches, ERA5 true rainfall, release head trained jointly, Jayakwadi fake-zero mask. The mask slightly lowered Jayakwadi's own score (0.311 → 0.295, within seed noise) while improving 8/9 other dams through cleaner graph message passing - net +0.009 system-wide. NS gained +0.17 from its own real KRMB data - from the weakest node to a climatology-beater.)
 
 **Ablation (same model, only the rainfall feature changed):** true ERA5 precipitation vs surface-runoff proxy improves **10/10 reservoirs** (+0.033 mean NSE; Jayakwadi +0.062, Srisailam +0.051, KRS +0.045). Blending GNN with seasonal climatology keeps weeks 3-5 competitive (see `scripts/blend_eval.py`).
 
@@ -46,13 +46,13 @@ Expanding-window refits (fold Y: test = Y, val = Y-1, train ≤ Y-2), 1 seed per
 
 | Test year | Week-1 NSE | Week-4 | Week-12 | Pooled mean |
 |---|---|---|---|---|
-| 2020 | 0.755 | 0.150 | -0.083 | 0.549 |
-| 2021 | 0.602 | 0.551 | 0.344 | 0.356 |
-| 2022 | 0.671 | 0.379 | -0.053 | 0.641 |
-| 2023 (El Niño onset) | 0.556 | 0.149 | 0.141 | 0.156 |
-| 2024 | 0.683 | 0.246 | -0.289 | 0.572 |
+| 2020 | 0.755 | 0.149 | −0.081 | 0.550 |
+| 2021 | 0.610 | 0.566 | 0.339 | 0.363 |
+| 2022 | 0.664 | 0.343 | −0.027 | 0.645 |
+| 2023 (El Niño onset) | 0.559 | 0.164 | 0.150 | 0.142 |
+| 2024 | 0.682 | 0.240 | −0.287 | 0.571 |
 
-**Week-1 skill holds in all five years (0.56-0.75), including three non-El-Niño years - the headline result is not a test-year artifact.** Fold-2024's pooled mean (0.5716) reproduces the canonical 5-seed scoreboard (0.5715) as a consistency anchor. Week-12 skill is honestly year-dependent (positive 2021/2023, near-zero elsewhere); 2023's El Niño onset is the hardest year pooled.
+**Week-1 skill holds in all five years (0.56–0.76), including three non-El-Niño years — the headline result is not a test-year artifact.** Fold-2024's pooled mean (0.571) tracks the canonical 5-seed scoreboard (0.575–0.581 across masked-data runs) within run-to-run variation. Week-12 skill is honestly year-dependent (positive 2021/2023, near-zero elsewhere); 2023's El Niño onset is the hardest year pooled.
 
 ## The dataset (`data/raw/wris_v2/`)
 
