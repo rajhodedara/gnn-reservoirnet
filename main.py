@@ -351,6 +351,7 @@ def build_datasets(config: dict, graph: object):
             rainfall_data=_rain_train,
         )
         graph.edge_index = _g.edge_index
+        graph.edge_type = _g.edge_type
         if (getattr(_g, "edge_weight", None) is not None
                 and _g.edge_weight.numel() == _g.edge_index.shape[1]):
             graph.edge_attr = _g.edge_weight.view(-1, 1).float()
@@ -491,6 +492,12 @@ def train(config: dict, model: ReservoirGNN, graph: object, output_dir: str = "r
         threshold=config["training"]["loss"]["oni_threshold"],
     )
 
+    logger.info("Building datasets from raw WRIS/ENSO sources...")
+    train_loader, val_loader, _, _ = build_datasets(config, graph)
+
+    # build_datasets rebuilds the graph (it adds the climatological edges), so
+    # the Trainer must be constructed AFTER it, otherwise training would use the
+    # pre-rebuild physical-only edge_index while evaluation used the full graph.
     trainer = Trainer(
         model=model,
         criterion=loss_fn,
@@ -498,9 +505,6 @@ def train(config: dict, model: ReservoirGNN, graph: object, output_dir: str = "r
         device=device,
         log_dir=output_dir
     )
-
-    logger.info("Building datasets from raw WRIS/ENSO sources...")
-    train_loader, val_loader, _, _ = build_datasets(config, graph)
 
     logger.info("=" * 60)
     logger.info("TRAINING on observed WRIS data (2005-Present)")
