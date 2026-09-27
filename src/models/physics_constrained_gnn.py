@@ -54,6 +54,8 @@ class PhysicsConstrainedReservoirGNN(nn.Module):
 
         self.num_weeks: int = config.get("num_weeks", 12)
         self.num_quantiles: int = config.get("num_quantiles", 3)
+        # Leading climate channels that are ENSO; the rest are IOD.
+        self.num_enso_indices: int = int(config.get("num_enso_indices", 3))
 
         # Sub-modules -- identical init signature to ReservoirGNN
         self.spatial_module = SpatialGAT(
@@ -120,9 +122,15 @@ class PhysicsConstrainedReservoirGNN(nn.Module):
         temporal_x = node_features.permute(0, 1, 3, 2).reshape(B * N, F, W)
         temporal_embeds = self.temporal_module(temporal_x)  # (B*N, tcn_out)
 
-        # Climate
-        enso_indices = climate_indices[:, :3, :]
-        iod_indices = climate_indices[:, -1:, :]
+        # Climate (index-major: [enso..., iod]); never slice by hard position.
+        n_enso = self.num_enso_indices
+        if climate_indices.size(1) <= n_enso:
+            raise ValueError(
+                f"climate_indices has {climate_indices.size(1)} channel(s) but "
+                f"num_enso_indices={n_enso} leaves no IOD channel"
+            )
+        enso_indices = climate_indices[:, :n_enso, :]
+        iod_indices = climate_indices[:, n_enso:, :]
         climate_context = self.climate_module(enso_indices, iod_indices)  # (B, embed)
 
         # Fuse

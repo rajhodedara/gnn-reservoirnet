@@ -66,8 +66,86 @@ def load_config(config_path: str) -> dict:
             with open(reservoirs_path, "r") as f:
                 res_config = yaml.safe_load(f)
                 config["reservoirs"] = res_config.get("reservoirs", [])
+
+    # Map nested model.* YAML onto the flat keys ReservoirGNN reads.
+    apply_model_config(config)
                 
     return config
+
+
+def apply_model_config(config: dict) -> list:
+    """Map the nested ``model.*`` YAML onto the flat keys ReservoirGNN reads.
+
+    The model reads flat keys (``tcn_channels``, ``tcn_kernel``, ``climate_embed``,
+    ``head_hidden``, ...) while the YAML nests them (``model.temporal.num_channels``).
+    Without this mapping every value silently fell back to its default. Returns the
+    list of expected keys still absent so the caller can warn instead of guessing.
+    """
+    model_cfg = config.setdefault("model", {})
+    spatial = model_cfg.get("spatial", {})
+    temporal = model_cfg.get("temporal", {})
+    climate = model_cfg.get("climate", {})
+    head = model_cfg.get("quantile_head", {})
+
+    if "hidden_dim" in spatial:
+        model_cfg["spatial_hidden"] = spatial["hidden_dim"]
+    if "num_heads" in spatial:
+        model_cfg["gat_heads"] = spatial["num_heads"]
+    if "num_channels" in temporal:
+        model_cfg["tcn_channels"] = temporal["num_channels"]
+    if "kernel_size" in temporal:
+        model_cfg["tcn_kernel"] = temporal["kernel_size"]
+    if "embed_dim" in climate:
+        model_cfg["climate_embed"] = climate["embed_dim"]
+    if "num_heads" in climate:
+        model_cfg["climate_heads"] = climate["num_heads"]
+    if "hidden_dim" in head:
+        model_cfg["head_hidden"] = head["hidden_dim"]
+    if "forecast_steps" in head:
+        model_cfg["num_weeks"] = head["forecast_steps"]
+    if "quantiles" in head:
+        model_cfg["num_quantiles"] = len(head["quantiles"])
+
+    # Climate channel layout: [enso..., iod]. The IOD channel must exist and be
+    # last, so reserve exactly one trailing channel for it.
+    enso_indices = climate.get("enso_indices", [])
+    if enso_indices:
+        names = [str(x).lower() for x in enso_indices]
+        if "iod" not in names:
+            raise ValueError(
+                "model.climate.enso_indices must include an 'iod' entry so the "
+                "ENSO/IOD cross-attention has a real IOD channel"
+            )
+        model_cfg["num_enso_indices"] = len(enso_indices) - 1
+
+    expected = [
+        "spatial_hidden", "gat_heads", "tcn_channels", "tcn_kernel",
+        "climate_embed", "climate_heads", "head_hidden", "num_weeks",
+        "num_quantiles", "num_enso_indices",
+    ]
+    return [k for k in expected if k not in model_cfg]
+
+
+def describe_architecture(model: ReservoirGNN, config: dict) -> None:
+    """Log the EFFECTIVE architecture actually built (not what the YAML intends)."""
+    model_cfg = config["model"]
+    tcn_channels = [b.conv1.out_channels for b in model.temporal_module.network]
+    kernel = model.temporal_module.network[0].conv1.kernel_size[0]
+    logger.info(
+        "Effective architecture: spatial_hidden=%s gat_heads=%s tcn_channels=%s "
+        "tcn_kernel=%s climate_embed=%s climate_heads=%s head_hidden=%s "
+        "num_weeks=%s num_quantiles=%s num_enso_indices=%s",
+        model_cfg.get("spatial_hidden"),
+        model.spatial_module.gat1.heads,
+        tcn_channels,
+        kernel,
+        model.climate_module.fc[0].out_features,
+        model_cfg.get("climate_heads"),
+        model.quantile_head.mlp[0].out_features,
+        model_cfg.get("num_weeks"),
+        model_cfg.get("num_quantiles"),
+        model_cfg.get("num_enso_indices"),
+    )
 
 
 def build_graph(config: dict) -> object:
@@ -90,6 +168,15 @@ def build_graph(config: dict) -> object:
         use_physical=config["graph"]["physical_edges"],
         use_climatological=config["graph"]["climatological_edges"],
     )
+    # Use the (correlation) edge weight as a scalar edge attribute so GATv2 can
+    # condition attention on it; ones when weights are absent.
+    if (
+        getattr(graph, "edge_weight", None) is not None
+        and graph.edge_weight.numel() == graph.edge_index.shape[1]
+    ):
+        graph.edge_attr = graph.edge_weight.view(-1, 1).float()
+    else:
+        graph.edge_attr = torch.ones(graph.edge_index.shape[1], 1)
     logger.info(
         f"Built graph: {graph.num_nodes} nodes, "
         f"{graph.edge_index.shape[1]} edges"
@@ -107,11 +194,19 @@ def create_model(config: dict, graph: object) -> ReservoirGNN:
     Returns:
         Initialized ReservoirGNN model.
     """
+    missing = apply_model_config(config)
+    if missing:
+        logger.warning("Model config keys not mapped (defaults will be used): %s", missing)
+
     config["model"]["spatial_in_channels"] = 5
     config["model"]["tcn_in_channels"] = 5
-    config["model"]["climate_input"] = config["data"]["lookback_days"]
-    
+    # Climate input width = number of lag features per index (lag 0 + configured
+    # lags_months), NOT the 90-day lookback.
+    lags = config["model"]["climate"].get("lags_months", [1, 3, 6])
+    config["model"]["climate_input"] = len(set(lags) | {0})
+
     model = ReservoirGNN(config=config["model"])
+    describe_architecture(model, config)
     num_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
     logger.info(f"Model created: {num_params:,} trainable parameters")
     return model
@@ -236,6 +331,42 @@ def build_datasets(config: dict, graph: object):
     # Interpolate missing dates to avoid zero-imputation artifacts
     features_df = features_df.interpolate(method='time').ffill().bfill()
 
+    # --- Climatological graph edges: correlation of rainfall over TRAIN only ---
+    from src.data.graph_builder import build_reservoir_graph as _build_graph
+    _rain_cols = [c for c in features_df.columns if c.endswith("_rainfall")]
+    if _rain_cols and config["graph"].get("climatological_edges", False):
+        _rain = features_df[_rain_cols].copy()
+        _rain.columns = [c[: -len("_rainfall")] for c in _rain_cols]
+        _train_end_edges = config["data"].get("train_end")
+        _rain_train = (
+            _rain.loc[_rain.index <= pd.Timestamp(_train_end_edges)]
+            if _train_end_edges else _rain
+        )
+        _g = _build_graph(
+            reservoirs=reservoirs,
+            correlation_threshold=config["graph"]["correlation_threshold"],
+            block_cross_ghats=config["graph"]["block_cross_ghats"],
+            use_physical=config["graph"]["physical_edges"],
+            use_climatological=True,
+            rainfall_data=_rain_train,
+        )
+        graph.edge_index = _g.edge_index
+        if (getattr(_g, "edge_weight", None) is not None
+                and _g.edge_weight.numel() == _g.edge_index.shape[1]):
+            graph.edge_attr = _g.edge_weight.view(-1, 1).float()
+        else:
+            graph.edge_attr = torch.ones(_g.edge_index.shape[1], 1)
+        if getattr(_g, "edge_type", None) is not None and _g.edge_type.numel():
+            _n_phys = int((_g.edge_type == 0).sum())
+            _n_clim = int((_g.edge_type == 1).sum())
+        else:
+            _n_phys = _g.edge_index.shape[1]
+            _n_clim = 0
+        logger.info(
+            "Graph edges with climatological: %d physical, %d climatological",
+            _n_phys, _n_clim,
+        )
+
     # Make sure they align
     common_idx = features_df.index.intersection(climate_df.index)
     if len(common_idx) == 0:
@@ -263,6 +394,14 @@ def build_datasets(config: dict, graph: object):
     # like ONI >= 0.5 are defined in physical units, not z-scores.
     climate_raw = climate_df.copy()
 
+    # Raw physical ONI as a daily series, used only for ENSO loss gating and
+    # stratification (never z-scored).
+    oni_raw_daily = (
+        climate_raw["ONI"].astype(float).copy()
+        if "ONI" in climate_raw.columns
+        else pd.Series(0.0, index=climate_raw.index, dtype=float)
+    )
+
     # Save target normalization constants for un-scaling during evaluation
     storage_raw_dict = {c: storage_df[c].copy() for c in storage_df.columns}
 
@@ -270,18 +409,18 @@ def build_datasets(config: dict, graph: object):
     inflow_std = inflow_df.std().replace(0, 1).values + 1e-8
     normalizer = {"mean": inflow_mean, "std": inflow_std}
     
-    release_mean = releases_df.mean().values
-    release_std = releases_df.std().replace(0, 1).values + 1e-8
+    # Release target normalization uses the TRAIN window only (leakage-safe).
+    _train_end_rel = config["data"].get("train_end")
+    _rel_train_mask = (
+        releases_df.index <= pd.Timestamp(_train_end_rel)
+        if _train_end_rel else pd.Series(True, index=releases_df.index)
+    )
+    release_mean = releases_df[_rel_train_mask].mean().values
+    release_std = releases_df[_rel_train_mask].std().replace(0, 1).values + 1e-8
     releases_norm = (releases_df - release_mean) / release_std
     normalizer["release_mean"] = release_mean
     normalizer["release_std"] = release_std
     normalizer["storage_raw"] = storage_raw_dict
-    
-    release_mean = releases_df.mean().values
-    release_std = releases_df.std().replace(0, 1).values + 1e-8
-    normalizer["release_mean"] = release_mean
-    normalizer["release_std"] = release_std
-    normalizer["storage_raw"] = {s: storage_raw_dict[s] for s in storage_raw_dict}
 
     features_df = standardize(features_df)
     climate_df = standardize(climate_df)
@@ -297,7 +436,9 @@ def build_datasets(config: dict, graph: object):
         window_size=config["data"]["lookback_days"],
         target_weeks=config["model"]["quantile_head"]["forecast_steps"],
         num_nodes=num_nodes,
-        node_feat_dim=node_feat_dim
+        node_feat_dim=node_feat_dim,
+        climate_lags=config["model"]["climate"].get("lags_months", [1, 3, 6]),
+        raw_oni=oni_raw_daily,
     )
 
     # Use specified validation/test years (keys live under `data:` in the config)

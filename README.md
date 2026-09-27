@@ -57,7 +57,7 @@ Expanding-window refits (fold Y: test = Y, val = Y-1, train ≤ Y-2), 1 seed per
 ## The dataset (`data/raw/wris_v2/`)
 
 Ten reservoir CSVs - daily, 2010-01-01 → 2024-12-31, 5,479 rows each:
-`Date, Reservoir_Name, Inflow (m3/s), Storage (TMC)` - **every inflow value is a real agency measurement**:
+`Date, Reservoir_Name, Inflow (m3/s), Storage (TMC)` - inflow is agency-gauge-derived where a gauge exists, but **for several reservoirs a large fraction of days are storage-derived** (the project's own QA gate reports `match_inflow_eq_maxDeltaS_pct` of 35-63% for almatti/jayakwadi/ujjani, with near-zero `corr_inflow_vs_nextday_storage_gain`; see `runs/data_qa_report.json`), so per-node provenance should be read from the manifests rather than assumed uniform:
 
 | Nodes | Inflow source | Provenance |
 |---|---|---|

@@ -57,11 +57,13 @@ class Trainer:
                 out = self.model(batch['node_features'], batch['climate_indices'], self.edge_index)
                 if isinstance(out, tuple):
                     preds, rel_pred = out
-                    loss = self.criterion(preds, batch['targets'], batch['oni'],
+                    loss = self.criterion(preds, batch['targets'],
+                                          batch.get('raw_oni', batch['oni']),
                                           rel_pred, batch.get('targets_releases'))
                 else:
                     preds = out
-                    loss = self.criterion(preds, batch['targets'], batch['oni'])
+                    loss = self.criterion(preds, batch['targets'],
+                                          batch.get('raw_oni', batch['oni']))
 
             self.scaler.scale(loss).backward() # type: ignore
             self.scaler.unscale_(optimizer) # type: ignore
@@ -93,11 +95,13 @@ class Trainer:
                     out = self.model(batch['node_features'], batch['climate_indices'], self.edge_index)
                     if isinstance(out, tuple):
                         preds, rel_pred = out
-                        loss = self.criterion(preds, batch['targets'], batch['oni'],
+                        loss = self.criterion(preds, batch['targets'],
+                                          batch.get('raw_oni', batch['oni']),
                                               rel_pred, batch.get('targets_releases'))
                     else:
                         preds = out
-                        loss = self.criterion(preds, batch['targets'], batch['oni'])
+                        loss = self.criterion(preds, batch['targets'],
+                                          batch.get('raw_oni', batch['oni']))
                 total_loss += loss.item()
         return total_loss / len(dataloader)
 

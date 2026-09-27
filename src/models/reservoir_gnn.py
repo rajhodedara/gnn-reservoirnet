@@ -78,6 +78,11 @@ class ReservoirGNN(nn.Module):
                 hidden_dim=config.get("head_hidden", 128)
             )
         
+        # Number of leading climate channels that are ENSO; the remaining
+        # trailing channel(s) are IOD. Config-driven so the split is never a
+        # hard-coded positional 3/1 assumption.
+        self.num_enso_indices = int(config.get("num_enso_indices", 3))
+
         self.mass_balance = MassBalanceLayer()
         
     def forward(
@@ -122,9 +127,18 @@ class ReservoirGNN(nn.Module):
         temporal_embeds = self.temporal_module(temporal_x) # (B * N, tcn_out)
         
         # 3. Climate Context
-        # Split climate indices
-        enso_indices = climate_indices[:, :3, :] # (B, 3, W)
-        iod_indices = climate_indices[:, -1:, :] # (B, 1, W)
+        # Split climate channels along the configured ENSO/IOD boundary. Channels
+        # are index-major: [enso_0..enso_{n-1}, iod], each holding num_lags lag
+        # features. Never slice by a hard-coded position.
+        n_enso = self.num_enso_indices
+        if climate_indices.size(1) <= n_enso:
+            raise ValueError(
+                f"climate_indices has {climate_indices.size(1)} channel(s) but "
+                f"num_enso_indices={n_enso} leaves no IOD channel; check "
+                "model.climate.enso_indices in the config"
+            )
+        enso_indices = climate_indices[:, :n_enso, :]   # (B, n_enso, num_lags)
+        iod_indices = climate_indices[:, n_enso:, :]    # (B, num_iod, num_lags)
         
         climate_context = self.climate_module(enso_indices, iod_indices) # (B, climate_embed)
         

@@ -19,7 +19,9 @@ class ReservoirInflowDataset(Dataset):
         target_weeks: int = 12,
         num_nodes: int = 10,
         node_feat_dim: int = 6,
-        releases_df: pd.DataFrame | None = None
+        releases_df: pd.DataFrame | None = None,
+        climate_lags: Optional[List[int]] = None,
+        raw_oni: Optional[pd.Series] = None
     ):
         """
         Args:
@@ -36,6 +38,7 @@ class ReservoirInflowDataset(Dataset):
         self.target_horizon = target_weeks * 7
         self.num_nodes = num_nodes
         self.node_feat_dim = node_feat_dim
+        self.forecast_weeks = target_weeks
         
         # Ensure alignment
         common_idx = features_df.index.intersection(climate_df.index).intersection(inflow_df.index).intersection(storage_df.index)
@@ -56,8 +59,67 @@ class ReservoirInflowDataset(Dataset):
         # We need an ONI column in climate_df for the sampler
         self.oni_idx = climate_df.columns.get_loc('ONI') if 'ONI' in climate_df.columns else 0
         
+        # Climate lag features, index-major shape (num_indices * num_lags, T).
+        # Built from a MONTHLY aggregation so lags are real multi-month features,
+        # and shifted by forecast_weeks days so a sample whose origin is t only
+        # ever sees climate at or before t (no look-ahead).
+        self.climate_columns = list(climate_df.columns)
+        self.climate_lags = [int(x) for x in (climate_lags or [])]
+        self.climate_lag_tensor = self.compute_climate_lags(
+            climate_df, self.climate_lags, target_weeks=target_weeks
+        )
+
+        # Raw physical ONI (never z-scored), shifted by the target horizon so an
+        # origin cannot see future ONI. Used for ENSO loss gating/stratification.
+        if raw_oni is not None:
+            # Raw physical ONI at the forecast origin (no z-scoring). Climate
+            # lags already only carry strictly-past months, so this is leak-free.
+            _r = (
+                raw_oni.reindex(climate_df.index)
+                .astype("float32")
+                .ffill()
+                .bfill()
+                .fillna(0.0)
+            )
+            self.raw_oni = _r.values.astype("float32")
+        else:
+            self.raw_oni = None
+
         self.valid_indices = self._get_valid_indices()
-        
+
+    @staticmethod
+    def compute_climate_lags(
+        climate_df: pd.DataFrame, lags_months, target_weeks: int = 12
+    ) -> np.ndarray:
+        """Build index-major climate lag features of shape (num_indices*num_lags, T).
+
+        For each climate column and each configured lag L (months), map each day to
+        the mean of the last *completed* calendar month at lag L (month key minus
+        ``L + 1``). Only data strictly before the origin is used, so there is no
+        look-ahead. Lag 0 (last completed month) is always included. ``target_weeks``
+        is kept in the signature for API symmetry; the strictly-past mapping already
+        prevents leakage.
+        """
+        cols = list(climate_df.columns)
+        month_key = climate_df.index.to_period("M")
+        monthly = climate_df.copy()
+        monthly.index = month_key
+        monthly_means = monthly.groupby(level=0).mean()
+        lags = sorted({0} | {int(x) for x in (lags_months or [])})
+        idx = climate_df.index
+        blocks = []
+        for c in cols:
+            lag_rows = []
+            for lag in lags:
+                base_key = month_key - (lag + 1)          # strictly past month
+                row = pd.Series(
+                    base_key.map(monthly_means[c]), index=idx, dtype="float64"
+                )
+                lag_rows.append(row.ffill().bfill().values)
+            blocks.append(np.asarray(lag_rows, dtype="float64"))  # (num_lags, T)
+        stacked = np.concatenate(blocks, axis=0)
+        return np.nan_to_num(stacked.astype("float32"), nan=0.0)
+
     def _get_valid_indices(self) -> List[int]:
         valid = []
         n_samples = len(self.features)
@@ -78,10 +140,12 @@ class ReservoirInflowDataset(Dataset):
         # Reshape to (window_size, num_nodes, node_feat_dim) and then (num_nodes, window_size, node_feat_dim)
         node_features = raw_features.view(self.window_size, self.num_nodes, self.node_feat_dim).permute(1, 0, 2)
         
-        # Climate indices shape: (window_size, num_climate_indices) => typically we just use a lag if needed, or pass the sequence
-        # The model expects climate to be (batch, num_climate, num_lags).
-        # We will permute it to (num_climate, window_size) and let the model handle lags from the window
-        climate_indices = self.climate[start_idx:end_idx].permute(1, 0)
+        # Climate: index-major lag features at the forecast origin.
+        # Shape (num_indices*num_lags,) -> (num_indices, num_lags) after view.
+        # Lags are pre-shifted so origin t only sees climate at or before t.
+        climate_indices = torch.from_numpy(self.climate_lag_tensor[:, end_idx]).view(
+            len(self.climate_columns), -1
+        )
         
         current_storage = self.storage[end_idx - 1]
         oni_value = self.climate[end_idx - 1, self.oni_idx]
@@ -101,6 +165,8 @@ class ReservoirInflowDataset(Dataset):
             raw_rel = self.releases[end_idx:end_idx + self.target_horizon]
             target_rel = raw_rel.view(self.target_horizon // 7, 7, self.num_nodes).sum(dim=1).permute(1, 0)
             batch_out['targets_releases'] = target_rel
+        if self.raw_oni is not None:
+            batch_out['raw_oni'] = torch.tensor(float(self.raw_oni[end_idx]))
         return batch_out
 
 def create_temporal_splits(dates: pd.DatetimeIndex, val_years: List[int], test_years: List[int]) -> Tuple[List[int], List[int], List[int]]:

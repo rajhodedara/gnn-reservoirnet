@@ -71,7 +71,7 @@ def test_reservoir_gnn_forward():
         "spatial_out": 16,
         "tcn_in_channels": spatial_in,
         "tcn_channels": [16, 16],
-        "climate_input": lookback,
+        "climate_input": 3,  # lag features per index (lag 0 + 1 + 3 months)
         "climate_embed": 16,
         "num_weeks": num_weeks,
         "num_quantiles": num_quantiles
@@ -81,7 +81,7 @@ def test_reservoir_gnn_forward():
     
     # Inputs matching the actual forward() signature
     node_features = torch.randn(batch_size, num_nodes, lookback, spatial_in)
-    climate_indices = torch.randn(batch_size, 4, lookback)  # 4 climate indices
+    climate_indices = torch.randn(batch_size, 4, 3)  # 4 climate indices x 3 lag features
     edge_index = torch.tensor([[0, 1], [1, 0]], dtype=torch.long)
     
     out = model(node_features, climate_indices, edge_index)
@@ -94,7 +94,7 @@ def test_mass_balance():
     num_weeks = 4
     num_quantiles = 3
     
-    config = {"num_weeks": num_weeks, "num_quantiles": num_quantiles}
+    config = {"num_weeks": num_weeks, "num_quantiles": num_quantiles, "climate_input": 3}
     model = ReservoirGNN(config)
     
     predicted_inflows = torch.ones(batch_size, num_nodes, num_weeks, num_quantiles) * 100.0
