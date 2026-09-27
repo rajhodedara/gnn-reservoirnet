@@ -689,6 +689,7 @@ def evaluate(config: dict, model: ReservoirGNN, graph: object,
         os.path.join(output_dir, f"predictions_{split}.npz"),
         targets=targets_full,
         preds_median=preds_full[:, :, :, 1],
+        preds_all=preds_full,  # (S, N, 12, Q) -- keep P10/P50/P90 for the fan chart
         dates=dates_arr,
         reservoirs=np.array(evaluator.reservoir_names),
     )
