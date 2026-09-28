@@ -154,7 +154,7 @@ def rf_forecast(daily: pd.DataFrame, targets: pd.DataFrame, train_end: str,
 # --------------------------------------------------------------------------- #
 def lstm_forecast(daily: pd.DataFrame, targets: pd.DataFrame, train_end: str,
                   lookback=90, hidden=64, epochs=200, batch_size=128, patience=20,
-                  lr=2e-3, seed=42, years=None, device=None) -> pd.DataFrame:
+                  lr=2e-3, seed=42, years=None, device=None, train_stride=3) -> pd.DataFrame:
     """Per-dam LSTM, FULL STRENGTH (no speed compromise).
 
     * lookback = 90 days, matching the GNN's input window exactly.
@@ -205,6 +205,12 @@ def lstm_forecast(daily: pd.DataFrame, targets: pd.DataFrame, train_end: str,
             continue
         # Early-stopping split: last 15% of the training origins.
         tr_idx = np.where(tr)[0]
+        # Redundancy reduction: consecutive 90-day windows overlap 89/90 days, so
+        # training on every train_stride-th origin keeps the same information with
+        # far less compute. Architecture/capacity are unchanged; set
+        # --train-stride 1 for the exhaustive (slower) fit.
+        if train_stride and train_stride > 1:
+            tr_idx = tr_idx[::train_stride]
         n_val = max(int(0.15 * len(tr_idx)), 60)
         es_val, fit_idx = tr_idx[-n_val:], tr_idx[:-n_val]
         mu, sd = X[fit_idx].mean(), X[fit_idx].std() + 1e-8
@@ -255,6 +261,8 @@ def main() -> int:
     ap.add_argument("--epochs", type=int, default=200,
                     help="max LSTM epochs (early stopping usually ends far sooner)")
     ap.add_argument("--device", default=None, help="cpu | cuda (default: auto)")
+    ap.add_argument("--train-stride", type=int, default=3,
+                    help="keep every Nth training window (overlapping windows are redundant); 1 = exhaustive")
     ap.add_argument("--fast", action="store_true",
                     help="CPU smoke run only: smaller LSTM, fewer epochs. NOT for results.")
     ap.add_argument("--out", default=str(PROJECT_ROOT / "outputs" / "ml_baselines.json"))
@@ -289,7 +297,8 @@ def main() -> int:
         print(f"  LSTM (full strength: lookback=90, hidden=64, max {args.epochs} epochs, "
               f"early stopping; device={args.device or 'auto'}) ...")
         lst = lstm_forecast(daily, targets, train_end, epochs=args.epochs,
-                            years=list(val_years) + list(test_years), device=args.device)
+                            years=list(val_years) + list(test_years), device=args.device,
+                            train_stride=args.train_stride)
 
     results = {"config": {"wris_dir": str(wris), "val_years": val_years,
                           "test_years": test_years, "train_end": train_end}}
