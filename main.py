@@ -416,11 +416,16 @@ def build_datasets(config: dict, graph: object):
         else pd.Series(0.0, index=climate_raw.index, dtype=float)
     )
 
-    # Save target normalization constants for un-scaling during evaluation
+    # Save target normalization constants for un-scaling during evaluation.
+    # CRITICAL: these MUST be the same statistics used to standardize inflow_df
+    # below (train-window only). Using full-series stats here while scaling with
+    # train-window stats makes evaluate() un-scale with the wrong constants; the
+    # error grows as the train window shrinks (it collapsed rolling fold 2016).
     storage_raw_dict = {c: storage_df[c].copy() for c in storage_df.columns}
 
-    inflow_mean = inflow_df.mean().values
-    inflow_std = inflow_df.std().replace(0, 1).values + 1e-8
+    _ref_inflow = inflow_df.loc[_train_mask] if _train_mask is not None else inflow_df
+    inflow_mean = _ref_inflow.mean().values
+    inflow_std = _ref_inflow.std().replace(0, 1).values + 1e-8
     normalizer = {"mean": inflow_mean, "std": inflow_std}
     
     # Release target normalization uses the TRAIN window only (leakage-safe).
