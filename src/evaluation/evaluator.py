@@ -47,35 +47,57 @@ class Evaluator:
         
         # Per-basin analysis
         df_basin = df_res.groupby('Basin')[['CRPS', 'RMSE', 'NSE', 'Event_NSE', 'Log_NSE', 'KGE']].mean().reset_index()
+
+        # Pooled analysis: concatenate ALL reservoirs' obs/pred BEFORE scoring.
+        # A mean of per-reservoir NSE is dominated by whichever dam happens to
+        # have the smallest variance, so it is not a valid summary; pooling is.
+        pooled = evaluate_model(
+            observations.reshape(-1),
+            predictions_median.reshape(-1),
+            predictions_ensemble.reshape(-1, predictions_ensemble.shape[-1]),
+        )
+        pooled['n_values'] = int(observations.size)
+        pooled['n_reservoirs'] = len(self.reservoir_names)
+        df_pooled = pd.DataFrame([pooled])
         
-        # El Nino vs Neutral
+        # El Nino vs Neutral -- report POOLED metrics per condition (the
+        # interpretable summary) alongside the per-reservoir breakdown.
         el_nino_idx = np.where(oni_values >= 0.5)[0]
         neutral_idx = np.where((oni_values > -0.5) & (oni_values < 0.5))[0]
         
         df_enso = pd.DataFrame()
+        df_enso_pooled = pd.DataFrame()
         if len(el_nino_idx) > 0 and len(neutral_idx) > 0:
             enso_metrics = []
-            for i, res_name in enumerate(self.reservoir_names):
-                obs = observations[:, i]
-                pred_med = predictions_median[:, i]
-                pred_ens = predictions_ensemble[:, i, :]
-                
-                # El Nino
-                metrics_en = evaluate_model(obs[el_nino_idx], pred_med[el_nino_idx], pred_ens[el_nino_idx])
-                metrics_en['Reservoir'] = res_name
-                metrics_en['Condition'] = 'El Nino'
-                enso_metrics.append(metrics_en)
-                
-                # Neutral
-                metrics_nu = evaluate_model(obs[neutral_idx], pred_med[neutral_idx], pred_ens[neutral_idx])
-                metrics_nu['Reservoir'] = res_name
-                metrics_nu['Condition'] = 'Neutral'
-                enso_metrics.append(metrics_nu)
-                
+            enso_pooled = []
+            for cond, idx in (('El Nino', el_nino_idx), ('Neutral', neutral_idx)):
+                if len(idx) == 0:
+                    continue
+                # pooled across reservoirs for this condition
+                p = evaluate_model(
+                    observations[idx].reshape(-1),
+                    predictions_median[idx].reshape(-1),
+                    predictions_ensemble[idx].reshape(-1, predictions_ensemble.shape[-1]),
+                )
+                p['Condition'] = cond
+                p['n_origins'] = int(len(idx))
+                p['n_values'] = int(observations[idx].size)
+                enso_pooled.append(p)
+                for i, res_name in enumerate(self.reservoir_names):
+                    obs = observations[:, i]
+                    pred_med = predictions_median[:, i]
+                    pred_ens = predictions_ensemble[:, i, :]
+                    m = evaluate_model(obs[idx], pred_med[idx], pred_ens[idx])
+                    m['Reservoir'] = res_name
+                    m['Condition'] = cond
+                    enso_metrics.append(m)
             df_enso = pd.DataFrame(enso_metrics).groupby('Condition')[['CRPS', 'RMSE', 'NSE', 'Event_NSE', 'Log_NSE', 'KGE']].mean().reset_index()
+            df_enso_pooled = pd.DataFrame(enso_pooled)[['Condition', 'n_origins', 'n_values', 'CRPS', 'RMSE', 'MAE', 'NSE', 'Event_NSE', 'Log_NSE', 'KGE']]
 
         return {
             'per_reservoir': df_res,
             'per_basin': df_basin,
-            'enso_comparison': df_enso
+            'pooled': df_pooled,
+            'enso_comparison': df_enso,
+            'enso_comparison_pooled': df_enso_pooled,
         }

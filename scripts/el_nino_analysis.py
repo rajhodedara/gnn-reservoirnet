@@ -207,13 +207,29 @@ def main() -> int:
         daily[f.stem] = {"inflow": df["Inflow (cusecs/cumecs)"].astype(float),
                          "storage": df["Storage (TMC/MCM)"].astype(float)}
 
+    def era_label(npz_path, split):
+        """Label a split by its actual year and mean ONI (El Nino / neutral)."""
+        z = np.load(npz_path, allow_pickle=True)
+        d = pd.to_datetime(pd.Series([str(x) for x in z["dates"]]))
+        o = oni.reindex(d).astype(float)
+        yr = int(d.dt.year.mode().iloc[0]) if len(d) else 0
+        # Phase is judged on the MONSOON (JJAS) mean ONI -- the season the project
+        # title is about. Using the all-origins mean mislabels a year whose early
+        # months are El Nino but whose monsoon is neutral (e.g. 2024).
+        jjas = o[d.dt.month.isin(JJAS).values]
+        ref = float(jjas.mean()) if len(jjas) else float(o.mean())
+        phase = "ElNino" if ref >= 0.5 else ("LaNina" if ref <= -0.5 else "neutral")
+        return f"{split}_{yr}_{phase}"
+
     inflow, levels = [], []
     if (pred_dir / "predictions_val.npz").exists():
-        inflow.append(inflow_table(pred_dir / "predictions_val.npz", "val_2023_ElNino", oni))
-        levels.append(operational_level(pred_dir / "predictions_val.npz", "val_2023_ElNino", oni, daily))
+        e = era_label(pred_dir / "predictions_val.npz", "val")
+        inflow.append(inflow_table(pred_dir / "predictions_val.npz", e, oni))
+        levels.append(operational_level(pred_dir / "predictions_val.npz", e, oni, daily))
     if (pred_dir / "predictions_test.npz").exists():
-        inflow.append(inflow_table(pred_dir / "predictions_test.npz", "test_2024_neutral", oni))
-        levels.append(operational_level(pred_dir / "predictions_test.npz", "test_2024_neutral", oni, daily))
+        e = era_label(pred_dir / "predictions_test.npz", "test")
+        inflow.append(inflow_table(pred_dir / "predictions_test.npz", e, oni))
+        levels.append(operational_level(pred_dir / "predictions_test.npz", e, oni, daily))
     inf_df = pd.concat(inflow, ignore_index=True)
     lvl_df = pd.concat(levels, ignore_index=True)
 
@@ -238,21 +254,16 @@ def main() -> int:
     def get(era, stratum, w, col, df):
         r = df[(df.era == era) & (df.stratum == stratum) & (df.week == w)]
         return None if r.empty else float(r.iloc[0][col])
+    eras = list(dict.fromkeys(inf_df["era"]))
     summary = {
         "note": ("El Nino stratum = ONI>=0.5; JJAS = monsoon origin months. "
-                 "2023 era is the El Nino onset year (validation), 2024 is neutral (held-out test)."),
-        "inflow_week1": {
-            "2023_jjas": get("val_2023_ElNino", "jjas", 1, "NSE", inf_df),
-            "2024_jjas": get("test_2024_neutral", "jjas", 1, "NSE", inf_df),
-            "2023_all": get("val_2023_ElNino", "all", 1, "NSE", inf_df),
-            "2024_all": get("test_2024_neutral", "all", 1, "NSE", inf_df),
-        },
+                 "Era label = split_year_phase, phase from mean ONI over the origins."),
+        "eras": eras,
+        "inflow_week1": {f"{e}|jjas": get(e, "jjas", 1, "NSE", inf_df) for e in eras}
+                       | {f"{e}|all": get(e, "all", 1, "NSE", inf_df) for e in eras},
         "level_operational_week1": {
-            "2023_jjas": get("val_2023_ElNino", "jjas", 1, "NSE_operational", lvl_df),
-            "2024_jjas": get("test_2024_neutral", "jjas", 1, "NSE_operational", lvl_df),
-            "2023_all": get("val_2023_ElNino", "all", 1, "NSE_operational", lvl_df),
-            "2024_all": get("test_2024_neutral", "all", 1, "NSE_operational", lvl_df),
-        },
+            f"{e}|jjas": get(e, "jjas", 1, "NSE_operational", lvl_df) for e in eras
+        } | {f"{e}|all": get(e, "all", 1, "NSE_operational", lvl_df) for e in eras},
     }
     (out_dir / "el_nino_summary.json").write_text(json.dumps(summary, indent=2), encoding="utf-8")
     print("\n" + "=" * 92)

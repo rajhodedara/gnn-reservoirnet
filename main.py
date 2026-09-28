@@ -663,9 +663,17 @@ def evaluate(config: dict, model: ReservoirGNN, graph: object,
     suffix = "" if split == "val" else f"_{split}"
     results['per_reservoir'].to_csv(os.path.join(output_dir, f"evaluation_metrics_per_reservoir{suffix}.csv"), index=False)
     results['per_basin'].to_csv(os.path.join(output_dir, f"evaluation_metrics_per_basin{suffix}.csv"), index=False)
-    
+
+    # Pooled metrics (concatenate all reservoirs before scoring) -- the valid
+    # summary across dams of differing variance.
+    if 'pooled' in results:
+        results['pooled'].to_csv(os.path.join(output_dir, f"evaluation_metrics_pooled{suffix}.csv"), index=False)
+
     if not results['enso_comparison'].empty:
         results['enso_comparison'].to_csv(os.path.join(output_dir, f"evaluation_metrics_enso{suffix}.csv"), index=False)
+    if 'enso_comparison_pooled' in results and not results['enso_comparison_pooled'].empty:
+        results['enso_comparison_pooled'].to_csv(
+            os.path.join(output_dir, f"evaluation_metrics_enso_pooled{suffix}.csv"), index=False)
 
     # All-12-weeks evaluation: per-week, per-reservoir metrics (design horizon)
     per_week = []

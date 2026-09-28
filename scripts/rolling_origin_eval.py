@@ -4,7 +4,11 @@ import subprocess
 from pathlib import Path
 import sys
 
-FOLDS = [2020, 2021, 2022, 2023, 2024]
+# 2015-2016 added to satisfy the approved design's validation requirement:
+# "Validate on 2014-2016 (severe El Nino 2015-16) and 2023-2024 (recent El Nino)".
+# Fold 2015 = the strongest El Nino on record (ONI +1.55 annual, +1.74 JJAS).
+FOLDS = [2015, 2016, 2020, 2021, 2022, 2023, 2024]
+EL_NINO_FOLDS = {2015: "severe El Nino", 2023: "recent El Nino onset"}
 
 def run_fold(fold_year, epochs, config_path):
     with open(config_path) as f:
@@ -24,7 +28,8 @@ def run_fold(fold_year, epochs, config_path):
     with open(temp_config, "w") as f:
         yaml.dump(config, f, sort_keys=False)
         
-    print(f"================ FOLD {fold_year} ================")
+    tag = EL_NINO_FOLDS.get(fold_year, "")
+    print(f"================ FOLD {fold_year} {('['+tag+']') if tag else ''} ================")
     print(f"Train end: {config['data']['train_end']}, Val: {fold_year-1}, Test: {fold_year}")
     
     cmd = [sys.executable, "main.py", "--config", str(temp_config), "--output-dir", str(out_dir)]
