@@ -73,3 +73,11 @@ zip_project.py
 .DS_Store
 Thumbs.db
 *.swp
+
+# ===== Next.js app (apps/monsoon-deck) =====
+# The frontend is source + the exported JSON; build output and deps never belong in git.
+node_modules/
+.next/
+out/
+next-env.d.ts
+*.tsbuildinfo
