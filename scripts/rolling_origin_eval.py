@@ -1,5 +1,6 @@
 import argparse
 import yaml
+import shutil
 import subprocess
 from pathlib import Path
 import sys
@@ -22,6 +23,10 @@ def run_fold(fold_year, epochs, config_path):
         config['training']['finetune']['epochs'] = epochs
         
     out_dir = Path(f"outputs/rolling_origin/fold_{fold_year}")
+    # Wipe the fold dir first: a re-run must not leave stale artifacts (e.g. a
+    # previous local run's tfevents or metric CSVs) mixed with the new ones.
+    if out_dir.exists():
+        shutil.rmtree(out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
     
     temp_config = Path(f"configs/temp_fold_{fold_year}.yaml")
