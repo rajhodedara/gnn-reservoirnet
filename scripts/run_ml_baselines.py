@@ -152,6 +152,20 @@ def rf_forecast(daily: pd.DataFrame, targets: pd.DataFrame, train_end: str,
 # --------------------------------------------------------------------------- #
 # LSTM
 # --------------------------------------------------------------------------- #
+def lstm_forecast_seeds(daily, targets, train_end, seeds=(42, 7, 123), **kw):
+    """Average LSTM forecasts across seeds.
+
+    Single-seed LSTM skill is unstable on this task (observed 0.31 vs 0.57 for
+    two configs); a seed-averaged forecast is the honest baseline, matching how
+    the GNN is reported (5 seeds).
+    """
+    outs = []
+    for sd in seeds:
+        outs.append(lstm_forecast(daily, targets, train_end, seed=sd, **kw))
+    stacked = pd.concat(outs)
+    return stacked.groupby(stacked.index).mean()
+
+
 def lstm_forecast(daily: pd.DataFrame, targets: pd.DataFrame, train_end: str,
                   lookback=90, hidden=64, epochs=200, batch_size=128, patience=20,
                   lr=2e-3, seed=42, years=None, device=None, train_stride=3) -> pd.DataFrame:
@@ -261,6 +275,8 @@ def main() -> int:
     ap.add_argument("--epochs", type=int, default=200,
                     help="max LSTM epochs (early stopping usually ends far sooner)")
     ap.add_argument("--device", default=None, help="cpu | cuda (default: auto)")
+    ap.add_argument("--lstm-seeds", type=int, default=1,
+                    help="number of seeds to average for the LSTM baseline (>=3 recommended)")
     ap.add_argument("--train-stride", type=int, default=3,
                     help="keep every Nth training window (overlapping windows are redundant); 1 = exhaustive")
     ap.add_argument("--fast", action="store_true",
@@ -296,9 +312,12 @@ def main() -> int:
     else:
         print(f"  LSTM (full strength: lookback=90, hidden=64, max {args.epochs} epochs, "
               f"early stopping; device={args.device or 'auto'}) ...")
-        lst = lstm_forecast(daily, targets, train_end, epochs=args.epochs,
-                            years=list(val_years) + list(test_years), device=args.device,
-                            train_stride=args.train_stride)
+        seeds = tuple([42, 7, 123, 2024, 17][:max(1, args.lstm_seeds)])
+        print(f"    LSTM seeds: {seeds}")
+        lst = lstm_forecast_seeds(daily, targets, train_end, seeds=seeds,
+                                  epochs=args.epochs,
+                                  years=list(val_years) + list(test_years),
+                                  device=args.device, train_stride=args.train_stride)
 
     results = {"config": {"wris_dir": str(wris), "val_years": val_years,
                           "test_years": test_years, "train_end": train_end}}
