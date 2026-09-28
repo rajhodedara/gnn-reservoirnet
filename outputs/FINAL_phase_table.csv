@@ -1,0 +1,5 @@
+fold,phase,jjas_oni,gnn,persist,clim,winner
+2015,El Nino,1.74,0.409,0.527,-4.185,persist
+2016,neutral,-0.35,0.741,0.363,0.297,GNN
+2023,El Nino,1.23,0.32,-0.08,-0.01,GNN
+2024,neutral,0.01,0.684,0.486,0.467,GNN
