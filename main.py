@@ -378,7 +378,6 @@ def build_datasets(config: dict, graph: object):
     inflow_df = inflow_df.loc[common_idx]
     storage_df = storage_df.loc[common_idx]
 
-    # Standardize data to prevent NaN losses (FP16 overflow and exploding gradients)
     # Observed daily releases (MCM): R(t) = S(t) + I(t)*0.0864 - S(t+1), clipped >= 0.
     # Negative daily values = reservoir filling faster than recorded inflow (gauge noise).
     releases_df = pd.DataFrame(index=storage_df.index)
@@ -387,9 +386,23 @@ def build_datasets(config: dict, graph: object):
         i_mcm = inflow_df[c].astype(float) * 0.0864
         releases_df[c] = (s_mcm + i_mcm - s_mcm.shift(-1)).clip(lower=0.0)
 
+    # --- Standardization: TRAIN-ONLY statistics (leakage-safe) --------------
+    # Computing mean/std over the whole series lets val/test information leak into
+    # the scaling. Restrict the statistics to the training window; fall back to
+    # full-series stats only if the train window is empty.
+    _train_end_std = config["data"].get("train_end")
+    _train_mask = None
+    if _train_end_std:
+        _train_mask = features_df.index <= pd.Timestamp(_train_end_std)
+        if not bool(_train_mask.any()):
+            _train_mask = None
+
     def standardize(df):
         df = df.fillna(0.0)
-        return (df - df.mean()) / (df.std().replace(0, 1) + 1e-8)
+        ref = df.loc[_train_mask] if _train_mask is not None else df
+        mu = ref.mean()
+        sd = ref.std().replace(0, 1) + 1e-8
+        return (df - mu) / sd
 
     # Keep raw (unstandardized) climate for ENSO stratification: thresholds
     # like ONI >= 0.5 are defined in physical units, not z-scores.

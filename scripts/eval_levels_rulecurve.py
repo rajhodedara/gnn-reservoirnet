@@ -132,10 +132,33 @@ def main() -> int:
                     sdoy = int(tw.dayofyear)
                     s_clim = float(clim_by_doy.get(sdoy, s0))
                     rows.append({"Split": split, "Reservoir": names[j], "Week": w,
+                                 "_origin": t, "Phase": None,
                                  "_act": float(st.asof(tw)), "_rc": s_rc,
                                  "_zero": s_zero, "_clim": s_clim, "_pers": s_pers})
 
     raw = pd.DataFrame(rows)
+
+    # --- El Nino stratification (the project title's condition) -------------
+    oni = (pd.read_csv(PROJECT_ROOT / "data" / "raw" / "enso" / "combined_climate_indices.csv",
+                       parse_dates=["Date"])
+             .set_index("Date").resample("D").ffill()["oni"])
+
+    def phase_of(t: pd.Timestamp) -> str:
+        jj = oni[(oni.index.year == t.year) & (oni.index.month.isin([6, 7, 8, 9]))]
+        v = float(jj.mean()) if len(jj) else float("nan")
+        return "ElNino" if v >= 0.5 else ("LaNina" if v <= -0.5 else "neutral")
+
+    raw["Phase"] = [phase_of(pd.Timestamp(d)) for d in raw["_origin"]]
+    phase_rows = []
+    for keys, g in raw.groupby(["Phase", "Week"]):
+        rec = {"Phase": keys[0], "Week": int(keys[1]), "n": len(g)}
+        for tag, col in [("rulecurve", "_rc"), ("zero_release", "_zero"),
+                         ("climatology", "_clim"), ("persistence", "_pers")]:
+            rec[f"NSE_{tag}"] = round(pooled_nse(g["_act"], g[col]), 3)
+        phase_rows.append(rec)
+    pd.DataFrame(phase_rows).sort_values(["Phase", "Week"]).to_csv(
+        out_dir / "level_rulecurve_by_phase.csv", index=False)
+
     agg = []
     for keys, g in raw.groupby(["Split", "Week"]):
         rec = {"Split": keys[0], "Week": int(keys[1]), "n": len(g)}
@@ -159,6 +182,11 @@ def main() -> int:
     print("SELF-CONTAINED LEVEL (rule-curve release, no future knowledge) -- pooled NSE")
     print("=" * 88)
     print(agg.to_string(index=False))
+    print("\n" + "=" * 88)
+    print("LEVEL by CLIMATE PHASE (week 1, pooled) -- serves the project title")
+    print("=" * 88)
+    ph = pd.read_csv(out_dir / "level_rulecurve_by_phase.csv")
+    print(ph[ph.Week == 1].to_string(index=False))
     print("\nweek-1, per dam:")
     print(per_dam[per_dam.Week == 1].sort_values(["Split", "NSE_rulecurve"], ascending=[True, False]).to_string(index=False))
     print(f"\nSaved -> {out_dir}")
