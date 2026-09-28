@@ -102,10 +102,17 @@ def kge(obs: np.ndarray, pred: np.ndarray) -> float:
     Returns:
         float: KGE value.
     """
-    r = np.corrcoef(obs.flatten(), pred.flatten())[0, 1]
-    alpha = np.std(pred) / np.std(obs) if np.std(obs) != 0 else float('nan')
-    beta = np.mean(pred) / np.mean(obs) if np.mean(obs) != 0 else float('nan')
-    
+    o = np.asarray(obs, dtype=float).ravel()
+    p = np.asarray(pred, dtype=float).ravel()
+    # Degenerate series (constant observations, e.g. a zero-inflow gauge year)
+    # make corrcoef divide by a zero stddev -> RuntimeWarning + NaN. Guard first
+    # so the warning never fires and KGE is explicitly undefined.
+    if o.size == 0 or np.std(o) == 0 or np.std(p) == 0:
+        return float('nan')
+    r = np.corrcoef(o, p)[0, 1]
+    alpha = np.std(p) / np.std(o)
+    beta = np.mean(p) / np.mean(o) if np.mean(o) != 0 else float('nan')
+
     return float(1 - np.sqrt((r - 1)**2 + (alpha - 1)**2 + (beta - 1)**2))
 
 def threshold_crossing_accuracy(obs_storage: np.ndarray, pred_storage: np.ndarray, threshold: float) -> float:
