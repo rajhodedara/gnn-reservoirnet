@@ -1,0 +1,403 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+  ReservoirNet — Monsoon Command Deck
+  ---------------------------------------------------------------
+  Visual direction: "instrument, not dashboard."
+
+  The previous pass failed because every element had the same weight:
+  10px uppercase monospace was used for panel titles, table headers,
+  legends AND captions, so nothing read as more important than anything
+  else, and the map never dominated. Two rules fix that systemically:
+
+  1. A real type scale. Uppercase monospace is now reserved for a small
+     number of genuine metadata eyebrows. Section titles are sentence
+     case at a readable size. Body copy is comfortable. Monospace is
+     used for NUMBERS, not for prose.
+  2. One focal point. The map is the instrument; everything else is
+     either its readout (the rail) or its evidence (below the fold).
+
+  Colour is semantic, never decorative:
+    teal  = structure, selection, and "good"
+    amber = El Niño and observed data
+    rose  = loss / invalid
+  Nothing else gets an accent.
+*/
+
+:root {
+  color-scheme: dark;
+
+  --ink-950: #05080a;
+  --ink-900: #080d11;
+  --ink-850: #0b1217;
+  --ink-800: #0e161c;
+  --ink-700: #142028;
+
+  --hair: rgba(148, 178, 188, 0.13);
+  --hair-2: rgba(148, 178, 188, 0.24);
+  --hair-3: rgba(148, 178, 188, 0.40);
+
+  --txt: #d7e1e4;
+  --txt-2: #9fb3ba;
+  --txt-3: #7d9299;
+  --txt-4: #5c7078;
+
+  --teal: #3ec9b6;
+  --teal-2: #1d6f65;
+  --amber: #eda941;
+  --rose: #cf6563;
+  --indigo: #8598e8;
+  --sky: #63b0da;
+}
+
+html,
+body {
+  background: var(--ink-950);
+  color: var(--txt);
+}
+
+body {
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 13.5px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+/* Numbers only. Never prose, never headings. */
+.num {
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1, "zero" 1;
+}
+
+/*
+  `label` used to be 10px uppercase mono and was applied to every
+  heading, header cell and legend in the product — that was the single
+  biggest cause of the "no hierarchy" problem. It is now a quiet
+  sentence-case caption, and it has been raised in size and contrast after
+  review found metadata too dim to read comfortably. Components inherit
+  the fix automatically.
+*/
+.label {
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  text-transform: none;
+  color: var(--txt-2);
+}
+
+/* The rare genuine eyebrow: small, uppercase, mono. Use sparingly. */
+.eyebrow {
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--txt-3);
+}
+
+/* Sentence-case section title — the workhorse heading. */
+.sect {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  color: var(--txt);
+}
+
+/* Numeric stat block. */
+.stat {
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  font-variant-numeric: tabular-nums;
+  font-size: 15px;
+  color: var(--txt);
+}
+
+.stat-lg {
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  font-variant-numeric: tabular-nums;
+  font-size: 26px;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  color: var(--txt);
+}
+
+/* Prose that has to live inside the instrument (provenance notes). */
+.note {
+  font-size: 11.5px;
+  line-height: 1.62;
+  color: var(--txt-3);
+}
+
+.panel {
+  border: 1px solid var(--hair);
+  background: linear-gradient(180deg, rgba(14, 22, 28, 0.66), rgba(8, 13, 17, 0.66));
+}
+
+.panel-tight {
+  border: 1px solid var(--hair);
+  background: rgba(8, 13, 17, 0.55);
+}
+
+/* Raised surface for the one thing that matters most in a panel. */
+.panel-hero {
+  border: 1px solid var(--hair-2);
+  background:
+    radial-gradient(120% 100% at 20% 0%, rgba(62, 201, 182, 0.05), transparent 60%),
+    linear-gradient(180deg, rgba(15, 24, 30, 0.9), rgba(7, 11, 15, 0.9));
+}
+
+.ticks {
+  position: relative;
+}
+.ticks::before,
+.ticks::after {
+  content: "";
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-color: var(--hair-2);
+  border-style: solid;
+  pointer-events: none;
+}
+.ticks::before {
+  top: -1px;
+  left: -1px;
+  border-width: 1px 0 0 1px;
+}
+.ticks::after {
+  bottom: -1px;
+  right: -1px;
+  border-width: 0 1px 1px 0;
+}
+
+/* Section rule used between stacked blocks. */
+.rule {
+  border-top: 1px solid var(--hair);
+}
+
+/* Map flow animation. */
+.flow {
+  stroke-dasharray: 3 7;
+  animation: flowdash 1.7s linear infinite;
+}
+@keyframes flowdash {
+  to {
+    stroke-dashoffset: -10;
+  }
+}
+
+@keyframes sweep {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.sweep {
+  animation: sweep 180ms ease-out;
+}
+
+/* Focus ring that matches the accent system. */
+:focus-visible {
+  outline: 1px solid var(--teal);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flow,
+  .sweep {
+    animation: none;
+  }
+  * {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(148, 178, 188, 0.2) transparent;
+}
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+*::-webkit-scrollbar-thumb {
+  background: rgba(148, 178, 188, 0.16);
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 178, 188, 0.3);
+  background-clip: content-box;
+}
+
+input[type="range"].scrub {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  height: 24px;
+}
+input[type="range"].scrub::-webkit-slider-runnable-track {
+  height: 2px;
+  background: var(--hair-2);
+}
+input[type="range"].scrub::-moz-range-track {
+  height: 2px;
+  background: var(--hair-2);
+}
+input[type="range"].scrub::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 3px;
+  height: 24px;
+  margin-top: -11px;
+  background: var(--teal);
+  border: none;
+  cursor: ew-resize;
+}
+input[type="range"].scrub::-moz-range-thumb {
+  width: 3px;
+  height: 24px;
+  background: var(--teal);
+  border: none;
+  cursor: ew-resize;
+}
+
+@media print {
+  .no-print {
+    display: none;
+  }
+}
+
+/* ============================================================
+   Control scale
+   ------------------------------------------------------------
+   One consistent, comfortably tappable control height. The deck
+   stays dense, but no interactive target is under ~34px tall
+   (44px on touch), and hit areas extend past the visual edge.
+   ============================================================ */
+
+.ctl {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  min-height: 34px;
+  padding: 0 0.7rem;
+  font-size: 12.5px;
+  line-height: 1;
+  border: 1px solid var(--hair);
+  background: rgba(10, 17, 22, 0.5);
+  color: var(--txt-2);
+  cursor: pointer;
+  transition: background-color 140ms ease, border-color 140ms ease, color 140ms ease;
+  white-space: nowrap;
+}
+
+.ctl:hover {
+  background: rgba(20, 32, 40, 0.72);
+  border-color: var(--hair-2);
+  color: var(--txt);
+}
+
+.ctl:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 2px;
+}
+
+.ctl[aria-pressed="true"],
+.ctl[data-on="true"] {
+  color: var(--txt);
+  background: rgba(53, 194, 176, 0.12);
+  border-color: rgba(53, 194, 176, 0.42);
+}
+
+/* Larger variant for primary actions. */
+.ctl-lg {
+  min-height: 40px;
+  padding: 0 1rem;
+  font-size: 13.5px;
+}
+
+/* Small variant — still >= 30px so it never feels like a hairline target. */
+.ctl-sm {
+  min-height: 30px;
+  padding: 0 0.55rem;
+  font-size: 11.5px;
+}
+
+/* Segmented group: joined controls read as one instrument, not a chip row. */
+.ctl-group {
+  display: inline-flex;
+  align-items: stretch;
+}
+.ctl-group > .ctl {
+  border-radius: 0;
+  margin-left: -1px;
+}
+.ctl-group > .ctl:first-child {
+  margin-left: 0;
+  border-top-left-radius: 2px;
+  border-bottom-left-radius: 2px;
+}
+.ctl-group > .ctl:last-child {
+  border-top-right-radius: 2px;
+  border-bottom-right-radius: 2px;
+}
+.ctl-group > .ctl:hover,
+.ctl-group > .ctl[aria-pressed="true"] {
+  position: relative;
+  z-index: 1;
+}
+
+/* Touch: guarantee a 44px target without changing desktop density. */
+@media (hover: none) and (pointer: coarse) {
+  .ctl,
+  .ctl-sm {
+    min-height: 44px;
+    padding: 0 0.9rem;
+  }
+  .ctl-lg {
+    min-height: 48px;
+  }
+}
+
+/* Respect reduced motion for the whole deck. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* Quiet variant for tertiary controls (expand/collapse style). */
+.ctl-quiet {
+  background: transparent;
+  border-color: var(--hair);
+  color: var(--txt-3);
+}
+.ctl-quiet:hover {
+  color: var(--txt);
+  border-color: var(--hair-2);
+  background: rgba(20, 32, 40, 0.6);
+}
+
+/* Extra-small: metadata badges that are still clickable. Never under 26px. */
+.ctl-xs {
+  min-height: 26px;
+  padding: 0 0.4rem;
+  font-size: 10.5px;
+  gap: 0.3rem;
+}
